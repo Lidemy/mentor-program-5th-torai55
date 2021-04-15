@@ -7,7 +7,7 @@
 3. 寫作業前，先 `git checkout -b <feature>` 開一條新分支並切換進去。
 
 4. 開始寫作業，寫完一項可以先 `git add .` 接著 `git commit -m "commit message"`，將需要版本控制的檔案加入追蹤再提交。若檔案是 unmodified 的狀態可直接使用 `git commit -am "commit message"` 省去 `git add .` 的步驟。
-   ![檔案狀態](./git_file_status.png)
+   ![檔案狀態](./src/git_file_status.png)
    [圖片來源](http://wiki.csie.ncku.edu.tw/git)
 
 5. 寫完作業後 `git status` 查看檔案狀態，確認便能使用 `git push origin <feature>` 推上遠端 repository。
