@@ -9,7 +9,7 @@
 
 ![FEBE_pic](./src/FE_VS_BE.png)
 
-使用者輸入的資料由瀏覽器，經過 OS 傳給網路卡，經過 DNS server 查到 IP 位置後，將資料以 http 的格式傳（request）給 google 的 server，server 向 database 調資料，以 http 的格式回傳（response）給使用者，瀏覽器收到之後顯示在使用者螢幕上。
+使用者輸入的資料由瀏覽器，經過 OS 傳給網路卡，經過 DNS server 查到 IP 位置後，將資料以 http 的格式傳（request）給 google 的 server，server 向 database 查詢資料取得結果，以 http 的格式回傳（response）給使用者，瀏覽器收到之後顯示在使用者螢幕上。
 
 ## 請列舉出 3 個「課程沒有提到」的 command line 指令並且說明功用
 

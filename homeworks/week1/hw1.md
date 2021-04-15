@@ -12,9 +12,15 @@
 
 5. 寫完作業後 `git status` 查看檔案狀態，確認便能使用 `git push origin <feature>` 推上遠端 repository。
 
-6. 在 GitHub 上發 pull request，再到學習系統上的課程總覽，貼上 pull request 頁面網址繳交作業。等助教確認後 merge 到遠端的 master 分支（順便刪除遠端的 feature 分支）。
+6. 在 GitHub 上發 pull request，到學習系統上的課程總覽，貼上 pull request 連結繳交作業。等助教確認後 merge 到遠端的 master 分支（順便刪除遠端的 feature 分支）。
 
-7. 確認上述步驟完成，在本地端 `git pull origin master` 將遠端 master 分支的更新同步（拉）到本地端，並刪除本地端 feature 分支。
+確認上述步驟完成後：
+
+1. 在本地端 `git checkout master` 切換到 master 分支
+
+2. `git pull origin master` 將遠端 master 分支的更新同步（拉）到本地端
+
+3. `git branch -d <feature>`刪除本地端 feature 分支。
 
 - 可用 `git branch -v` 查看所在分支。
 - 可用 `git status` 查看檔案狀態。

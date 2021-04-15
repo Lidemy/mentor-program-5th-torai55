@@ -26,16 +26,15 @@ Git 是分散式版本控制軟體。為什麼需要版本控制呢？因為發�
 
    #### 工作目錄、預存區與資料夾
 
-   ```mermaid
-   sequenceDiagram
-   participant Working Directory
-   participant Staging Area
-   participant .git directory (Repository)
+   ![Working tree, staging area, and Git directory](https://git-scm.com/book/en/v2/images/areas.png)
 
-   .git directory (Repository) ->> Working Directory: Checkout the project
-   Working Directory ->> Staging Area: Stage Fixes
-   Staging Area ->> .git directory (Repository): Commit
-   ```
+   檔案主要有三種狀態：
+
+   - Modified：檔案被修改過，但還沒提交到本地端資料庫。
+   - Staged：已經將修改過的檔案以 `git add <file>` 加入 staging area，等待下次提交。
+   - Committed：資料已經存入本地端資料庫。
+
+   [source](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
 7. commit 完成之後，如果想要把它存在如 Github 等遠端數據庫的話，便需要多執行一些步驟，若是要從遠端複製專案到本地，使用 `git clone <url>`。
 
@@ -43,22 +42,22 @@ Git 是分散式版本控制軟體。為什麼需要版本控制呢？因為發�
 
 9. `git push origin master`，將本地數據庫目前所在的 branch，推上遠端的 master branch。
 
-   #### A 先新增了一個 commit
+   #### A 先新增了一個 commit：
 
    ![git_push_pic](./src/git_push.png)
 
-   #### A 將資料由本地端 push 上 GitHub
+   #### A 將資料由本地端 push 上 GitHub：
 
    ![git_push_pic](./src/git_push_after.png)
    [source](https://w3c.hexschool.com/git/7b64aa34)
 
 10. 若是跟別人協作的情況，則需要用 `git pull origin master` 將別人新提交到遠端資料庫的更新，抓下來到本地端。
 
-    #### A 先把東西 push 上 GitHub
+    #### A 先把東西 push 上 GitHub：
 
     ![git_pull_pic](./src/git_pull.png)
 
-    #### B 再把東西從 GitHub pull 下來
+    #### B 再把東西從 GitHub pull 下來：
 
     ![git_pull_after_pic](./src/git_pull_after.png)
     [source](https://w3c.hexschool.com/git/3a1a8767)
