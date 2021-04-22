@@ -6,4 +6,4 @@ function printFactor(n) {
   }
 }
 
-printFactor(7);
+printFactor(15);
