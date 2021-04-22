@@ -18,5 +18,5 @@ function repeat(str, times) {
   return result;
 }
 
-console.log(join(["a,", "b", "c"], "!"));
+console.log(join(["aaa", "bb", "c", "dddd"], ",,"));
 console.log(repeat("ab", 3));

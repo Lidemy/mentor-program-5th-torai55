@@ -27,7 +27,5 @@ isValid([3, 5, 8, 13, 22, 35]);
 11. 進入第二個迴圈， i=2。
 12. i=2，`arr[i] !== arr[i - 1] + arr[i - 2]`回傳 false，不進入 if 執行區塊，i++。
 13. i=3，`arr[i] !== arr[i - 1] + arr[i - 2]`回傳 false，不進入 if 執行區塊，i++。
-14. i=4，`arr[i] !== arr[i - 1] + arr[i - 2]`回傳 false，不進入 if 執行區塊，i++。
-15. i=5，`arr[i] !== arr[i - 1] + arr[i - 2]`回傳 false，不進入 if 執行區塊，i++。
-16. i=6，`i < arr.length` 回傳 false，跳出迴圈。
-17. 回傳 `"valid"`，跳出函式，執行完畢。
+14. i=4，`arr[i] !== arr[i - 1] + arr[i - 2]`回傳 true，進入 if 執行區塊。
+15. 執行 `return "invalid"` 回傳 "invalid"，跳出函式，執行完畢。
