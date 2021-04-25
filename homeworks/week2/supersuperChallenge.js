@@ -23,7 +23,7 @@ function multiply(a, b) {
   while (isNaN(result[0])) {
     result.shift();
   }
-  return result;
+  return result.join("");
 }
 
 console.log(multiply("12567", "345"));
