@@ -5,5 +5,3 @@ function reverse(str) {
   }
   console.log(result);
 }
-
-reverse("1abc2");

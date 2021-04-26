@@ -12,5 +12,3 @@ function search(arr, target) {
 
   return -1;
 }
-
-console.log(search([1, 3, 10, 14, 39], 0));

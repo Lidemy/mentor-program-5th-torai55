@@ -5,5 +5,3 @@ function printFactor(n) {
     }
   }
 }
-
-printFactor(15);
