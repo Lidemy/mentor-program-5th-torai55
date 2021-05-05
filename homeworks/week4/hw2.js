@@ -52,7 +52,7 @@ const options = {
 
 const req = https.request(options, (res) => {
   res.setEncoding('utf8')
-  console.log('statusCode:', res.statusCode)
+  // console.log('statusCode:', res.statusCode)
   res.on('data', (d) => {
     const parsedBooks = JSON.parse(d)
     console.log(parsedBooks)
