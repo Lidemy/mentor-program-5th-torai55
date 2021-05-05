@@ -42,7 +42,7 @@ const req = https.request(option, (res) => {
 
   res.on('end', () => {
     // 因為 data event listener 在一次 request 內會被觸發許多次，每次都會送一段 buffer 物件形式的數據
-    // 所以先用 buffers 裝起來，再用 Buffer concat 合成一個大 buffer 物件
+    // 所以先用 buffers 裝起來，等待 end event 觸發再用 Buffer concat 合成一個大 buffer 物件
     const result = pipe(Buffer.concat,
       JSON.parse)(buffers)
 
