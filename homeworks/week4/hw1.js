@@ -9,8 +9,12 @@ const options = {
 const req = https.request(options, (res) => {
   res.setEncoding('utf8')
   res.on('data', (d) => {
-    const parsedBooks = JSON.parse(d)
-    parsedBooks.forEach((element) => { console.log(`${element.id} ${element.name}`) })
+    try {
+      const parsedBooks = JSON.parse(d)
+      parsedBooks.forEach((element) => { console.log(`${element.id} ${element.name}`) })
+    } catch (error) {
+      console.error(error)
+    }
   })
 })
 
