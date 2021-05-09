@@ -16,7 +16,7 @@ const chunks = []
 const req = https.request(option, (res) => {
   if (res.statusCode === 503) {
     console.log('statusCode:', res.statusCode)
-    console.log('error retrieving games status')
+    console.log('error to retrieve games status')
     return
   }
 
