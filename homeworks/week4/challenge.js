@@ -1,10 +1,12 @@
 const https = require('https')
 
-const BATCH_LIMIT = 5
-const TOTAL = 12
+const BATCH_LIMIT = 100
+const TOTAL = 200
 
 function sendRequest(option, callback) {
   const chunks = []
+  // console.log('option: ', option)
+  // console.log('callback: ', callback)
   const req = https.request(option, (res) => {
     res.on('data', (d) => {
       chunks.push(d)
@@ -61,7 +63,7 @@ function getMoreStreams(game, limit, total, callback) {
   function handleStreams(body) {
     offset += limit
     streams = streams.concat(body.streams)
-    if (streams.length < TOTAL) {
+    if (streams.length < total && body.streams.length !== 0) {
       getStreams(game, limit, offset, handleStreams)
     } else {
       callback(streams.slice(0, total))
@@ -74,7 +76,8 @@ function getMoreStreams(game, limit, total, callback) {
 // running
 // callback 好難，偷看解答還是不太會寫:(
 getGameName(process.argv[2], (body) => {
-  const game = body.games[0].name
+  // i.g 'League of Legends' -> 'League%20of%20Legends'
+  const game = encodeURIComponent(body.games[0].name)
 
   getMoreStreams(game, BATCH_LIMIT, TOTAL, (body) => {
     body.forEach((stream) => {

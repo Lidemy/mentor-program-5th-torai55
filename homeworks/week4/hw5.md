@@ -34,4 +34,4 @@ WWW-Authenticate: Basic realm="Access to staging site"
 |回傳單一餐廳資料|GET     |/restaurants/:id|無|/restaurants/15|
 |新增餐廳       |POST     |/restaurants|name: 餐廳名|/restaurants|
 |刪除餐廳       |DELETE   |/restaurants/:id|無|/restaurants/15|
-|更改餐廳       |PATCH    |/restaurants/:id|name: 餐廳名|/restaurants|
+|更改餐廳       |PATCH    |/restaurants/:id|name: 餐廳名|/restaurants/15|
