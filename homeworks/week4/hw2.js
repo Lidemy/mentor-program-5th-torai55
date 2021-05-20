@@ -51,7 +51,12 @@ function getData(method, path, data = {}, output = '') {
     method,
     headers: {
       'Content-type': 'application/json',
-      'Content-length': data.length
+      'Content-length': Buffer.byteLength(data)
+      /**
+       * 小心陷阱，平常會用 data.length
+       * 但是中文字轉成 buffer 所佔的長度會變成 3 而出錯
+       * 英文因為 utf8 編碼關係，佔的長度一樣是 1
+       */
     }
   }
 
