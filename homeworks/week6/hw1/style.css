@@ -1,0 +1,306 @@
+/* for debugging */
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+/* reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* my CSS starts here */
+html {
+  font-family: "Questrial", "Microsoft JhengHei", sans-serif;
+  text-align: center;
+}
+
+.wrapper {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.nav__title {
+  color: #489846;
+  font-size: 2.25rem;
+  margin: .5rem 0;
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav__links li {
+  border-radius: .5rem;
+}
+
+.nav__links li a {
+  text-decoration: none;
+  color: #010101;
+  display: block;
+  padding: 1rem 1.5rem 1rem;
+}
+
+.active, .nav__links li:hover {
+  color: #ffffff;
+  background-color: #ff7286;
+}
+
+.banner {
+  position: relative;
+}
+
+.banner__title {
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  z-index: 1;
+}
+
+.banner::after {
+  content: "";
+  background-color: black;
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.banner img {
+  object-fit: cover;
+  object-position: 0% 50%;
+  width: 100vw;
+  height: 40vh;
+}
+
+.order {
+  margin: 0 1rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  margin: 3rem 0 2rem;
+  font-weight: bold;
+}
+
+.title:before {
+  content: "";
+  background-color: #a3dea2;
+  display: inline-block;
+  width: .4em;
+  height: 1em;
+  vertical-align: text-top;
+  position: relative;
+  right: .3rem;
+}
+
+.order__desc {
+  line-height: 2rem;
+}
+
+.button {
+  color: #3e613d;
+  font-size: 2rem;
+  padding: 2rem 3rem;
+  border-radius: .6rem;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: transform 0.1s ease-in;
+}
+
+.btn-order {
+  background-color: #a8e8e1;
+}
+
+.btn-query {
+  background-color: #f9f9b5;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
+
+.menu .images img{
+  object-fit: cover;
+  width: 100vw;
+  height: 100vw;
+}
+
+.comments {
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+.comment__area {
+  margin: 0 1rem;
+}
+
+.comment {
+  box-shadow: -1.4px -1.4px 4px 0 var(--light-blue-grey);
+  border: solid 1px #c7e5ec;
+  position: relative;
+  height: 11rem;
+  margin-top: 3.5rem;
+}
+
+.author {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.avatar img {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.1s ease-in;
+}
+
+.avatar img:hover {
+  transform: scale(1.1);
+}
+
+.comment__content {
+  height: 5.5rem;
+  overflow: overlay;
+  padding: 0 1rem;
+  position: relative;
+  top: 50%;
+  left: 0%;
+}
+
+.info {
+  background-color: #e8efee;
+}
+
+.info .wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.contact, .media p a {
+  color: #484848;
+}
+
+.contact {
+  line-height: 1.5rem;
+  padding: .5rem;
+}
+
+.media p a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo {
+  margin-top: .5rem;
+  color: #489846;
+  font-size: 2rem;
+}
+
+.statement {
+  background-color: #35564b;
+  color: #ffffff;
+}
+
+.statement {
+  padding:  .5rem;
+}
+
+/* RWD */
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 80rem;
+  }
+
+  .nav__title {
+    margin-left: .5rem;
+  }
+
+  .btn-query {
+    margin-left: 1rem;
+  }
+
+  .menu .images {
+    display: flex;
+  }
+
+  .menu .images img {
+    width: 25vw;
+    height: 25vw;
+  }
+
+  .comment__area {
+    display: flex;
+  }
+
+  .comment {
+    margin: 3.5rem 1rem;
+    flex: 1 1 0;
+  }
+
+  .location .title {
+    margin-top: 0;
+  }
+
+  .info .wrapper {
+    flex-direction: row;
+    padding: 1rem .5rem;
+  }
+
+  .contact {
+    text-align: left;
+    line-height: 2rem;
+  }
+}
