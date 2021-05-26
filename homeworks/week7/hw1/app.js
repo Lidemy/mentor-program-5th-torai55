@@ -25,7 +25,7 @@ function checkformat(name, value) {
   let regexRule
   switch (name) {
     case 'phone':
-      regexRule = /09[0-9]{8}/
+      regexRule = /^09[0-9]{8}$/
       break
     case 'email':
       regexRule = /^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*$/
@@ -86,3 +86,5 @@ btn.addEventListener('click', (e) => {
   const msg = msgList.join('\n')
   alert(msg)
 })
+
+// 保存重新整理後填的資料（可以存在瀏覽器）
