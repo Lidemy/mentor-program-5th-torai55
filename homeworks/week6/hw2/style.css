@@ -1,0 +1,161 @@
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+/* reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* my CSS starts here */
+body {
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+main {
+  display: inline-block;
+}
+
+main form {
+  text-align: left;
+}
+
+.background {
+  background-color: white;
+  max-width: 645px;
+  margin: 5rem auto;
+  padding: 0 1rem;
+  font-family: 'Microsoft JhengHei', sans-serif;
+  box-sizing: border-box;
+  box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
+  border-top: solid .5rem #fad312;
+}
+
+/* .decoration {
+  background-color: #fad312;
+  height: .5rem;
+  max-width: 645px;
+  margin: 0 auto;
+} */
+
+header {
+  padding-top: 3.37rem;
+}
+
+.title {
+  color: #000000;
+  font-size: 2.25rem;
+  margin: 0 0 2rem;
+  font-weight: bold;
+}
+
+.desc {
+  line-height: 1.8rem;
+}
+
+header .note {
+  margin-top: 1.5rem;
+}
+
+.note {
+  color: #e74149;
+}
+
+.question {
+  margin-top: 3rem;
+  font-size: 1.25rem;
+}
+
+.question .note {
+  display: inline;
+}
+
+.question input {
+  margin-top: 1.5rem;
+  border: solid 1px #d0d0d0;
+  font-size: 1rem;
+}
+
+.question textarea {
+  border: solid 1px #d0d0d0;
+  font-size: 1rem;
+}
+
+.question input ~ label {
+  font-size: 0.9rem;
+}
+
+.propose {
+  margin: 1rem 0 2rem;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.btn {
+  background-color: #fad312;
+  padding: 0.7rem 1.8rem;
+  border: 0;
+  border-radius: .2rem;
+  margin: 2rem 0 1rem;
+  cursor: pointer;
+}
+
+.remind {
+  line-height: 1.8rem;
+  padding: 1rem 0;
+}
+
+footer {
+  background-color: black;
+  color: #999999;
+  text-align: center;
+  padding: 1.2rem 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .background {
+    padding-left: 2.6rem;
+    text-align: left;
+  }
+}
