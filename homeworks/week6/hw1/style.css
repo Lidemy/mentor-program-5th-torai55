@@ -80,7 +80,7 @@ html {
   text-decoration: none;
   color: #010101;
   display: block;
-  padding: 1rem 1.5rem 1rem;
+  padding: 1rem 1.5rem;
 }
 
 .active, .nav__links li:hover {

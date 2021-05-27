@@ -115,11 +115,14 @@ header .note {
   margin-top: 1.5rem;
   border: solid 1px #d0d0d0;
   font-size: 1rem;
+  padding: .2rem 0;
 }
 
 .question textarea {
   border: solid 1px #d0d0d0;
   font-size: 1rem;
+  max-width: 20rem;
+  max-height: 20rem;
 }
 
 .question input ~ label {
