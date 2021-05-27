@@ -1,0 +1,182 @@
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+/* reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* my css */
+:root {
+  --background-color: #fffce3;
+  --font-color: #3fa2a6;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 700px;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr .1fr auto;
+  grid-template-areas:
+  "title"
+  "input"
+  "list";
+}
+
+.title {
+  grid-area: title;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.input {
+  grid-area: input;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: .2rem 1rem 0;
+}
+
+.input__area {
+  border: none;
+  outline: none;
+  padding: .5rem;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  width: 100%;
+}
+
+.input__area::placeholder {
+  color: var(--font-color);
+  opacity: .5;
+}
+
+.input__area + .input__border {
+  width: 0;
+  height: 1.5px;
+  background-color: var(--font-color);
+  transition: width .7s;
+}
+
+.input__area:focus{
+  background-color: #e2e0ce;
+}
+
+.input__area:focus + .input__border {
+  padding: 0 .5rem;
+  width: 100%
+}
+
+.list {
+  grid-area: list;
+}
+
+.item {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 20fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.item:hover {
+  background-color: #ebe9d6
+}
+
+.content {
+  position: relative;
+}
+
+.content p {
+  margin-left: .5rem;
+}
+
+.strikethrough {
+  width: 0;
+  height: 1.5px;
+  background-color: var(--font-color);
+  position: absolute;
+  top: 45%;
+  transition: width .7s;
+}
+
+.done {
+  width: 1rem;
+  height: 1rem;
+}
+
+.done:checked ~ .content .strikethrough {
+  width: 100%;
+}
+
+.done:checked ~ div {
+  opacity: .5;
+}
+
+.delete {
+  position: relative;
+  border: 2px solid var(--font-color);
+}
+
+.delete::before, .delete::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: var(--font-color);
+  top: 50%;
+  left: 0;
+}
+
+.delete::before {
+  transform: rotate(45deg);
+}
+
+.delete::after {
+  transform: rotate(-45deg);
+}
