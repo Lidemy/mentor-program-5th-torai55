@@ -16,7 +16,7 @@ Document Object Model，中文稱文件物件模型。
 
 特別的是 Target Phase 依照瀏覽器的版本，EventListener 被觸發的順序可能會不同。
 
-舊版瀏覽器在 Target Phase 會依照程式碼的順序觸發 EventListener。而Chrome 89.0.4363.0 以上的版本則統一先捕獲再冒泡（[來源](https://juejin.cn/post/6965682915141386254)）。
+舊版瀏覽器在 Target Phase 會依照註冊的順序觸發 EventListener。而Chrome 89.0.4363.0 以上的版本則統一先捕獲再冒泡（[來源](https://juejin.cn/post/6965682915141386254)）。
 
 ## 什麼是 event delegation，為什麼我們需要它？
 
@@ -36,9 +36,10 @@ Document Object Model，中文稱文件物件模型。
 
 event.preventDefault()：阻止元素的預設行為。
 
-event.stopPropagation()：停止事件繼續傳播（已經傳到的元素會繼續把其它 EventListener 執行完）。
+event.stopPropagation()：停止事件繼續傳播。會把同個元素下其它 EventListener 執行完。
 
-event.stopImmediatePropagation()：馬上停止事件傳播。
+event.stopImmediatePropagation()：馬上停止事件傳播。同個元素還沒被執行的 EventListener 也不會被執行。
+
 ```html
 <body>
     <div class="outer" style="background:red;width:300px;height:200px;">outer
