@@ -3,15 +3,14 @@ let count = 4
 const lorem = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias praesentium et nostrum, sapiente corporis eveniet! Veniam ipsa ex facilis atque!'
 
 function appendQuestion(questionContainer, count, desc, ans) {
-  const template = document.getElementById('productQuestion')
-  const question = template.content.querySelectorAll('h3')
+  const template = document.getElementById('productQuestion') // instance of HTMLTemplateElement
+  const clone = template.content.cloneNode(true) // instance of DocumentFragment （addEventListener would be useless）
+  const headings = clone.querySelectorAll('h3')
 
-  question[0].textContent = count
-  question[1].textContent = desc
-  console.log(question[2].textContent)
-  question[2].querySelector('p').textContent = ans
+  headings[0].textContent = count
+  headings[1].textContent = desc
+  headings[2].querySelector('p').textContent = ans
 
-  const clone = document.importNode(template.content, true)
   questionContainer.appendChild(clone)
 
   return questionContainer
