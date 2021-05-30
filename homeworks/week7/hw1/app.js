@@ -9,7 +9,7 @@ function appendMark(div, text) {
 
 // div 裡面 input 或者 textarea 有填就回傳 'name: value'，沒有就回 false
 function getNameValue(div) {
-  const inputNodes = (div.querySelectorAll('input').length !== 0) ? div.querySelectorAll('input') : div.querySelectorAll('textarea')
+  const inputNodes = div.querySelectorAll('input, textarea')
   const results = Array.from(inputNodes, (input) => {
     if ((input.type !== 'radio' && input.value.length) || input.checked) {
       return `${input.getAttribute('name')}: ${input.value}`
@@ -28,7 +28,7 @@ function checkformat(name, value) {
       regexRule = /^09[0-9]{8}$/
       break
     case 'email':
-      regexRule = /^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*$/
+      regexRule = /^\w+((\.)|(\+)|(\w))*@\w+(\.\w+)*$/
       break
     default:
       return true
