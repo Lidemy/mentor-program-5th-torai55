@@ -2,30 +2,18 @@ const questionList = ['如何查詢目前訂單的處理情況？', '訂單成�
 let count = 4
 const lorem = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias praesentium et nostrum, sapiente corporis eveniet! Veniam ipsa ex facilis atque!'
 
-function createAndSetElement(tag, cls, content) {
-  const element = document.createElement(tag)
-  if (cls) {
-    element.classList.add(cls)
-  }
-
-  if (content) {
-    element.innerText = content
-  }
-  return element
-}
-
 function appendQuestion(questionContainer, count, desc, ans) {
-  const question = createAndSetElement('div', 'question')
-  const questionCount = createAndSetElement('h3', 'question__count', count)
-  const questionDesc = createAndSetElement('h3', 'question__desc', desc)
-  const questionAns = createAndSetElement('h3', 'question__ans')
-  const p = createAndSetElement('p', '', ans)
+  const template = document.getElementById('productQuestion')
+  const question = template.content.querySelectorAll('h3')
 
-  questionAns.appendChild(p)
-  question.appendChild(questionCount)
-  question.appendChild(questionDesc)
-  question.appendChild(questionAns)
-  questionContainer.appendChild(question)
+  question[0].textContent = count
+  question[1].textContent = desc
+  console.log(question[2].textContent)
+  question[2].querySelector('p').textContent = ans
+
+  const clone = document.importNode(template.content, true)
+  questionContainer.appendChild(clone)
+
   return questionContainer
 }
 
