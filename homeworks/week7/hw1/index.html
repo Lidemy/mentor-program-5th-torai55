@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Torai Lin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="wk6 hw2" />
+    <title>切版好難之二</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="background">
+      <header>
+        <h1 class="title">新拖延運動報名表單</h1>
+        <p class="desc">
+          活動日期：2020/12/10 ~ 2020/12/11<br />
+          活動地點：台北市大安區新生南路二段1號<br />
+        </p>
+        <p class="note">*必填</p>
+      </header>
+  
+      <main>
+        <form action="https://www.google.com" method="GET">
+          <div class="question required">
+            <label for="name">暱稱 </label><br />
+            <input type="text" placeholder="您的回答" id="name" name="name"><br />
+          </div>
+  
+          <div class="question required">
+            <label for="email">電子郵件 </label><br />
+            <input type="email" placeholder="您的電子郵件" id="email" name="email"><br />
+          </div>
+  
+          <div class="question required">
+            <label for="phone">手機號碼 </label><br />
+            <input type="tel" placeholder="您的手機號碼" id="phone" name="phone" pattern="09[0-9]{8}"><br />
+          </div>
+  
+          <div class="question required">
+            <div>報名類型 </div><br />
+            <input type="radio" name="type" id="bed" value="bed">
+            <label for="bed">躺在床上用想像力實作</label><br />
+            <input type="radio" name="type" id="ground" value="ground">
+            <label for="ground">趴在地上滑手機找現成的</label><br />
+          </div>
+  
+          <div class="question required">
+            <label for="how">怎麼知道這個活動的？ </label><br />
+            <input type="text" placeholder="您的回答" id="how" name="how">
+          </div>
+  
+          <div class="question">
+            <label for="other">其他</label><br />
+            <label class="propose" for="other">對活動的一些建議</label><br />
+            <textarea name="other" id="other" cols="30" rows="6" placeholder="您的回答"></textarea>
+          </div>
+  
+          <button class="btn" type="button">提交</button>
+        </form>
+
+        <p class="remind">請勿透過表單送出您的密碼。</p>
+      </main>
+    </div>
+
+    <footer>
+      <p>© 2020 © Copyright. All rights Reserved.</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

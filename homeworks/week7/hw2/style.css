@@ -1,0 +1,248 @@
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+/* reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* my css */
+html, body {
+  font-family: 'Microsoft JhengHei';
+}
+
+.wrapper {
+  box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+  background-color: white;
+}
+
+nav {
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .title {
+  margin: 1.3rem;
+}
+
+.title {
+  color: #489846;
+  font-size: 2.25rem;
+}
+
+.links {
+  display: flex;
+  font-size: 1.125rem;
+}
+
+.links li a {
+  display: inline-block;
+  color: #010101;
+  text-decoration: none;
+  padding: 1rem 1.5rem 1rem;
+  border-radius: .5rem;
+  text-align: center;
+}
+
+.links .active {
+  background-color: #ff7286;
+  color: #fefefe;
+}
+
+.links a:hover {
+  background-color: #ff7286;
+  color: #fefefe;
+}
+
+/* 練習改用 grid 來排版 */
+main {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 10.75rem 1fr;
+  align-items: center;
+  justify-items: center;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.main__title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.main__title::before {
+  content: '';
+  background-color: #a3dea2;
+  display: inline-block;
+  width: .93rem;
+  height: 2.3rem;
+  vertical-align: top;
+  margin-right: 1rem;
+}
+
+.main__questions {
+  grid-row: 2 / -1;
+  grid-column: 2 / 3;
+}
+
+.question {
+  padding-bottom: 1.3rem;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  grid-template-rows: 4.2rem 1fr;
+  align-items: center;
+  line-height: 1.5rem;
+  border-bottom: 1px solid #a6e2c0;
+}
+
+.question__count {
+  text-align: center;
+}
+
+.question__desc {
+  font-size: 1.125rem;
+}
+
+.question__ans {
+  grid-column: 2 / 3;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .3s ease-out;
+}
+
+.active .question__ans {
+  max-height: 30rem;
+}
+
+.question__ans p {
+  transform: translateY(-100%);
+  transition: transform .2s ease-in;
+}
+
+.active .question__ans p {
+  transform: translateY(0);
+}
+
+.footer__wrapper {
+  background-color: #e8efee;
+}
+
+footer {
+  margin-top: 2.2rem;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.top {
+  max-width: 1280px;
+  margin: 0 auto;
+  color: #484848;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  align-items: center;
+}
+
+footer {
+  font-size: .875rem;
+}
+
+.info {
+  line-height: 1.5rem;
+  margin: 1rem 0 1rem 1rem;
+  text-align: center;
+}
+
+.contact {
+  order: -1;
+  text-align: center;
+}
+
+.contact a{
+  text-decoration: none;
+  color: #484848;
+  display: inline-block;
+  margin-top: .5rem;
+}
+
+.bottom {
+  background-color: #35564b;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  nav {
+    flex-direction: row;
+  }
+
+  .links li a {
+    margin: 0 .4rem;
+  }
+
+  .top {
+    grid-template-columns: 4fr 1fr 2fr;
+    grid-template-rows: 1fr;
+  }
+
+  .info {
+    text-align: left;
+  }
+
+  .contact {
+    order: 0;
+    grid-column: 3 /4;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  nav {
+    transform: translateX(5%);
+  }
+}
