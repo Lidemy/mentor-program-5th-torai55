@@ -167,6 +167,22 @@ table {
   border-radius: 50%;
 }
 
+.backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  text-decoration: none;
+  color: white;
+  background-color: green;
+  opacity: .5;
+  padding: 1rem;
+  transition: transform .2s;
+}
+
+.backToTop:hover {
+  transform: scale(1.1);
+}
+
 @media screen and (min-width: 768px) {
   .wrapper{
     flex-direction: row;
