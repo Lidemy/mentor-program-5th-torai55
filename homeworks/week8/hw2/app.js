@@ -134,7 +134,7 @@ function expandContent() {
 
     getStreams(game, renderContent, OFFSET, [clearOld])
     OFFSET += 20
-    if (OFFSET > 70) document.removeEventListener('scroll', scrollHandler)
+    if (OFFSET > 900) document.removeEventListener('scroll', scrollHandler)
   }
 }
 
