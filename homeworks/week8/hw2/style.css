@@ -48,14 +48,17 @@ table {
 }
 
 /* my css */
+html {
+  scroll-behavior: smooth;
+}
+
 .wrapper {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
 }
 
 .title {
