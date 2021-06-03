@@ -40,9 +40,11 @@ parseResponse({"Name": "小明", "Id" : 1823, "Rank": 7})
 
 ## 要如何存取跨網域的 API？
 
-如上，透過 JSONP 是一種方法。
-若是一般送 request，若 server 允許的話會自己附帶 `Access-Control-Allow-Origin: *`（或自己網域）的 response header，告訴瀏覽器允許 CORS。
-此時 request 也分成 [簡單請求與非簡單請求](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS#%E7%B0%A1%E5%96%AE%E8%AB%8B%E6%B1%82)，發送非簡單請求前，瀏覽器會自動發送一個 http method 為 OPTIONS 的 preflight request，向伺服器確認是否允許這網域存取。若否，瀏覽器就不會發送接下來的 request。
+如上，透過 JSONP 是一種方法，或者也能利用 XHR 或是 Fetch API 送 request。
+
+一般送 request，server 允許的話會自己附帶 `Access-Control-Allow-Origin: *`（或自己網域）的 response header，告訴瀏覽器允許 CORS。
+
+request 也分成 [簡單請求與非簡單請求](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS#%E7%B0%A1%E5%96%AE%E8%AB%8B%E6%B1%82)，發送非簡單請求前，瀏覽器會自動發送一個 http method 為 OPTIONS 的 preflight request，向伺服器確認是否允許這網域存取。若否，瀏覽器就不會發送接下來的 request。
 
 ## 為什麼我們在第四週時沒碰到跨網域的問題，這週卻碰到了？
 
