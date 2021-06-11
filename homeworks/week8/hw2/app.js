@@ -10,7 +10,7 @@ function callTwitchAPI(endPoint, callback) {
   const request = new XMLHttpRequest()
 
   request.onload = () => {
-    if (!(request.status >= 200 && request.status < 400)) return console.log(request.status, request.responseText)
+    if (!(request.status >= 200 && request.status < 400)) return
     try {
       callback(JSON.parse(request.responseText))
     } catch (e) {
@@ -25,9 +25,9 @@ function callTwitchAPI(endPoint, callback) {
 }
 
 function getTopGames(limit, callback) {
-  const endPoint = `https://api.twitch.tv/kraken/games/top?limit=${limit}`
+  const endpoint = `https://api.twitch.tv/kraken/games/top?limit=${limit}`
 
-  callTwitchAPI(endPoint, (body) => {
+  callTwitchAPI(endpoint, (body) => {
     const topGames = []
     body.top.forEach((item) => {
       topGames.push(item.game.name)
@@ -63,12 +63,11 @@ function renderContent(streams, clearOld = true) {
   streams.streams.forEach((stream) => {
     const preview = stream.preview.template.replace(/{width}/, 250).replace(/{height}/, 150)
     const avatar = stream.channel.logo.replace(/300x300/, '50x50')
-    /* eslint-disable */
     const {
       status: title,
       name: player,
-      url: address } = stream.channel
-    /* eslint-enable */
+      url: address
+    } = stream.channel
 
     const template = document.querySelector('#product-content')
     const clone = template.content.cloneNode(true)

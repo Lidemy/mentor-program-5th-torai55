@@ -10,9 +10,9 @@
 
 ## 用 Ajax 與我們用表單送出資料的差別在哪？
 
-利用表單送出資料是同步的方法。瀏覽器先使用 GET 從伺服器取得表單的頁面，使用者填完資料後，瀏覽器再用 POST 從伺服器取得新的頁面資料。取得新的頁面後再重新 render（server side render）。
+利用表單送出資料是同步的方法。瀏覽器先使用 GET 從伺服器取得表單的頁面，使用者填完資料後，瀏覽器再用 POST 或 GET (依照表單設定) 送出表單、從伺服器取得新的頁面資料。取得新的頁面後再重新 render（server side render）。
 
-這兩個頁面間，如 nav bar 和 footer 或許就能共用，但伺服器還是整個頁面都放進 response，使效能較不好。使用者在送出表單，到瀏覽器 render 出新的頁面前也無法與這個網頁做其他互動。
+這兩個頁面間，如 nav bar 和 footer 或許就能共用，但伺服器還是整個頁面都放進 response，使需要傳輸的資料較多。使用者在送出表單，到瀏覽器 render 出新的頁面前也無法與這個網頁做其他互動。
 
 用 Ajax 送出 request 的話，可以只取需要更新部分的資料（如留言區），透過瀏覽器內的 JavaScript render 出頁面（client side render）。就不會中斷使用者的操作，也不會重複傳入整個頁面造成效能上的浪費。
 
@@ -20,7 +20,7 @@
 
 JSON with padding。顧名思義，就是 JSON 資料外面包了一層 padding。
 
-因為在瀏覽器上有個 [same origin policy](https://developer.mozilla.org/zh-TW/docs/Web/Security/Same-origin_policy)，瀏覽器會檢查 server response 的 header `Access-Control-Allow-Origin` 是否和發出 request 的網域 `origin` 相同，不同的話 response 會被瀏覽器擋下來不給網頁拿到（但 request 還是有成功發出去）。
+因為在瀏覽器上有個 [same origin policy](https://developer.mozilla.org/zh-TW/docs/Web/Security/Same-origin_policy)，瀏覽器會檢查 server response 的 header `Access-Control-Allow-Origin` 是否和網頁的 origin 與是不是與 server 同源，或者符合 Access-Control-Allow-Origin 的內容。不符合的話，response 會被瀏覽器擋下來不給網頁拿到（但 request 還是有成功發出去）。
 
 但 HTML 上有些標籤，本來就常會引用外部資源，不必遵守同源政策，例如 `<script>`、`<img>`。而 `<script>` 的內容又可以作為 JavaScript 程式碼使用，而衍生出了 JSONP 這個用法來獲取跨網域的資源。
 
