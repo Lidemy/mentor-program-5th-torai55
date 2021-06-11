@@ -1,4 +1,4 @@
-const btn = document.querySelector('.btn')
+const main = document.querySelector('main')
 const background = document.querySelector('.background-img')
 const msg = {
   FIRST: '恭喜你中頭獎了！日本東京來回雙人遊！',
@@ -6,6 +6,7 @@ const msg = {
   THIRD: '恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！',
   NONE: '銘謝惠顧'
 }
+let currentPage = 'Main'
 
 function renderMainPage() {
   const template = document.querySelector('#product__main')
@@ -14,7 +15,6 @@ function renderMainPage() {
 
   background.classList.remove('background-img--first', 'background-img--second', 'background-img--third', 'background-img--black')
   background.classList.add('background-img--main')
-  clone.querySelector('.btn').addEventListener('click', getLotteryResult(renderLotteryPage))
   activity.parentNode.replaceChild(clone, activity)
 }
 
@@ -44,35 +44,42 @@ function renderLotteryPage(result) {
   }
 
   desc.textContent = msg[result.prize]
-  clone.querySelector('.btn').addEventListener('click', renderMainPage)
   activity.parentNode.replaceChild(clone, activity)
 }
 
 function getLotteryResult(callback) {
-  return () => {
-    // call api
-    const request = new XMLHttpRequest()
-    request.onload = () => {
-      if (!(request.status >= 200 && request.status < 400)) return alert('系統不穩定，請再試一次')
+  // call api
+  const request = new XMLHttpRequest()
+  request.onload = () => {
+    if (!(request.status >= 200 && request.status < 400)) return alert('系統不穩定，請再試一次')
 
-      try {
-        const result = JSON.parse(request.responseText)
-        if (result.error) {
-          throw new Error('Exception')
-        }
-        callback(result)
-      } catch (e) {
-        alert('系統不穩定，請再試一次')
+    try {
+      const result = JSON.parse(request.responseText)
+      if (result.error) {
+        throw new Error('Exception')
       }
-    }
-
-    request.onerror = () => {
+      callback(result)
+    } catch (e) {
       alert('系統不穩定，請再試一次')
     }
-
-    request.open('GET', 'https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery')
-    request.send()
   }
+
+  request.onerror = () => {
+    alert('系統不穩定，請再試一次')
+  }
+
+  request.open('GET', 'https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery')
+  request.send()
 }
 
-btn.addEventListener('click', getLotteryResult(renderLotteryPage))
+main.addEventListener('click', (e) => {
+  if (!(e.target === document.querySelector('.btn'))) return
+
+  if (currentPage === 'Main') {
+    getLotteryResult(renderLotteryPage)
+    currentPage = 'Lottery'
+  } else {
+    renderMainPage()
+    currentPage = 'Main'
+  }
+})

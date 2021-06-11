@@ -1,3 +1,4 @@
+const ROOTURL = 'https://api.twitch.tv/kraken/'
 const CLIENTID = 'r0me6woz37936skc3tsuviuipkp9mb'
 const ACCEPT = 'application/vnd.twitchtv.v5+json'
 const GAMELIMIT = 5
@@ -25,7 +26,7 @@ function callTwitchAPI(endPoint, callback) {
 }
 
 function getTopGames(limit, callback) {
-  const endpoint = `https://api.twitch.tv/kraken/games/top?limit=${limit}`
+  const endpoint = `${ROOTURL}games/top?limit=${limit}`
 
   callTwitchAPI(endpoint, (body) => {
     const topGames = []
@@ -38,7 +39,7 @@ function getTopGames(limit, callback) {
 
 function getStreams(game, callback, limit = STREAMLIMIT, offset = 0, options = []) {
   game = encodeURIComponent(game)
-  const endPoint = `https://api.twitch.tv/kraken/streams/?limit=${limit}&game=${game}&offset=${offset}`
+  const endPoint = `${ROOTURL}streams/?limit=${limit}&game=${game}&offset=${offset}`
 
   callTwitchAPI(endPoint, (streams) => {
     callback(streams, ...options)
