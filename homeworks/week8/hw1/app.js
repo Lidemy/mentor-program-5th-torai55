@@ -1,10 +1,10 @@
 const main = document.querySelector('main')
 const background = document.querySelector('.background-img')
 const msg = {
-  FIRST: '恭喜你中頭獎了！日本東京來回雙人遊！',
-  SECOND: '二獎！90 吋電視一台！',
-  THIRD: '恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！',
-  NONE: '銘謝惠顧'
+  first: '恭喜你中頭獎了！日本東京來回雙人遊！',
+  second: '二獎！90 吋電視一台！',
+  third: '恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！',
+  none: '銘謝惠顧'
 }
 let currentPage = 'Main'
 
@@ -19,6 +19,7 @@ function renderMainPage() {
 }
 
 function renderLotteryPage(result) {
+  result.prize = result.prize.toLowerCase()
   // replace .activity with template
   const activity = document.querySelector('.activity')
   const template = document.querySelector('#product__lottery')
@@ -27,21 +28,8 @@ function renderLotteryPage(result) {
 
   // set background
   background.classList.remove('background-img--main')
-  switch (result.prize) {
-    case 'FIRST':
-      background.classList.add('background-img--first')
-      break
-    case 'SECOND':
-      background.classList.add('background-img--second')
-      break
-    case 'THIRD':
-      background.classList.add('background-img--third')
-      break
-    case 'NONE':
-      background.classList.add('background-img--black')
-      desc.classList.add('desc--white')
-      break
-  }
+  background.classList.add(`background-img--${result.prize}`)
+  if (result.prize === 'none') desc.classList.add('desc--white')
 
   desc.textContent = msg[result.prize]
   activity.parentNode.replaceChild(clone, activity)
