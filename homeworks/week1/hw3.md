@@ -13,20 +13,20 @@ pwd              #Print Working Directory 印出當前路徑
 ls               #LiSt 印出路徑下的檔案
 cd <path>        #Change Directory 切換路徑到path資料夾
 cd ..            #回到上一層
-cd ~ <Downloads> # ~ 代表Users/user/
+cd ~ <Downloads> # ~ 代表 Users/user/
 clear            #把畫面清空
 
 touch <file>     #建立檔案或更改時間
-rm <file>        #ReMove file 刪除資料夾可用rmdir dir 或是 rm -r dir
+rm <file>        #ReMove file 刪除資料夾可用 rmdir dir 或是 rm -r dir
 mkdir <dirname>  #MaKe DIRectory
 mv <file> <file_or_directory> #MoVe 移動檔案或者改名
 
 cp <source> <goal>    #CoPy 複製檔案
 cp -r <source> <goal> #複製資料夾
 
-vim <file>          #用vim文字編輯器打開檔案
+vim <file>          #用 vim 文字編輯器打開檔案
 cat <file1> <file2> #接連印出兩個檔案的內容，也可只輸入一個檔案當作印出內容
-less <file>         #分頁式印出檔案，按q離開
+less <file>         #分頁式印出檔案，按 q 離開
 
 grep <string> <file> #搜尋字元
 wget <url>           #由網址下載檔案
@@ -34,8 +34,8 @@ open <file>          #打開檔案
 curl <url>           #送出request
 
 #redirection `>`
-echo "123" > 123.txt #將內容輸出到123.txt之中，會蓋掉原有內容，若沒有檔案則會新增一個。
-echo "append to the end of the file" >> 123.txt #將輸出內容附加到123.txt之中，若沒有檔案則會新增
+echo "123" > 123.txt #將內容輸出到 123.txt 之中，會蓋掉原有內容，若沒有檔案則會新增一個。
+echo "append to the end of the file" >> 123.txt #將輸出內容附加到 123.txt 之中，若沒有檔案則會新增
 
 #pipe `|`
 #將前項的輸出結果當作後項的參數輸入
@@ -43,7 +43,7 @@ cat hello | grep o > result
 
 which <command>     #印出此指令的執行檔位置
 ping <ip>           #丟一個封包過去伺服器，紀錄來回所花的時間
-nslookup google.com #查詢google的ip位置
+nslookup google.com #查詢 google 的 ip 位置
 
 #查詢功能與說明
 man <command>

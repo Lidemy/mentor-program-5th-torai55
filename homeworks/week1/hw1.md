@@ -4,7 +4,7 @@
 
 2. 使用 CLI，`cd <path>` 切到想要放置專案的路徑下，再輸入 `git clone <url>` 指令由遠端複製專案到本地端。
 
-3. 寫作業前，先 `git checkout -b <feature>` 開一條新分支並切換進去。
+3. 寫作業前，先 `git checkout -b <feature>` 從 master 開一條新分支並切換進去。
 
 4. 開始寫作業，寫完一項可以先 `git add .` 接著 `git commit -m "commit message"`，將需要版本控制的檔案加入追蹤再提交。若檔案是 unmodified 的狀態可直接使用 `git commit -am "commit message"` 省去 `git add .` 的步驟。
    ![檔案狀態](./src/git_file_status.png)
@@ -22,5 +22,5 @@
 
 3. `git branch -d <feature>`刪除本地端 feature 分支。
 
-- 可用 `git branch -v` 查看所在分支。
-- 可用 `git status` 查看檔案狀態。
+> 可用 `git branch -v` 查看所在分支。  
+> 可用 `git status` 查看檔案狀態。

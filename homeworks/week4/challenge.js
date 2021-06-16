@@ -76,7 +76,7 @@ function getMoreStreams(game, limit, total, callback) {
 // running
 // callback 好難，偷看解答還是不太會寫:(
 getGameName(process.argv[2], (body) => {
-  // i.g 'League of Legends' -> 'League%20of%20Legends'
+  // e.g. 'League of Legends' -> 'League%20of%20Legends'
   const game = encodeURIComponent(body.games[0].name)
 
   getMoreStreams(game, BATCH_LIMIT, TOTAL, (body) => {
