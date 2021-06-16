@@ -3,9 +3,7 @@ const CLIENTID = 'r0me6woz37936skc3tsuviuipkp9mb'
 const ACCEPT = 'application/vnd.twitchtv.v5+json'
 const GAMELIMIT = 5
 const STREAMLIMIT = 20
-/* eslint-disable */
 let OFFSET = STREAMLIMIT
-/* eslint-enable */
 
 function callTwitchAPI(endPoint, callback) {
   const request = new XMLHttpRequest()
@@ -116,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // challenge
 // 可以把 challenge 底下全部取消註解，體驗新的功能
 // 捲動到接近底部，再抓新頻道
-function throttle(method) {
-  clearTimeout(method._tId)
-  method._tId = setTimeout(() => {
-    method()
+function throttle(callback) {
+  clearTimeout(callback._tId)
+  callback._tId = setTimeout(() => {
+    callback()
   }, 100)
 }
 
@@ -146,18 +144,16 @@ document.addEventListener('scroll', scrollHandler)
 
 // -----------------------------------------------------
 // 螢幕太大沒有卷軸（判斷高度再抓更多頻道）
-// [bug] 若兩秒內抓不夠（例如伺服器回應延遲）就不會再抓
+// [bug] 若 3.5 秒內抓不夠（例如伺服器回應延遲）就不會再抓
 function loadMore() {
   const gameList = document.querySelector('.gamelist')
   const config = {
-    attributes: true,
-    childList: true,
-    subtree: true
+    childList: true
   }
 
   function mutateHandler() {
     const { clientHeight, scrollHeight } = document.documentElement
-    if (clientHeight <= scrollHeight) {
+    if (clientHeight >= scrollHeight) {
       expandContent()
     }
   }
@@ -167,7 +163,7 @@ function loadMore() {
 
   setTimeout(() => {
     observer.disconnect()
-  }, 2000)
+  }, 3500)
 }
 
 const links = document.querySelector('nav .links')
