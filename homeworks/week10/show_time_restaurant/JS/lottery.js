@@ -7,22 +7,29 @@ const msg = {
   NONE: '銘謝惠顧'
 }
 
-function getPrize(callback) {
+function getPrize(callback, errHandler) {
   const req = new XMLHttpRequest()
   const url = 'https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery'
 
   req.onload = () => {
-    if (!(req.status >= 200 && req.status < 400)) return alert('系統不穩定，請再試一次')
+    if (!(req.status >= 200 && req.status < 400)) {
+      errHandler()
+      return alert('系統不穩定，請再試一次')
+    }
 
     try {
       const result = JSON.parse(req.responseText)
       callback(result)
     } catch (e) {
+      errHandler()
       alert('系統不穩定，請再試一次')
     }
   }
 
-  req.onerror = () => alert('系統不穩定，請再試一次')
+  req.onerror = () => {
+    errHandler()
+    alert('系統不穩定，請再試一次')
+  }
   req.open('GET', url)
   req.send()
 }
@@ -51,10 +58,12 @@ function toggleLoadingHint() {
 drawingButton.addEventListener('click', () => {
   toggleLoadingHint()
 
-  getPrize((res) => {
-    toggleLoadingHint()
-    renderPage(res)
-  })
+  setTimeout(() => {
+    getPrize((res) => {
+      toggleLoadingHint()
+      renderPage(res)
+    }, toggleLoadingHint)
+  }, 1000)
 })
 
 backButton.addEventListener('click', () => {

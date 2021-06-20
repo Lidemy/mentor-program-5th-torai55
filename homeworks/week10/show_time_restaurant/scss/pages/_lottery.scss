@@ -6,21 +6,21 @@
   position: relative;
 
   &[data-background-image="main"] {
-    background-image: url(../../images/games-bn@2x.jpg);
+    background-image: url(../images/games-bn@2x.jpg);
   }
 
   &[data-background-image="FIRST"] {
-    background-image: url(../../images/flight.jpg);
+    background-image: url(../images/flight.jpg);
     @include lottery-background-filter
   }
 
   &[data-background-image="SECOND"] {
-    background-image: url(../../images/living-room.jpg);
+    background-image: url(../images/living-room.jpg);
     @include lottery-background-filter
   }
 
   &[data-background-image="THIRD"] {
-    background-image: url(../../images/youtube.jpg);
+    background-image: url(../images/youtube.jpg);
     @include lottery-background-filter
   }
 
