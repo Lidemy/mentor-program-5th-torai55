@@ -190,5 +190,5 @@ SCSS:
   };
   ```
 
-[Stack Overflow: eslint - Optional chaining error with vscode](https://stackoverflow.com/questions/61628947/eslint-optional-chaining-error-with-vscode)
+[Stack Overflow: eslint - Optional chaining error with vscode](https://stackoverflow.com/questions/61628947/eslint-optional-chaining-error-with-vscode)  
 [npm babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser)
