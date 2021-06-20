@@ -168,3 +168,27 @@ SCSS:
 #### Preload, Prefetch 和 Preconnect
 
 [Shubo 的程式教學筆記](https://shubo.io/preload-prefetch-preconnect/)
+
+## ESLint
+
+### 看不懂可選串聯（Optional chaining：`?.`）
+
+1. 安裝 babel/eslint parser
+
+   ```shell
+   $ npm install eslint @babel/core @babel/eslint-parser --save-dev
+   ```
+
+2. 去 `.eslintrc` 指定 parser
+
+  ```JavaScript
+  module.exports = {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      requireConfigFile: false
+    }
+  };
+  ```
+
+[Stack Overflow: eslint - Optional chaining error with vscode](https://stackoverflow.com/questions/61628947/eslint-optional-chaining-error-with-vscode)
+[npm babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser)
