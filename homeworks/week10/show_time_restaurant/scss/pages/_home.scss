@@ -125,3 +125,74 @@
     }
   }
 }
+
+.comments {
+  .comments__title {
+    @include section-title-style;
+  }
+
+  .comments__cards {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+
+    .card {
+      --card-height: 11rem;
+      border-radius: 5px;
+      box-shadow: -1.4px -1.4px 4px 0 #d8eaef;
+      border: solid 1px #c7e5ec;
+      text-align: center;
+      margin: 5rem .5rem .5rem .5rem;
+      padding: 1.25rem;
+      position: relative;
+      height: var(--card-height);
+      font-family: my-font;
+
+      .card__author {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .name {
+          margin-top: 1rem;
+        }
+
+        > img {
+          height: 7rem;
+          width: 7rem;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      .card__content {
+        position: relative;
+        top: 50%;
+        left: 0;
+        height: calc(var(--card-height) * 50 / 100);
+        overflow: auto;
+        line-height: 1.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .comments {
+    .comments__cards {
+      flex-direction: row;
+      
+      .card {
+        flex: 1 1 0;
+        --card-height: 13rem;
+      }
+    }
+  }
+}
+
+.location {
+  .location__title {
+    @include section-title-style;
+  }
+}

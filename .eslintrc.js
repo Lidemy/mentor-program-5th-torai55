@@ -11,6 +11,7 @@ module.exports = {
     SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
+    requireConfigFile: false,
     ecmaFeatures: {
       jsx: true
     },
@@ -18,5 +19,6 @@ module.exports = {
   },
   rules: {
     'no-console': 'off'
-  }
+  },
+  parser: '@babel/eslint-parser'
 }

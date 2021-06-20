@@ -75,12 +75,9 @@ sass/
 
 #### ref
 
-[guideline](https://sass-guidelin.es/)
-
-[syntax](https://sass-lang.com/documentation/syntax)
-
-[David's Notes](https://yungshenglu.github.io/2017/12/26/SassNotes9/)
-
+[guideline](https://sass-guidelin.es/)  
+[syntax](https://sass-lang.com/documentation/syntax)  
+[David's Notes](https://yungshenglu.github.io/2017/12/26/SassNotes9/)  
 [HackMD](https://hackmd.io/@yuci0213/r17cT6NiL)
 
 ### CSS 筆記
@@ -116,6 +113,57 @@ sass/
 ```
 
 [Unicode Character Ranges](https://www.ling.upenn.edu/courses/Spring_2003/ling538/UnicodeRanges.html)
+
+#### 摺疊欄位
+
+指到 title 時把文字往上移、降低 container 最大高度。
+
+html:
+
+```html
+<h2 class="title">Title</h2>
+<div class="container">
+  <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem ab harum, expedita aperiam modi, autem nam quia cumque id debitis esse optio deleniti praesentium. Est aut at dicta aliquam facere!
+  </p>
+</div>
+
+```
+
+SCSS:
+
+```SCSS
+.container {
+  transition: max-height .2s ease-in;
+  max-height: 30rem;
+  overflow: hidden;
+  
+  p {
+    transition: transform .2s ease-in;
+    transform: translateY(0);
+  }
+}
+
+.title:hover + .container {
+  max-height: 0;
+  
+  p {
+    transform: translateY(-100%);
+  }
+}
+```
+
+#### box shadow generagor
+
+[box shadow generagor](https://cssgenerator.org/box-shadow-css-generator.html0)
+
+### JavaScript
+
+#### throttle & debounce
+
+[throttle & debounce](https://mropengate.blogspot.com/2017/12/dom-debounce-throttle.html?fbclid=IwAR1ncL2Wn9giRB8tTurV_ipXpRppvP1bCv1kX5ibrZgrzw3_5s_DZ2G3St8)
+
+### HTML
 
 #### Preload, Prefetch 和 Preconnect
 

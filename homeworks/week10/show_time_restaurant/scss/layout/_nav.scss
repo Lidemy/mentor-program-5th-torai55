@@ -11,7 +11,7 @@
       padding-top: .5rem;
 
       a {
-        color: $nav-title-color;
+        color: $title-color;
         font-family: my-font;
         font-size: 2.25rem;
         cursor: pointer;
@@ -40,9 +40,15 @@
           transition: all .1s ease-in;
         }
 
+        &.active {
+          background-color: $active-links-color;
+          a {
+            color: $active-text-color;
+          }
+        }
+
         &:hover {
           background-color: $active-links-color;
-
           a {
             color: $active-text-color;
           }
