@@ -1,21 +1,48 @@
 <?php
-  require_once('conn.php');
-  session_start();
+require_once('conn.php');
+session_start();
 
+if (empty($_POST['comment'])) {
+  $location = sprintf('Location: update_post.php?id=%s&errCode=1', $_GET['id']);
+  header($location);
+  die('資料不齊全');
+}
 
-  if (empty($_POST['comment'])) {
-    $location = sprintf('Location: update_post.php?id=%s&errCode=1', $_GET['id']);
-    header($location);
-    die('資料不齊全');
-  }
+// 確認是管理員 或留言擁有者
+// step1 先列出管理員+文章主人清單
+// step2 確認 username 是否在裡面
+$auth = 'admin';
+$sql = 'SELECT username
+        FROM (SELECT username
+	            FROM torai_board_users
+  	          WHERE role = ?
+	            OR id = (SELECT user_id
+			                 FROM torai_board_comments
+			                 WHERE id = ?)
+              ) AS result
+        WHERE username = ?;';
 
-  $sql = 'UPDATE torai_board_comments SET comment = ? WHERE id = ?;';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('si', $_POST['comment'], $_GET['id']);
-  $result = $stmt->execute();
-  if (!$result) {
-    die($conn->error);
-  }
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('sis', $auth, $_GET['id'], $_SESSION['username']);
+$result = $stmt->execute();
+if (!$result) {
+  die($conn->error);
+}
+$result = $stmt->get_result();
+$stmt->close();
+if (!$result->num_rows) {
+  header('Location: index.php?errCode=3');
+  die('權限不足');
+}
 
-  header('Location: index.php');
+// 更新留言
+$sql = 'UPDATE torai_board_comments SET comment = ? WHERE id = ?;';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('si', $_POST['comment'], $_GET['id']);
+$result = $stmt->execute();
+if (!$result) {
+  die($conn->error);
+}
+
+header('Location: index.php');
 ?>

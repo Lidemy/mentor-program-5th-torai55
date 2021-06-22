@@ -1,6 +1,7 @@
 <?php
   require_once('conn.php');
 
+  // 新增留言
   $sql = 'INSERT INTO torai_board_comments (comment, user_id)
     VALUES (?, (SELECT id 
                   FROM torai_board_users 

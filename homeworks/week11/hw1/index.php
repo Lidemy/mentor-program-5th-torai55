@@ -5,8 +5,9 @@
   // check if login
   $username = false;
   $nickname = false;
+  $role = 4;
   if (!empty($_SESSION['username'])) {
-    $sql = 'SELECT username, nickname
+    $sql = 'SELECT username, nickname, role+0 AS role
             FROM torai_board_users
             WHERE username = ?;';
 
@@ -20,11 +21,12 @@
     $row = $result->fetch_assoc();
     $username = $_SESSION['username'];
     $nickname = $row['nickname'];
+    $role = $row['role'];
     $stmt->close();
   }
 
   // get page
-  $sql = 'SELECT count(id) as count FROM torai_board_comments WHERE is_deleted = 0';
+  $sql = 'SELECT count(id) as count FROM torai_board_comments WHERE is_deleted = 0;';
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
   $count = $row['count'];
@@ -37,7 +39,7 @@
   $offset = ($page-1) * $limit;
   $total_page = ceil($count / $limit);
 
-  // get commenet info
+  // get comment info
   $sql = 'SELECT a.id, a.comment, a.created_at, b.username, b.nickname 
                 FROM torai_board_comments AS a
                 LEFT JOIN torai_board_users AS b
@@ -78,6 +80,9 @@
           <?php } else {?>
             <div class="buttons--login">
               <div>
+                <?php if (intval($role) === 1) { ?>
+                  <a href="backend.php">後台</a>
+                <?php } ?>
                 <button class="edit-nickname">編輯暱稱</button>
                 <a href="handle_logout.php">登出</a><br />
               </div>
@@ -86,6 +91,8 @@
                   echo '<p class="error-msg">資料不齊全</p>';
                 } else if ($_GET['errCode'] === '2') {
                   echo '<p class="error-msg">帳號或密碼錯誤</p>';
+                } else if ($_GET['errCode'] === '3') {
+                  echo '<p class="error-msg">權限不足</p>';
                 }
               } ?>
               <form method="GET" action="edit_nickname.php"  class="nickname-form hide">
@@ -97,7 +104,7 @@
         </div>
       </div>
 
-      <?php if ($username) {?>
+      <?php if ($username && intval($role) < 3) {?>
         <form action="handle_add_post.php" method="POST" class="comment-form">
           <div><?php echo ($nickname ? htmlspecialchars($nickname) : htmlspecialchars($username)) ?> 有什麼想說的嗎？</div>
           <textarea name="comment" placeholder="請輸入你的留言..."></textarea><br />
@@ -117,7 +124,7 @@
               <div class="card__info">
                 <div class="card__author"><?php echo htmlspecialchars($row['nickname'] ? $row['nickname'] : $row['username']) ?></div>
                 <div class="card__timestamp"><?php echo htmlspecialchars($row['created_at']) ?></div>
-                <?php if($row['username'] === $username) { ?>
+                <?php if($row['username'] === $username || intval($role) === 1) { ?>
                   <a href="update_post.php?id=<?= $row['id'] ?>">編輯留言</a>
                   <a href="handle_delete_post.php?id=<?= $row['id'] ?>">刪除留言</a>
                 <?php } ?>
@@ -134,14 +141,14 @@
         <span>總共有 <?= $count ?> 筆留言，頁數<?= $page ?> / <?= $total_page ?></span>
       </div>
       <div class="paginator">
-        <a href="index.php?page=1">首頁</a>
         <?php if($page != 1) { ?>
+          <a href="index.php?page=1">首頁</a>
           <a href="index.php?page=<?= $page-1 ?>">上一頁</a>
         <?php } ?>
         <?php if($page != $total_page) { ?>
           <a href="index.php?page=<?= $page+1 ?>">下一頁</a>
+          <a href="index.php?page=<?= $total_page ?>">最後一頁</a>
         <?php } ?>
-        <a href="index.php?page=<?= $total_page ?>">最後一頁</a>
       </div>
     </main>
     <script>
