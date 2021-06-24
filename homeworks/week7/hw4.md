@@ -21,6 +21,7 @@ Document Object Model，中文稱文件物件模型。
 ## 什麼是 event delegation，為什麼我們需要它？
 
 例如一個 unordered list `<ul>`：
+
 ```html
 <ul>
   <li>item1</li>
@@ -28,6 +29,7 @@ Document Object Model，中文稱文件物件模型。
   <li>item1</li>
 </ul>
 ```
+
 裡面有許多項目，如果針對每一個 `<li>` 都設置 EventListener，整個頁面的 EventListener 就會顯得太多。
 
 這時在共同的親代 `<ul>` 上設置 EventListener，因為事件傳遞上一定會經過 `<ul>`，就可以減少 EventListener 的數量，這就是事件代理。

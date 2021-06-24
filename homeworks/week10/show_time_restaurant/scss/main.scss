@@ -1,0 +1,15 @@
+@import "base/variables";
+@import "base/reset";
+@import "layout/nav";
+@import "layout/footer";
+@import "pages/home";
+@import "pages/lottery";
+@import "pages/faq";
+
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+body {
+  min-width: 320px;
+}
