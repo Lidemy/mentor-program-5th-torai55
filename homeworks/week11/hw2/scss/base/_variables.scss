@@ -1,0 +1,27 @@
+$nav-title-color: #333333;
+$nav-link-color: #787878;
+$banner-text-color: #eeeeee;
+$article-edit-text-color: #a8a8a8;
+$article-info-color: #eeeeee;
+$article-info-text-color: #8f8f8f;
+$footer-background-color: #323232;
+
+@font-face {
+  font-family: my-font;
+  src: local("Microsoft JhengHei"), local("sans-serif");
+}
+
+@mixin nav-link-style {
+  li {
+    padding-left: 1.31rem;
+    a {
+      color: $nav-link-color;
+    }
+  }
+}
+
+@mixin backend-card-link-style {
+  padding: .7rem .5rem;
+  color: $article-edit-text-color;
+  border: solid 1px $article-edit-text-color;
+}

@@ -3,3 +3,4 @@ conn.php
 .DS_STORE
 .eslintcache
 exercise/
+backup.sql

@@ -1,0 +1,468 @@
+@font-face {
+  font-family: my-font;
+  src: local("Microsoft JhengHei"), local("sans-serif");
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+nav {
+  font-family: my-font;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 2rem;
+}
+
+nav .nav__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav .nav__left .nav__title {
+  color: #333333;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+nav .nav__left .nav__links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .nav__left .nav__links li {
+  padding-left: 1.31rem;
+}
+
+nav .nav__left .nav__links li a {
+  color: #787878;
+}
+
+nav .nav__management {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav .nav__management li {
+  padding-left: 1.31rem;
+}
+
+nav .nav__management li a {
+  color: #787878;
+}
+
+.banner {
+  text-align: center;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#000000), to(#434343));
+  background-image: linear-gradient(to top, #000000, #434343);
+  height: 30vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.banner .banner__title {
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.banner .banner__desc {
+  margin: 1.6rem 0;
+  color: #eeeeee;
+  font-size: .875rem;
+}
+
+footer {
+  background-color: #323232;
+  padding: .5rem;
+  text-align: center;
+}
+
+footer p {
+  color: white;
+}
+
+main {
+  position: relative;
+  background-color: white;
+}
+
+main .articles {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: .8rem;
+  position: relative;
+  -webkit-transform: translateY(-4rem);
+          transform: translateY(-4rem);
+  background-color: white;
+}
+
+main .articles article {
+  font-family: my-font;
+  border: solid 1px #9a9a9a;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+main .articles article .article__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .articles article .article__top a {
+  color: #a8a8a8;
+  background-color: white;
+  font-size: .875rem;
+  padding: .5rem;
+  border: solid 1px #a8a8a8;
+  cursor: pointer;
+}
+
+main .articles article .article__bottom .article__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #eeeeee;
+  margin: 1.18rem 0;
+  padding: .68rem;
+  color: #8f8f8f;
+  font-size: .875rem;
+}
+
+main .articles article .article__bottom .article__info .material-icons-outlined {
+  padding: 0 .68rem;
+}
+
+main .articles article .article__bottom .article__content {
+  margin-bottom: 2.25rem;
+  white-space: pre-line;
+}
+
+main .articles article .article__bottom .article__more {
+  border: solid 1px #737373;
+  background-color: white;
+  padding: .75rem 1.06rem;
+  cursor: pointer;
+}
+
+main .pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+main .pagination a {
+  display: inline-block;
+  border: solid 1px #737373;
+  background-color: white;
+  padding: .75rem 1.06rem;
+  margin: 1.2rem;
+}
+
+.login__wrapper {
+  background-color: white;
+}
+
+.login__wrapper .login {
+  max-width: 500px;
+  margin: 5rem auto 0;
+  height: 500px;
+  border: solid 1px #000000;
+  font-family: my-font;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.login__wrapper .login .login__title {
+  font-size: 2rem;
+}
+
+.login__wrapper .login form {
+  margin-top: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: .875rem;
+}
+
+.login__wrapper .login form label {
+  display: block;
+}
+
+.login__wrapper .login form input {
+  margin: 1rem 0;
+  padding: .5rem 1rem;
+  width: 22rem;
+}
+
+.login__wrapper .login form button {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#000000), to(#434343));
+  background-image: linear-gradient(to top, #000000, #434343);
+  color: white;
+  padding: 1.2rem 0;
+  margin-top: 2rem;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .login__wrapper .login form input {
+    width: 11rem;
+  }
+}
+
+main .cards {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem;
+  position: relative;
+  -webkit-transform: translateY(-4rem);
+          transform: translateY(-4rem);
+  background-color: white;
+  text-align: center;
+  min-height: 20vh;
+}
+
+main .cards .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem 0;
+}
+
+main .cards .card .card__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .cards .card .card__info .timestamp {
+  color: #8f8f8f;
+}
+
+main .cards .card .card__info .edit {
+  padding: .7rem .5rem;
+  color: #a8a8a8;
+  border: solid 1px #a8a8a8;
+  margin: 0 1rem;
+}
+
+main .cards .card .card__info .delete {
+  padding: .7rem .5rem;
+  color: #a8a8a8;
+  border: solid 1px #a8a8a8;
+}
+
+main .add-post__wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem;
+  position: relative;
+  -webkit-transform: translateY(-4rem);
+          transform: translateY(-4rem);
+  background-color: white;
+  text-align: center;
+  min-height: 20vh;
+}
+
+main .add-post__wrapper .add-post {
+  border: solid 1px #9a9a9a;
+  padding: 1.1rem;
+}
+
+main .add-post__wrapper .add-post .add-post__title {
+  text-align: start;
+}
+
+main .add-post__wrapper .add-post .add-post__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .add-post__wrapper .add-post .add-post__form > input {
+  display: block;
+  width: 100%;
+  margin: 1rem;
+}
+
+main .add-post__wrapper .add-post .add-post__form > textarea {
+  width: 100%;
+  max-width: 100%;
+  height: 10rem;
+}
+
+main .add-post__wrapper .add-post .add-post__form > .ck.ck-reset.ck-editor.ck-rounded-corners {
+  width: 100%;
+}
+
+main .add-post__wrapper .add-post .add-post__form > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main p {
+  height: 40vh;
+}
+
+main .add-post__wrapper .add-post .add-post__form > button {
+  border: solid 1px #737373;
+  padding: .8rem 2rem;
+  background-color: white;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.articles .tags {
+  padding: 1rem;
+}
+
+.articles .tags p {
+  display: inline;
+}
+
+.articles .tags a {
+  display: inline-block;
+  border: solid 1px #737373;
+  background-color: white;
+  padding: .75rem 1.06rem;
+}
+
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+.err-msg {
+  color: red;
+  padding-top: 1.2rem;
+}
+/*# sourceMappingURL=main.css.map */
