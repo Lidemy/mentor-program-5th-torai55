@@ -42,7 +42,11 @@
 
 ## CDEditor 換行出問題，內容會自動包 `<p></p>`
 
+要去確認 CKEditor 的行為。
+
 ## 分類不接受 emoji
+
+想辦法對 emoji 做 regex
 
 ## Auto Resize Textarea to Fit Content
 
