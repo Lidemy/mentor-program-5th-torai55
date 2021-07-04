@@ -1,0 +1,71 @@
+.hide {
+  display: none;
+}
+
+.todo-text:hover + .form-check .btn-delete, .form-check:hover .btn-delete {
+  display: block;
+}
+
+.todo-text:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.todo-text {
+  z-index: 1;
+  background-color: white;
+  padding: .375rem .75rem;
+}
+
+.btn-delete {
+  z-index: 2;
+}
+
+.strikethrough {
+  z-index: 3;
+  min-width: 0;
+  height: 1px;
+  background-color: black;
+  transition: min-width .6s;
+}
+
+.form-check-input {
+  transform: translateY(50%)
+}
+
+.form-check-input:checked + .todo-content {
+  opacity: .4;
+}
+
+.form-check-input:checked + .todo-content .strikethrough {
+  min-width: calc(100% - 38px);
+}
+
+.todo-count {
+  flex: 3 0 110px;
+}
+
+.todo-filter {
+  max-width: 300px;
+  flex: 1 0 260px;
+}
+
+.todo-filter p {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.todo-clear {
+  flex: 3 0 160px;
+}
+
+.todo-clear p {
+  display: inline-block;
+  cursor: pointer;
+  width: fit-content;
+}
+
+@media screen and (min-width: 538px) {
+  .todo-clear {
+    order: 1;
+  }
+}
