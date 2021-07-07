@@ -19,7 +19,7 @@
 
 因為 PHP `password_verify($password, $hash)` 在驗證的時候不用附上當初加的鹽，有點好奇是怎麼做的就稍微查了一下 [stack overflow](https://stackoverflow.com/questions/34756064/understanding-password-verify/34756237)。
 
-原來是把雜湊的演算法跟鹽都附在雜湊後的結果。所以驗證函式拿到演算法跟鹽之後，只要對 `$password` 依樣畫葫蘆，再去跟 `$hash` 對照就好了。
+原來是把雜湊的演算法跟鹽都附在雜湊後的結果。所以驗證函式拿到演算法跟鹽之後，只要對 `$password` 用相同的演算法和鹽再雜湊一次，然後去跟 `$hash` 對照就好了。
 
 不過這樣駭客拿到 `$hash` 後不就知道鹽是什麼，那一樣加回來不就好了？想想平常存鹽跟雜湊後的值應該要分開，驗證的時候再去拿安全性比較高，不過用起來太麻煩了。在 [stack overflow2](https://stackoverflow.com/questions/16875158/how-can-password-verify-validate-passwords-without-knowing-salt-and-cost) 看到一個說法，是說加鹽只是為了提高駭客攻擊成本。每個人密碼都加不同的鹽，這樣駭客一次就只能破解一個人的密碼。
 
