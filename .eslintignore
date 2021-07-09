@@ -1,2 +1,4 @@
 examples/
 week2/
+*.bundle.js
+*.min.js

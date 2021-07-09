@@ -1,0 +1,19 @@
+@import "base/variables";
+@import "base/reset";
+@import "layout/nav";
+@import "layout/banner";
+@import "layout/footer";
+@import "pages/index";
+@import "pages/login";
+@import "pages/backend";
+@import "pages/add_post";
+@import "pages/tags";
+
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+.err-msg {
+  color: red;
+  padding-top: 1.2rem;
+}
