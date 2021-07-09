@@ -2,7 +2,7 @@
 import $ from 'jquery'
 
 export function getComments(host, boardKey, cursor, limit, callback) {
-  const path = `?board_key=${boardKey}&cursor=${cursor}&limit=${limit + 1}`
+  const path = `?board_key=${boardKey}&cursor=${cursor.current}&limit=${limit + 1}`
   const url = `${host}/get_comments.php${path}`
 
   $.getJSON(url, callback)
