@@ -1,62 +1,19 @@
-const ROOTURL = 'https://api.twitch.tv/kraken/'
-const CLIENTID = 'r0me6woz37936skc3tsuviuipkp9mb'
-const ACCEPT = 'application/vnd.twitchtv.v5+json'
-const GAMELIMIT = 5
-const STREAMLIMIT = 20
+import { STREAMLIMIT } from './variables'
+import { getStreams } from './api'
+
+// 該怎麼把這行移到 variables.js 裡面，同時又能利用 OFFSET 保存狀態
+// 目前想到：把它包成物件，然後用 getter / setter function 來取值 / 更改值
 let OFFSET = STREAMLIMIT
 
-function callTwitchAPI(endPoint, callback) {
-  const headers = new Headers({
-    'Client-ID': CLIENTID,
-    Accept: ACCEPT
-  })
-  const request = new Request(endPoint, {
-    method: 'GET',
-    headers
-  })
-  fetch(request)
-    .then((response) => {
-      if (!response.ok) {
-        alert('oops, 網站出錯ㄌ')
-        throw new Error(`statusCode: ${response.status}`)
-      }
-      return response.json()
-    })
-    .then((data) => callback(data))
-    .catch((err) => console.error(err))
-}
-
-function getTopGames(limit, callback) {
-  const endpoint = `${ROOTURL}games/top?limit=${limit}`
-
-  callTwitchAPI(endpoint, (body) => {
-    const topGames = []
-    body.top.forEach((item) => {
-      topGames.push(item.game.name)
-    })
-    callback(topGames)
-  })
-}
-
-function getStreams(game, callback, limit = STREAMLIMIT, offset = 0, options = []) {
-  game = encodeURIComponent(game)
-  const endPoint = `${ROOTURL}streams/?limit=${limit}&game=${game}&offset=${offset}`
-
-  callTwitchAPI(endPoint, (streams) => {
-    callback(streams, ...options)
-  })
-}
-
-function renderContent(streams, clearOld = true) {
+export function renderContent(streams, clearOld = true) {
   const container = document.querySelector('.gamelist')
-  /* eslint-disable */
+
   if (clearOld) {
     container.textContent = ''
     OFFSET = STREAMLIMIT
   } else {
     OFFSET += STREAMLIMIT
   }
-  /* eslint-enable */
 
   // update title
   const gamename = document.querySelector('.gamename')
@@ -84,7 +41,7 @@ function renderContent(streams, clearOld = true) {
   })
 }
 
-function renderLinks(games) {
+export function renderLinks(games) {
   const container = document.querySelector('nav .links')
   const fragment = document.createDocumentFragment()
   const template = document.querySelector('#product-link')
@@ -101,36 +58,22 @@ function renderLinks(games) {
   container.appendChild(fragment)
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  getTopGames(GAMELIMIT, (topGames) => {
-    renderLinks(topGames)
-    getStreams(topGames[0], renderContent)
-  })
-
-  const links = document.querySelector('nav .links')
-  links.addEventListener('click', (e) => {
-    getStreams(e.target.textContent, renderContent)
-  })
-})
-
-// -----------------------------------------------------
-// challenge
-// 可以把 challenge 底下全部取消註解，體驗新的功能
 // 捲動到接近底部，再抓新頻道
-function throttle(callback) {
+// 用 webpack 包起來之後會觸發兩次，第八週時沒有用 webpack 明明正常QQ
+export function throttle(callback) {
   clearTimeout(callback._tId)
   callback._tId = setTimeout(() => {
     callback()
   }, 100)
 }
 
-function scrollHandler() {
+export function scrollHandler() {
   // DO NOT use anonymous function in throttle
   throttle(expandContent)
 }
 
 // [bug] 排名變動時，可能會抓到重複的頻道
-function expandContent() {
+export function expandContent() {
   const { scrollHeight, scrollTop, clientHeight } = document.documentElement
   const distanceToBottom = scrollHeight - scrollTop - clientHeight
 
@@ -143,12 +86,9 @@ function expandContent() {
   }
 }
 
-document.addEventListener('scroll', scrollHandler)
-
-// -----------------------------------------------------
 // 螢幕太大沒有卷軸（判斷高度再抓更多頻道）
 // [bug] 若 3.5 秒內抓不夠（例如伺服器回應延遲）就不會再抓
-function loadMore() {
+export function loadMore() {
   const gameList = document.querySelector('.gamelist')
   const config = {
     childList: true
@@ -168,12 +108,3 @@ function loadMore() {
     observer.disconnect()
   }, 3500)
 }
-
-const links = document.querySelector('nav .links')
-links.addEventListener('click', () => {
-  loadMore()
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  loadMore()
-})
