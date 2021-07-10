@@ -1,6 +1,6 @@
 import { STREAMLIMIT, CLIENTID, ACCEPT, ROOTURL } from './variables'
 
-export function callTwitchAPI(endPoint, callback) {
+export function callTwitchAPI(endPoint) {
   const headers = new Headers({
     'Client-ID': CLIENTID,
     Accept: ACCEPT
@@ -9,7 +9,8 @@ export function callTwitchAPI(endPoint, callback) {
     method: 'GET',
     headers
   })
-  fetch(request)
+
+  return fetch(request)
     .then((response) => {
       if (!response.ok) {
         alert('oops, 網站出錯ㄌ')
@@ -17,27 +18,25 @@ export function callTwitchAPI(endPoint, callback) {
       }
       return response.json()
     })
-    .then((data) => callback(data))
     .catch((err) => console.error(err))
 }
 
-export function getTopGames(limit, callback) {
+export function getTopGames(limit) {
   const endpoint = `${ROOTURL}games/top?limit=${limit}`
 
-  callTwitchAPI(endpoint, (body) => {
-    const topGames = []
-    body.top.forEach((item) => {
-      topGames.push(item.game.name)
+  return callTwitchAPI(endpoint)
+    .then((body) => {
+      const topGames = []
+      body.top.forEach((item) => {
+        topGames.push(item.game.name)
+      })
+      return topGames
     })
-    callback(topGames)
-  })
 }
 
-export function getStreams(game, callback, limit = STREAMLIMIT, offset = 0, options = []) {
+export function getStreams(game, limit = STREAMLIMIT, offset = 0) {
   game = encodeURIComponent(game)
   const endPoint = `${ROOTURL}streams/?limit=${limit}&game=${game}&offset=${offset}`
 
-  callTwitchAPI(endPoint, (streams) => {
-    callback(streams, ...options)
-  })
+  return callTwitchAPI(endPoint)
 }

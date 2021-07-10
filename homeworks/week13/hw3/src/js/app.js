@@ -5,15 +5,20 @@ import { renderContent, renderLinks, scrollHandler, loadMore } from './utils'
 import { GAMELIMIT } from './variables'
 
 document.addEventListener('DOMContentLoaded', () => {
-  getTopGames(GAMELIMIT, (topGames) => {
-    renderLinks(topGames)
-    getStreams(topGames[0], renderContent)
-  })
+  getTopGames(GAMELIMIT)
+    .then((topGames) => {
+      renderLinks(topGames)
+      return getStreams(topGames[0])
+    })
+    .then((data) => renderContent(data))
+    .catch((e) => console.error(e))
   loadMore()
 
   const links = document.querySelector('nav .links')
   links.addEventListener('click', (e) => {
-    getStreams(e.target.textContent, renderContent)
+    getStreams(e.target.textContent)
+      .then((data) => renderContent(data))
+      .catch((e) => console.error(e))
     loadMore()
   })
 })

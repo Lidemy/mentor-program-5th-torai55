@@ -73,6 +73,7 @@ export function scrollHandler() {
 }
 
 // [bug] 排名變動時，可能會抓到重複的頻道
+// 給後端處理比較優
 export function expandContent() {
   const { scrollHeight, scrollTop, clientHeight } = document.documentElement
   const distanceToBottom = scrollHeight - scrollTop - clientHeight
@@ -81,7 +82,11 @@ export function expandContent() {
     const game = document.querySelector('.gamename').textContent
     const clearOld = false
 
-    getStreams(game, renderContent, STREAMLIMIT, OFFSET, [clearOld])
+    getStreams(game, STREAMLIMIT, OFFSET)
+      .then((data) => {
+        renderContent(data, clearOld)
+      })
+      .catch((e) => console.error(e))
     if (OFFSET > 900) document.removeEventListener('scroll', scrollHandler)
   }
 }
