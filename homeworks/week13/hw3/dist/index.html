@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Torai Lin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base target="_blank">
+    <title>wk13 Fetch Twitch Top Games</title>
+  <script defer src="main.bundle.js"></script></head>
+  <body>
+    <nav>
+      <div class="wrapper">
+        <div class="title">Twitch Top Games</div>
+        <ul class="links"></ul>
+      </div>
+    </nav>
+
+    <main>
+      <div class="background">
+        <div class="content">
+          <div class="top">
+            <h3 class="gamename"></h3>
+            <br />
+            <p class="desc">Popular live streams sorted by current viewers</p>
+          </div>
+    
+          <div class="gamelist"></div>
+        </div>
+      </div>
+
+      <a href="#" target="_self" class="backToTop">TOP</a>
+    </main>
+
+    <template id="product-link">
+      <li><button type="button"></button></li>
+    </template>
+
+    <template id="product-content">
+      <a class="game" href="#">
+        <div class="preview"><img src="" alt="preview"></div>
+        <div class="info">
+          <div class="avatar"><img src="" alt="avatar"></div>
+          <div class="game__desc">
+            <div class="game__title"></div>
+            <div class="game__player"></div>
+          </div>
+        </div>
+      </a>
+    </template>
+
+    <script src="./main.bundle.js"></script>
+  </body>
+</html>
