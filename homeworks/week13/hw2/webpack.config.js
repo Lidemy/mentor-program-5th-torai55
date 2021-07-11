@@ -3,7 +3,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   externals: { // 讓 jQuery 和 Bootstrap 在 end-point（使用者瀏覽器上） 引用，不用包成 vendor.bundle.js
     jquery: 'jQuery',
     bootstrap: true

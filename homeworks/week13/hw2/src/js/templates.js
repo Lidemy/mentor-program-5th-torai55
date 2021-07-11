@@ -20,7 +20,7 @@ export const formTemplate = `
       </div>
     </form>
 
-    <div class="mt-5 list-group {{boardKey}}-comments"></div>
+    <div class="mt-5 list-group text-break {{boardKey}}-comments"></div>
     <div class="mb-4 d-grid gap-2 col-5 mx-auto">
     <button type="button" class="btn btn-success {{boardKey}}-more">more</button>
     </div>

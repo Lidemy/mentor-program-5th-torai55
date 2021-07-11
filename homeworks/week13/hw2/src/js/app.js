@@ -22,14 +22,25 @@ export function init(options) {
   const form = getFormFromTemplate(boardKey, formTemplate)
 
   $(containerSelector).append(form)
-  getComments(host, boardKey, cursor, limit, renderComments)
+  getComments(host, boardKey, cursor, limit)
+    .then((data) => renderComments(data))
 
-  $(`.${boardKey}-more`).click((e) => {
-    getComments(host, boardKey, cursor, limit, renderComments)
+  let isClicked = false
+  $(`.${boardKey}-more`).click(() => {
+    if (isClicked) return
+    isClicked = true // 防止連點
+
+    getComments(host, boardKey, cursor, limit)
+      .then((data) => renderComments(data))
+      .always(() => { isClicked = false })
   })
 
+  let isSubmit = false
   $(`.${boardKey}-form`).submit((e) => {
     e.preventDefault()
+
+    if (isSubmit) return
+    isSubmit = true // 防止重複發送表單
 
     const comment = {
       board_key: escapeHtml(boardKey), // 不能從表單上抓值，不然可能被使用者改
@@ -37,12 +48,15 @@ export function init(options) {
       comment: $(`.${boardKey}-comment`).val()
     }
 
-    postComment(host, comment, (data) => { // 把資料 POST 到資料庫，成功的話 API 回傳資料；失敗則 console.error(error)
-      const commentElement = getCommentFromTemplate(data, commentTemplate) // 把 API 回傳的資料放進 template
-      $(`.${boardKey}-comments`).prepend(commentElement) // render 到頁面
+    postComment(host, comment)
+      .then((res) => getCommentFromTemplate(res.contents[0], commentTemplate)) // 把資料 POST 到資料庫，成功的話 API 回傳資料；失敗則 console.error(error)
+      .then((commentElement) => {
+        $(`.${boardKey}-comments`).prepend(commentElement) // render 到頁面
 
-      $(`.${boardKey}-author`).val('')
-      $(`.${boardKey}-comment`).val('')
-    })
+        $(`.${boardKey}-author`).val('') // 清空輸入
+        $(`.${boardKey}-comment`).val('')
+      })
+      .catch((e) => console.error(e))
+      .always(() => { isSubmit = false })
   })
 }
