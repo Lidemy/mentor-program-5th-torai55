@@ -151,4 +151,17 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 
 可以看到他的 document roots 在 `/var/www/html`，所以只要把你的資源（網頁）利用 WinSCP 移到這底下，就能透過瀏覽器訪問。操作可以看[這裡](https://phoenixnap.com/kb/how-to-install-lamp-stack-on-ubuntu#ftoc-heading-9)。
 
-結束拉，打教學好累人，購買域名就看別人的[文章](https://mtr04-note.coderbridge.io/2020/09/15/-%E7%B4%80%E9%8C%84-%08-%E9%83%A8%E5%B1%AC-aws-ec2-%E9%9B%B2%E7%AB%AF%E4%B8%BB%E6%A9%9F-/)ㄅ。
+## 問題們
+
+預設要 sudo 權限才能變更檔案，[變更使用者權限](https://askubuntu.com/questions/904850/changing-permissions-for-var-www-html) `$ sudo chown ubuntu /var/www/html` 之後就能直接操作，也就是可以直接 git clone 到 html 資料夾裡。有什麼 shell 指令不能跑，就試試在前面加上 `sudo` 吧。
+
+如果連線到 EC2 沒有回應，第一件事檢查 security group 有沒有把相應的 port 打開。再來看作業系統裡面的防火牆設定。
+
+[UFW cheat sheet](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)，防火牆的設定。
+
+[關閉 Auto Index](https://github.com/Lidemy/mentor-program-2nd-futianshen/issues/21)（如果文件中沒有 index 標題的檔案，會直接出現你的根目錄，要把這個功能關掉）
+
+* `$ sudo a2dismod autoindex`
+* `$ sudo systemctl restart apache2`
+
+累了，購買域名就看別人的[文章](https://mtr04-note.coderbridge.io/2020/09/15/-%E7%B4%80%E9%8C%84-%08-%E9%83%A8%E5%B1%AC-aws-ec2-%E9%9B%B2%E7%AB%AF%E4%B8%BB%E6%A9%9F-/)、[文章2](https://nicolakacha.coderbridge.io/2020/09/16/launch-website/)。八八啦。
