@@ -45,7 +45,7 @@ outbound rules 預設就是全開的，可以不用動。
 
 這邊在設定哪些 IP 地址可以存取。這邊採用 [CIDR notation](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)（[參考資料2](https://www.ripe.net/about-us/press-centre/understanding-ip-addressing)）。以 `203.0.113.25/32` 為例，後面 `/32` 代表子網路遮罩是 `11111111.11111111.11111111.00000000`。
 
-`0.0.0.0/0` 代表全世界。要填入自己 IP，在下拉式選單中也能選到。如果不是固定 IP 這邊就要填入網段，例如 `114.136.0.0/16` 可代表 `114.163.0.0` ~ `114.136.255.255`。詳細說明可看[鳥哥](http://linux.vbird.org/linux_server/0110network_basic.php#tcpip_network_netmask)。
+`0.0.0.0/0` 代表全世界。要填入自己 IP，在下拉式選單中也能選到。如果不是固定 IP 這邊就要填入網段，例如 `114.136.0.0/16` 可代表 `114.136.0.0` ~ `114.136.255.255`。詳細說明可看[鳥哥](http://linux.vbird.org/linux_server/0110network_basic.php#tcpip_network_netmask)。
 
 ## Step1. Launch an instance
 
