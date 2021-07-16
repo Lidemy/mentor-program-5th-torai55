@@ -54,7 +54,7 @@ EC2 console => Instances => Instances => Launch instances
 橘色的按鈕點下去就對了。
 
 ![ami](./images/AMI.png)
-選擇虛擬機的映像檔。這邊我選擇比較新的的嗚幫土（ubuntu）。那個 x86、Arm 和 CPU 指令集有關，有興趣自己研究。
+選擇虛擬機的映像檔。這邊我選擇比較新的嗚幫土（ubuntu）。那個 x86、Arm 和 CPU 指令集有關，有興趣自己研究。
 
 ![instance type](./images/instance_type.png)
 選擇虛擬機的配備，免費仔選有綠色標籤的就對啦。隨著 [region 和 zone](https://docs.aws.amazon.com/zh_tw/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) 不同，免費的項目可能不一樣。
@@ -62,9 +62,11 @@ EC2 console => Instances => Instances => Launch instances
 Configure Instance、Add Storage、Add Tags 這三步看名字就知道在做其他設定，因為已經有預設，新手可以先跳過這邊。
 
 ![instance security group](./images/instance_SG.png)
-這邊選擇前置作業中創好的 security group。下面可以看到 security group 的設定。如果設定太狂野的話，貼心的系統會跳小視窗說，你的虛擬機會在網路上裸奔，真的可以嗎？
+這邊選擇前置作業中創好的 security group。下面可以看到 security group 的設定。
 
-沒問題的話就按下 Review and Launch。Review 完就點下 Launch。
+~~如果設定得太狂野，貼心的系統會跳小視窗說，你的虛擬機會在網路上裸奔，真的可以嗎？~~
+
+沒問題的話就按下 Review and Launch。下一頁 Review 確認完再按 Launch。
 
 ![instance key pair](./images/instance_key_pair.png)
 最後 Launch 前就需要設定用 SSH 連入 instance 時需要用到的 key_pair。選前置作業創的那個。
@@ -149,7 +151,7 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 >
 > `$ curl http://icanhazip.com`
 
-可以看到他的 document roots 在 `/var/www/html`，所以只要把你的資源（網頁）利用 WinSCP 移到這底下，就能透過瀏覽器訪問。操作可以看[這裡](https://phoenixnap.com/kb/how-to-install-lamp-stack-on-ubuntu#ftoc-heading-9)。
+可以看到他的 document roots 在 `/var/www/html`，所以只要把你的資源（網頁）利用 WinSCP 從自己電腦移到虛擬機的這個目錄底下，就能透過瀏覽器訪問。PHP 簡單示範可以看[這裡](https://phoenixnap.com/kb/how-to-install-lamp-stack-on-ubuntu#ftoc-heading-9)（沒有用 WinSCP）。
 
 ## 問題們
 
@@ -164,4 +166,4 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 * `$ sudo a2dismod autoindex`
 * `$ sudo systemctl restart apache2`
 
-累了，購買域名就看別人的[文章](https://mtr04-note.coderbridge.io/2020/09/15/-%E7%B4%80%E9%8C%84-%08-%E9%83%A8%E5%B1%AC-aws-ec2-%E9%9B%B2%E7%AB%AF%E4%B8%BB%E6%A9%9F-/)、[文章2](https://nicolakacha.coderbridge.io/2020/09/16/launch-website/)。八八啦。
+累了，購買網域就看別人的[文章](https://mtr04-note.coderbridge.io/2020/09/15/-%E7%B4%80%E9%8C%84-%08-%E9%83%A8%E5%B1%AC-aws-ec2-%E9%9B%B2%E7%AB%AF%E4%B8%BB%E6%A9%9F-/)、[文章2](https://nicolakacha.coderbridge.io/2020/09/16/launch-website/)。八八啦。
