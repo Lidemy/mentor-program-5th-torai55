@@ -117,8 +117,8 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 
 ### 安裝需要的軟體
 
-1. `$ sudo apt-get update`： 先更新一下。如果發現無法連線，檢查 security group 的 inbound rules 有沒有把相對應的 port 打開。
-2. `$ sudo apt-get install lamp-server^`： 安裝 lamp-server。後面有 caret 是指想要 [install package](https://askubuntu.com/questions/211912/whats-the-caret-mean-in-apt-get)。
+1. `$ sudo apt update && audo apt upgrade && sudo apt dist-upgrade`： 先更新一下。如果發現無法連線，檢查 security group 的 inbound rules 有沒有把相對應的 port 打開（[apt-get update、upgrade的差別](https://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade)）。
+2. `$ sudo apt-get install lamp-server^`： 安裝 lamp-server。後面有 caret 是指想要 [install package](https://askubuntu.com/questions/211912/whats-the-caret-mean-in-apt-get)。也可以用 `$ sudo apt install tasksel` 然後 `$ sudo tasksel install lamp-server` 來安裝整包。
 
 ### 設定 MySQL
 
@@ -162,6 +162,8 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 [UFW cheat sheet](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)，防火牆的設定。
 
 [關閉 Auto Index](https://github.com/Lidemy/mentor-program-2nd-futianshen/issues/21)（如果文件中沒有 index 標題的檔案，會直接出現你的根目錄，要把這個功能關掉）
+
+[Apache Virtual Host](https://httpd.apache.org/docs/2.4/en/vhosts/)，可以在一台主機上，host 多個網頁對應不同 IP；或是一個 IP 對應到不同網頁。
 
 * `$ sudo a2dismod autoindex`
 * `$ sudo systemctl restart apache2`
