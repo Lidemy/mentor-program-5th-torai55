@@ -101,7 +101,7 @@ md5 會固定輸出 128-bits 的雜湊值，取前面 37bits 轉成（encoding�
 
 推影片解說 [System Design : Design a service like TinyUrl](https://youtu.be/fMZMm_0ZhK4?t=1056)。
 
-利用 zookeeper 這類分散式服務框架，分配給各個 application server 不同範圍的 counter，如機器 A 負責 1~1,000,000；機器 B 負責 1,000,001~2,000,000。再利用這些 counter 產生短網址即可。
+利用 zookeeper 這類分散式服務框架，分配給各個 application server 不同範圍的 counter，如機器 A 負責 1 ~ 1,000,000；機器 B 負責 1,000,001 ~ 2,000,000。再利用這些 counter 產生短網址即可。
 
 可直接將 counter 轉成 62 進位，或者和長網址一起 hash 再轉成 62 進位。碰撞機率應該不高（？）存入 DB 時就可以不用先 DB call 確認有沒有重複。
 
