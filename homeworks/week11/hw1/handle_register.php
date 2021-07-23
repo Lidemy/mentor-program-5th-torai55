@@ -1,5 +1,6 @@
 <?php
   require_once('conn.php');
+  require_once('utils.php');
   session_start();
 
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -7,10 +8,9 @@
   // insert into users
   $sql = 'INSERT INTO torai_board_users (username, password, nickname) 
           VALUES (?, ?, ?);';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('sss', $_POST['username'], $password, $_POST['nickname']);
-  $result = $stmt->execute();
-  if (!$result) {
+  $errno = preparedStatement($sql, 'sss', $_POST['username'], $password, $_POST['nickname'])['errno'];
+  if($errno === 1062) {
+    header('Location: register.php?errCode=4');
     die($conn->error);
   }
 

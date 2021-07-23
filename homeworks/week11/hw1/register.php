@@ -12,6 +12,17 @@
     <main>
       <div class="top">
         <h2 class="title">Register</h2>
+        <?php if (!empty($_GET['errCode'])) {
+                if ($_GET['errCode'] === '1') {
+                  echo '<p class="error-msg">資料不齊全或錯誤</p>';
+                } else if ($_GET['errCode'] === '2') {
+                  echo '<p class="error-msg">帳號或密碼錯誤</p>';
+                } else if ($_GET['errCode'] === '3') {
+                  echo '<p class="error-msg">權限不足</p>';
+                } else if ($_GET['errCode'] === '4') {
+                  echo '<p class="error-msg">使用者名稱已被註冊</p>';
+                }
+        } ?>
 
         <div class="buttons">
           <a href="index.php">首頁</a>

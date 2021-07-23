@@ -1,57 +1,35 @@
 <?php
   require_once('conn.php');
+  require_once('utils.php');
   session_start();
 
   // check if login
-  $username = false;
-  $nickname = false;
-  $role = 4;
-  if (!empty($_SESSION['username'])) {
-    $sql = 'SELECT username, nickname, role+0 AS role
-            FROM torai_board_users
-            WHERE username = ?;';
+  $username = empty($_SESSION['username']) ? false : $_SESSION['username'];
+  list(
+    'nickname' => $nickname,
+    'role' => $role
+  ) = getUserInfo($username);
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $_SESSION['username']);
-    $result = $stmt->execute();
-    if (!$result) {
-      die($conn->error);
-    }
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $username = $_SESSION['username'];
-    $nickname = $row['nickname'];
-    $role = $row['role'];
-    $stmt->close();
+  if (!$username || intval($role) !== 1) {
+    header('Location: index.php?errCode=3');
+    die('權限不足');
   }
 
-  // get page
+  // get pagination info
   $sql = 'SELECT count(id) as count FROM torai_board_users;';
-  $result = $conn->query($sql);
-  $row = $result->fetch_assoc();
-  $count = $row['count'];
-
-  $page = 1;
-  if (!empty($_GET['page'])) {
-    $page = $_GET['page'];
-  }
   $limit = 5;
-  $offset = ($page-1) * $limit;
-  $total_page = ceil($count / $limit);
+  list('page' => $page, 
+       'total_page' => $total_page,
+       'offset' => $offset,
+       'count' => $count
+  ) = getPageInfo($sql, $limit);
 
   // get users info
   $sql = 'SELECT * FROM torai_board_users
                 ORDER BY created_at DESC
                 LIMIT ? OFFSET ?;';
 
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ii', $limit, $offset);
-  $user_result = $stmt->execute();
-  if (!$user_result) {
-    die($conn->error);
-  }
-  $user_result = $stmt->get_result();
-  $stmt->close();
+  $user_result = preparedStatement($sql, 'ii', $limit, $offset)['result'];
 ?>
 
 <!DOCTYPE html>
@@ -70,38 +48,29 @@
         <h2 class="title">後台</h2>
 
         <div class="buttons">
-          <?php if (!$username || intval($role) !== 1) {?>
-            <a href="register.php">註冊</a>
-            <a href="login.php">登入</a>
-          <?php } else {?>
-            <div class="buttons--login">
-              <div>
-                <a href="index.php">首頁</a>
-                <button class="edit-nickname">編輯暱稱</button>
-                <a href="handle_logout.php">登出</a><br />
-              </div>
-              <?php if (!empty($_GET['errCode'])) {
-                if ($_GET['errCode'] === '1') {
-                  echo '<p class="error-msg">資料不齊全</p>';
-                } else if ($_GET['errCode'] === '2') {
-                  echo '<p class="error-msg">帳號或密碼錯誤</p>';
-                } else if ($_GET['errCode'] === '3') {
-                  echo '<p class="error-msg">權限不足</p>';
-                }
-              } ?>
-              <form method="GET" action="edit_nickname.php"  class="nickname-form hide">
-                暱稱：<input type="text" name="nickname" value="<?php echo htmlspecialchars($nickname ? $nickname: ''); ?>">
-                <button>送出</button>
-              </form>
+          <div class="buttons--login">
+            <div>
+              <a href="index.php">首頁</a>
+              <a href="handle_logout.php">登出</a><br />
             </div>
-          <?php } ?>
+            <?php if (!empty($_GET['errCode'])) {
+              if ($_GET['errCode'] === '1') {
+                echo '<p class="error-msg">資料不齊全或錯誤</p>';
+              } else if ($_GET['errCode'] === '2') {
+                echo '<p class="error-msg">帳號或密碼錯誤</p>';
+              } else if ($_GET['errCode'] === '3') {
+                echo '<p class="error-msg">權限不足</p>';
+              } else if ($_GET['errCode'] === '4') {
+                echo '<p class="error-msg">使用者名稱已被註冊</p>';
+              }
+            } ?>
+          </div>
         </div>
       </div>
 
       <?php if(intval($role) === 1) { ?>
         <br />
-        <div>管理員：<?php echo ($nickname ? htmlspecialchars($nickname) : htmlspecialchars($username)) ?></div>
-        <br /><p>1:admin, 2:normal, 3:suspended</p>
+        <div>管理員：<?php echo (isset($nickname) && strlen($nickname) > 0) ? htmlspecialchars($nickname) : htmlspecialchars($username) ?></div>
         <div class="divider"></div>
 
         <div class="cards">
@@ -112,7 +81,7 @@
               <div class="card__body">
                 <div class="card__info">
                   <div class="card__author">username: <?php echo htmlspecialchars($row['username']) ?></div>
-                  <div class="card__timestamp">nickname: <?php echo htmlspecialchars($row['nickname']) ?></div>
+                  <div class="card__timestamp"><?php echo (isset($row['nickname']) && strlen($row['nickname']) > 0) ? 'nickname:' . htmlspecialchars($row['nickname']) : false ?></div>
                   <button class="edit-authority">編輯權限</button>
                 </div>
 
@@ -121,7 +90,13 @@
                   <form action="handle_authority.php" method="POST" class="authority-form hide">
                     <input type="hidden" name="username" value="<?= htmlspecialchars($row['username']) ?>">
                     <div class="authority-editor">
-                      role: <input type="text" name="role" value="<?= htmlspecialchars($row['role']) ?>"><button>送出</button>
+                      role: 
+                      <select name="role">
+                        <option value="1">admin</option>
+                        <option value="2">normal</option>
+                        <option value="3">suspended</option>
+                      </select>
+                      <button>送出</button>
                     </div>
                   </form>
                 </div>
@@ -147,10 +122,9 @@
       <?php } ?>
     </main>
     <script>
-      document.querySelector('.cards').addEventListener('click', (e) => {
+      document.querySelector('.cards')?.addEventListener('click', (e) => {
         if (e.target.classList.contains('edit-authority')) {
           const cardBody = e.target.parentElement.parentElement
-          console.log(cardBody)
           cardBody.querySelector('.card__content').classList.toggle('hide')
           cardBody.querySelector('.authority-form').classList.toggle('hide')
         }

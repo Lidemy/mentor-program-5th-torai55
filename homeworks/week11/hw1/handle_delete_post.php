@@ -1,11 +1,20 @@
 <?php
 require_once('conn.php');
+require_once('utils.php');
 session_start();
+
+// 檢查輸入
+if (empty($_GET['id'])) {
+  header('Location: index.php');
+  die('no input');
+}
+$id = $_GET['id'];
+$username = empty($_SESSION['username']) ? false : $_SESSION['username'];
 
 // 確認是管理員 或留言擁有者
 // step1 先列出管理員+文章主人清單
 // step2 確認 username 是否在裡面
-$auth = 'admin';
+$role = 'admin';
 $sql = 'SELECT username
         FROM (SELECT username
 	            FROM torai_board_users
@@ -16,14 +25,7 @@ $sql = 'SELECT username
               ) AS result
         WHERE username = ?;';
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('sis', $auth, $_GET['id'], $_SESSION['username']);
-$result = $stmt->execute();
-if (!$result) {
-  die($conn->error);
-}
-$result = $stmt->get_result();
-$stmt->close();
+preparedStatement($sql, 'sis', $role, $id, $username);
 if (!$result->num_rows) {
   header('Location: index.php?errCode=3');
   die('權限不足');
@@ -33,12 +35,7 @@ if (!$result->num_rows) {
 $sql = 'UPDATE torai_board_comments 
         SET is_deleted = 1
         WHERE id = ?';
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $_GET['id']);
-$result = $stmt->execute();
-if (!$result) {
-  die($conn->error);
-}
+preparedStatement($sql, 'i', $id);
 
 header('Location: index.php');
 ?>

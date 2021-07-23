@@ -1,5 +1,6 @@
 <?php
 require_once('conn.php');
+require_once('utils.php');
 session_start();
 
 if (empty($_POST['comment'])) {
@@ -22,14 +23,7 @@ $sql = 'SELECT username
               ) AS result
         WHERE username = ?;';
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('sis', $auth, $_GET['id'], $_SESSION['username']);
-$result = $stmt->execute();
-if (!$result) {
-  die($conn->error);
-}
-$result = $stmt->get_result();
-$stmt->close();
+$result = preparedStatement($sql, 'sis', $auth, $_GET['id'], $_SESSION['username'])['result'];
 if (!$result->num_rows) {
   header('Location: index.php?errCode=3');
   die('權限不足');
@@ -37,12 +31,7 @@ if (!$result->num_rows) {
 
 // 更新留言
 $sql = 'UPDATE torai_board_comments SET comment = ? WHERE id = ?;';
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('si', $_POST['comment'], $_GET['id']);
-$result = $stmt->execute();
-if (!$result) {
-  die($conn->error);
-}
+preparedStatement($sql, 'si', $_POST['comment'], $_GET['id']);
 
 header('Location: index.php');
 ?>

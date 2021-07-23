@@ -1,39 +1,27 @@
 <?php
   require_once('conn.php');
+  require_once('utils.php');
   session_start();
 
-  // check if login
-  $username = false;
-  $nickname = false;
-  if (!empty($_SESSION['username'])) {
-    $sql = 'SELECT username, nickname
-            FROM torai_board_users
-            WHERE username = ?;';
+  // check input
+  if(empty($_GET['id'])) {
+    header('Location: index.php?errCode=1');
+    die('請輸入文章 id');
+  }
+  $id = htmlspecialchars($_GET['id']);
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $_SESSION['username']);
-    $result = $stmt->execute();
-    if (!$result) {
-      die($conn->error);
-    }
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $username = $_SESSION['username'];
-    $nickname = $row['nickname'];
-    $stmt->close();
+  // check if login
+  $username = !empty($_SESSION['username']) ? $_SESSION['username'] : false;
+  $nickname = getUserInfo($username)['nickname'];
+
+  if (!$username) {
+    header('Location: index.php?errCode=3');
+    die('權限不足');
   }
 
   $sql = 'SELECT comment FROM torai_board_comments WHERE id = ?;';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('s', $_GET['id']);
-  $result = $stmt->execute();
-  if (!$result) {
-    die($conn->error);
-  }
-  $result = $stmt->get_result();
-  $row = $result->fetch_assoc();
-  $comment = $row['comment'];
-  $stmt->close();
+  $row = preparedStatement($sql, 's', $id)['result']->fetch_assoc();
+  $comment = $row ? htmlspecialchars($row['comment']) : null;
 ?>
 
 <!DOCTYPE html>
@@ -65,9 +53,13 @@
               </div>
               <?php if (!empty($_GET['errCode'])) {
                 if ($_GET['errCode'] === '1') {
-                  echo '<p class="error-msg">資料不齊全</p>';
+                  echo '<p class="error-msg">資料不齊全或有錯</p>';
                 } else if ($_GET['errCode'] === '2') {
                   echo '<p class="error-msg">帳號或密碼錯誤</p>';
+                } else if ($_GET['errCode'] === '3') {
+                  echo '<p class="error-msg">權限不足</p>';
+                } else if ($_GET['errCode'] === '4') {
+                  echo '<p class="error-msg">使用者名稱已被註冊</p>';
                 }
               } ?>
               <form method="GET" action="edit_nickname.php"  class="nickname-form hide">
@@ -80,8 +72,8 @@
       </div>
 
       <?php if ($username) {?>
-        <form action="handle_update_post.php?id=<?= $_GET['id'] ?>" method="POST" class="comment-form">
-          <div><?php echo ($nickname ? htmlspecialchars($nickname) : htmlspecialchars($username)) ?> 有什麼想說的嗎？</div>
+        <form action="handle_update_post.php?id=<?= $id ?>" method="POST" class="comment-form">
+          <div><?php echo ((isset($nickname) && strlen($nickname) > 0) ? htmlspecialchars($nickname) : htmlspecialchars($username)) ?> 有什麼想說的嗎？</div>
           <textarea name="comment" placeholder="請輸入你的留言..."><?= $comment ?></textarea><br />
           <input type="text" name="username" value="<?php echo htmlspecialchars($username) ?>" style="display:none">
           <button type="submit">送出</button>
