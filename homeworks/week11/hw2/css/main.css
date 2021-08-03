@@ -349,6 +349,16 @@ main .cards .card {
   margin: 1rem 0;
 }
 
+main .cards .card .card__title {
+  width: 150px;
+  word-break: break-all;
+}
+
+main .cards .card .card__content {
+  width: 250px;
+  word-break: break-all;
+}
+
 main .cards .card .card__info {
   display: -webkit-box;
   display: -ms-flexbox;

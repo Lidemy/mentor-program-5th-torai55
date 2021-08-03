@@ -15,6 +15,16 @@ main {
       align-items: center;
       margin: 1rem 0;
 
+      .card__title {
+        width: 150px;
+        word-break: break-all;
+      }
+
+      .card__content {
+        width: 250px;
+        word-break: break-all;
+      }
+
       .card__info {
         display: flex;
         align-items: center;

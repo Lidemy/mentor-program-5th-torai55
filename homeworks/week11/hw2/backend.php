@@ -22,7 +22,7 @@
 
   // 取得文章資料
   if ($username) {
-    $sql = 'SELECT id, title, LEFT(content, 50) AS content, created_at 
+    $sql = 'SELECT id, title, LEFT(content, 20) AS content, created_at 
             FROM torai_blog_posts
             WHERE is_deleted = 0
             ORDER BY created_at DESC
@@ -86,7 +86,7 @@
         <?php while($row = $post_result->fetch_assoc()) { ?>
           <div class="card">
             <div class="card__title"><?= htmlspecialchars($row['title']) ?></div>
-            <div class="card__title"><?= htmlspecialchars($row['content']) ?></div>
+            <div class="card__content"><?= htmlspecialchars($row['content']) ?></div>
             <div class="card__info">
               <p class="timestamp"><?= htmlspecialchars($row['created_at']) ?></p>
               <a href="edit.php?id=<?= htmlspecialchars($row['id']) ?>" class="edit">編輯</a>
