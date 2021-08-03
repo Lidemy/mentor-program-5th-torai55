@@ -1,26 +1,24 @@
 <?php
   session_start();
-  require_once("utils.php");
+  require_once('utils.php');
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
+  require_once('authentication.php');
 
-  // 取得文章總數
+  // 取得頁數資訊
   $sql = 'SELECT COUNT(id) AS count FROM torai_blog_posts WHERE is_deleted = 0';
-  $result = querySQL($sql);
-  $count = $result->fetch_assoc()['count'];
-
-  // 目前頁數
-  $curr_page = 1;
-  if (!empty($_GET['page'])) {
-    $curr_page = $_GET['page'];
-  }
   $limit = 5;
-  $total_page = ceil($count / $limit);
-  $offset = ($curr_page - 1) * $limit;
+  list(
+    'page' => $page,
+    'total_page' => $total_page,
+    'offset' => $offset,
+    'count' => $count
+  ) = getPageInfo($sql, $limit);
+
+  if ($page < 1 || $total_page < $page) {
+    header('Location: index.php');
+    die('Out of range. Redirect to page 1.');
+  }
 
   // 取得文章資料
   $sql = 'SELECT a.id, a.title, LEFT(a.content, 300) AS content, 
@@ -70,7 +68,7 @@
     <ul class="nav__management">
       <?php if(!$username) { ?>
         <li><a href="login.php">登入</a></li>
-        <li><a href="signup.php">註冊</a></li>
+        <li class="signup"><a href="signup.php">註冊</a></li>
       <?php } else { ?>
         <li>你好，<?php echo htmlspecialchars($username) ?></li>
       <?php } ?>
@@ -114,16 +112,16 @@
           </div>
         </article>
       <?php } ?>
-      <p>目前頁數： <?= $curr_page ?> / <?= $total_page ?></p>
+      <p>目前頁數： <?= $page ?> / <?= $total_page ?></p>
     </div>
 
     <div class="pagination">
-      <?php if($curr_page > 1) {?>
+      <?php if($page > 1) {?>
         <a href="index.php?page=1">首頁</a>
-        <a href="index.php?page=<?= $curr_page - 1 ?>">上一頁</a>
+        <a href="index.php?page=<?= $page - 1 ?>">上一頁</a>
       <?php } ?>
-      <?php if($curr_page < $total_page) { ?>
-        <a href="index.php?page=<?= $curr_page + 1 ?>">下一頁</a>
+      <?php if($page < $total_page) { ?>
+        <a href="index.php?page=<?= $page + 1 ?>">下一頁</a>
         <a href="index.php?page=<?= $total_page ?>">最後一頁</a>
       <?php } ?>
     </div>

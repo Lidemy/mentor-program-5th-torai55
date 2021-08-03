@@ -3,24 +3,22 @@
   session_start();
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
+  require_once('authentication.php');
 
-  // 取得文章總數
+  // 取得頁數資訊
   $sql = 'SELECT COUNT(id) AS count FROM torai_blog_posts WHERE is_deleted = 0';
-  $result = querySQL($sql);
-  $count = $result->fetch_assoc()['count'];
-
-  // 目前頁數
-  $curr_page = 1;
-  if (!empty($_GET['page'])) {
-    $curr_page = $_GET['page'];
-  }
   $limit = 5;
-  $total_page = ceil($count / $limit);
-  $offset = ($curr_page - 1) * $limit;
+  list(
+    'page' => $page,
+    'total_page' => $total_page,
+    'offset' => $offset,
+    'count' => $count
+  ) = getPageInfo($sql, $limit);
+
+  if ($page < 1 || $total_page < $page) {
+    header('Location: index.php');
+    die('Out of range. Redirect to page 1.');
+  }
 
   // 取得文章資料
   if ($username) {
@@ -65,9 +63,9 @@
       <?php } else { ?>
         <li>你好，<?php echo htmlspecialchars($username) ?></li>
         <li><a href="add_post.php">新增文章</a></li>
+        <li><a href="handle_logout.php">登出</a></li>
       <?php } ?>
       <li><a href="index.php">主頁</a></li>
-      <li><a href="handle_logout.php">登出</a></li>
     </ul>
   </nav>
 
@@ -97,14 +95,14 @@
         <?php } ?>
 
         
-        <p>目前頁數： <?= $curr_page ?> / <?= $total_page ?></p>
+        <p>目前頁數： <?= $page ?> / <?= $total_page ?></p>
         <div class="pagination">
-          <?php if($curr_page > 1) {?>
+          <?php if($page > 1) {?>
             <a href="backend.php?page=1">首頁</a>
-            <a href="backend.php?page=<?= $curr_page - 1 ?>">上一頁</a>
+            <a href="backend.php?page=<?= $page - 1 ?>">上一頁</a>
           <?php } ?>
-          <?php if($curr_page < $total_page) { ?>
-            <a href="backend.php?page=<?= $curr_page + 1 ?>">下一頁</a>
+          <?php if($page < $total_page) { ?>
+            <a href="backend.php?page=<?= $page + 1 ?>">下一頁</a>
             <a href="backend.php?page=<?= $total_page ?>">最後一頁</a>
           <?php } ?>
         </div>

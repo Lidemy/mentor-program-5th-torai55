@@ -2,9 +2,10 @@
 require_once('utils.php');
 session_start();
 
-// 檢查使用者是否登入
-if(empty($_SESSION['username'])) {
-  header('Location: login.php');
+// 驗證登入資訊
+require_once('authentication.php');
+if (!$username)) {
+  head('Location: login.php');
   die('權限不足');
 }
 

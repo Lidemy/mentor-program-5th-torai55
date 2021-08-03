@@ -19,6 +19,11 @@
        'count' => $count
   ) = getPageInfo($sql, $limit);
 
+  if ($page < 1 || $total_page < $page) {
+    header('Location: index.php');
+    die('Out of range. Redirect to page 1.');
+  }
+
   // get comment info
   $sql = 'SELECT a.id, a.comment, a.created_at, b.username, b.nickname 
                 FROM torai_board_comments AS a

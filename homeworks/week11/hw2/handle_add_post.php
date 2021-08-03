@@ -4,9 +4,16 @@ require_once("utils.php");
 require_once("conn.php");
 
 // 驗證登入資訊
-if (empty($_SESSION['username'])) {
-  head('Location: login.php');
+require_once('authentication.php');
+if (!$username) {
+  header('Location: index.php');
   die('權限不足');
+}
+
+// 檢查輸入
+if(empty($_POST['post_title']) || empty($_POST['post_content'])) {
+  header('Location: add_post.php');
+  die();
 }
 
 // 存 tag
@@ -37,7 +44,7 @@ $sql = 'INSERT INTO torai_blog_posts (author_id, title, content)
           ?
         );';
 
-$result = queryWithPreparedStatement($sql, 'sss', $_SESSION['username'], 
+$result = queryWithPreparedStatement($sql, 'sss', $_SESSION['hw2_username'], 
                                         $_POST['post_title'], 
                                         substr($_POST['post_content'], 3, -4));
 $post_id = $conn->insert_id;

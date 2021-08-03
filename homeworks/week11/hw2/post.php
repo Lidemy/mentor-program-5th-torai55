@@ -4,10 +4,7 @@
   require_once("utils.php");
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
+  require_once('authentication.php');
 
   // 取得單篇文章資料
   $sql = 'SELECT a.id, a.title, LEFT(a.content, 300) AS content, 

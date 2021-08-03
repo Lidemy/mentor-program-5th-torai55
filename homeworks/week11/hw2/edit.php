@@ -3,11 +3,7 @@
   session_start();
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
-
+  require_once('authentication.php');
   if (!$username) {
     header('Location: login.php');
     die('沒有權限');
@@ -28,6 +24,11 @@
           WHERE id = ?;';
   $result = queryWithPreparedStatement($sql, 'ii', $_GET['id'], $_GET['id']);
   $row = $result->fetch_assoc();
+
+  if(!$row) {
+    header('Location: index.php');
+    die();
+  }
 
 ?>
 

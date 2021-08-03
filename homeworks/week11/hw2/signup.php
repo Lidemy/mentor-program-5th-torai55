@@ -1,3 +1,7 @@
+<?php
+header('Location: index.php');
+die();
+?>
 <!DOCTYPE html>
 <html lang="zh">
   <head>

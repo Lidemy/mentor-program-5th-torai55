@@ -3,10 +3,7 @@
   session_start();
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
+  require_once('authentication.php');
 
 ?>
 

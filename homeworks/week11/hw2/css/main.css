@@ -465,4 +465,8 @@ main .add-post__wrapper .add-post .add-post__form > button {
   color: red;
   padding-top: 1.2rem;
 }
+
+.signup {
+  display: none;
+}
 /*# sourceMappingURL=main.css.map */

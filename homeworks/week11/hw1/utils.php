@@ -47,10 +47,6 @@ function getPageInfo($sql, $limit) {
   if (!empty($_GET['page']) && is_numeric($_GET['page'])) {
     $page = $_GET['page'];
   }
-  if ($page < 0 || $total_page < $page) {
-    header('Location: index.php');
-    die('Out of range. Redirect to page 1.');
-  }
   $offset = ($page-1) * $limit;
 
   return array(

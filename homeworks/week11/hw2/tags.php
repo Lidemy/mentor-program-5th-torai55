@@ -3,10 +3,7 @@
   require_once("utils.php");
 
   // 檢查是否有登入
-  $username = false;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  }
+  require_once('authentication.php');
 
   // 設定 tag
   $tag = false;
@@ -21,12 +18,13 @@
   } else {
     $sql = 'SELECT COUNT(a.id) AS count
     FROM torai_blog_posts AS a
-    LEFT JOIN (SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
-          FROM torai_blog_category_post AS d
-          LEFT JOIN torai_blog_categories AS e
-          ON d.tag_id = e.id
-          GROUP BY d.post_id
-          ) AS c
+    LEFT JOIN (
+      SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
+      FROM torai_blog_category_post AS d
+      LEFT JOIN torai_blog_categories AS e
+      ON d.tag_id = e.id
+      GROUP BY d.post_id
+    ) AS c
     ON a.id = c.post_id
     WHERE a.is_deleted = 0 
     AND c.tag_name REGEXP CONCAT("^", ?, "[^a-zA-Z]|^", ?, "$| ", ?, " |[^a-zA-Z]", ?, "$");';
@@ -43,6 +41,11 @@
   $total_page = ceil($count / $limit);
   $offset = ($curr_page - 1) * $limit;
 
+  if($curr_page < 1 || $total_page < $curr_page) {
+    header('Location: tags.php?tag=' . $tag);
+    die('page is out of range');
+  }
+
   // 取得標籤們 $tag_result
   $sql = 'SELECT DISTINCT tag_name FROM torai_blog_category_post AS a
           LEFT JOIN torai_blog_categories AS b
@@ -58,12 +61,13 @@
           FROM torai_blog_posts AS a
           LEFT JOIN torai_blog_members AS b
           ON a.author_id = b.id
-          LEFT JOIN (SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
-                FROM torai_blog_category_post AS d
-                LEFT JOIN torai_blog_categories AS e
-                ON d.tag_id = e.id
-                GROUP BY d.post_id
-                ) AS c
+          LEFT JOIN (
+            SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
+            FROM torai_blog_category_post AS d
+            LEFT JOIN torai_blog_categories AS e
+            ON d.tag_id = e.id
+            GROUP BY d.post_id
+          ) AS c
           ON a.id = c.post_id
           WHERE a.is_deleted = 0 
           AND c.tag_name REGEXP CONCAT("^", ?, "[^a-zA-Z]|^", ?, "$| ", ?, " |[^a-zA-Z]", ?, "$")
@@ -78,12 +82,13 @@
           FROM torai_blog_posts AS a
           LEFT JOIN torai_blog_members AS b
           ON a.author_id = b.id
-          LEFT JOIN (SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
-                FROM torai_blog_category_post AS d
-                LEFT JOIN torai_blog_categories AS e
-                ON d.tag_id = e.id
-                GROUP BY d.post_id
-                ) AS c
+          LEFT JOIN (
+            SELECT d.post_id, GROUP_CONCAT(e.tag_name SEPARATOR " ") AS tag_name
+            FROM torai_blog_category_post AS d
+            LEFT JOIN torai_blog_categories AS e
+            ON d.tag_id = e.id
+            GROUP BY d.post_id
+          ) AS c
           ON a.id = c.post_id
           WHERE a.is_deleted = 0 
           ORDER BY tag_name DESC

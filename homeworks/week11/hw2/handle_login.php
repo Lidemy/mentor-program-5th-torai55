@@ -18,6 +18,6 @@
 
   // 登入成功
   session_start();
-  $_SESSION['username'] = $_POST['username'];
+  $_SESSION['hw2_username'] = $_POST['username'];
   header('Location: index.php');
 ?>

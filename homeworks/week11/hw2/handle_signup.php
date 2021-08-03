@@ -1,4 +1,8 @@
 <?php
+  // 不開放註冊功能
+  header('Location: index.php');
+  die();
+
   require_once("conn.php");
 
   $username = $_POST['username'];
@@ -21,6 +25,6 @@
 
   // 存進 session
   session_start();
-  $_SESSION['username'] = $username;
+  $_SESSION['hw2_username'] = $username;
   header('Location: index.php');
 ?>

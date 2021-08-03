@@ -31,4 +31,23 @@
       }
     }
   }
+
+  function getPageInfo($sql, $limit) {
+    $result = querySQL($sql);
+    $count = $result->fetch_assoc()['count'];
+    $total_page = ceil($count / $limit);
+    $page = 1;
+    if (!empty($_GET['page']) && is_numeric($_GET['page'])) {
+      $page = $_GET['page'];
+    }
+    $offset = ($page-1) * $limit;
+
+    return array(
+      'page' => $page, 
+      'total_page' => $total_page,
+      'offset' => $offset,
+      'count' => $count
+    );
+  }
+
 ?>
