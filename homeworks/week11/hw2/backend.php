@@ -22,7 +22,7 @@
 
   // 取得文章資料
   if ($username) {
-    $sql = 'SELECT id, title, created_at 
+    $sql = 'SELECT id, title, LEFT(content, 50) AS content, created_at 
             FROM torai_blog_posts
             WHERE is_deleted = 0
             ORDER BY created_at DESC
@@ -60,12 +60,13 @@
     <ul class="nav__management">
       <?php if(!$username) { ?>
         <li><a href="login.php">登入</a></li>
+        <li><a href="index.php">主頁</a></li>
       <?php } else { ?>
         <li>你好，<?php echo htmlspecialchars($username) ?></li>
+        <li><a href="index.php">主頁</a></li>
         <li><a href="add_post.php">新增文章</a></li>
         <li><a href="handle_logout.php">登出</a></li>
       <?php } ?>
-      <li><a href="index.php">主頁</a></li>
     </ul>
   </nav>
 
@@ -85,6 +86,7 @@
         <?php while($row = $post_result->fetch_assoc()) { ?>
           <div class="card">
             <div class="card__title"><?= htmlspecialchars($row['title']) ?></div>
+            <div class="card__title"><?= htmlspecialchars($row['content']) ?></div>
             <div class="card__info">
               <p class="timestamp"><?= htmlspecialchars($row['created_at']) ?></p>
               <a href="edit.php?id=<?= htmlspecialchars($row['id']) ?>" class="edit">編輯</a>

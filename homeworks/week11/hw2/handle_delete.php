@@ -4,7 +4,7 @@ session_start();
 
 // 驗證登入資訊
 require_once('authentication.php');
-if (!$username)) {
+if (!$username) {
   head('Location: login.php');
   die('權限不足');
 }

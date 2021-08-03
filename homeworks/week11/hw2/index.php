@@ -71,9 +71,9 @@
         <li class="signup"><a href="signup.php">註冊</a></li>
       <?php } else { ?>
         <li>你好，<?php echo htmlspecialchars($username) ?></li>
+        <li><a href="backend.php">管理後臺</a></li>
+        <li><a href="handle_logout.php">登出</a></li>
       <?php } ?>
-      <li><a href="backend.php">管理後臺</a></li>
-      <li><a href="handle_logout.php">登出</a></li>
     </ul>
   </nav>
 

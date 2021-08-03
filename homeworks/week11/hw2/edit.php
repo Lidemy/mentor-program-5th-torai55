@@ -5,7 +5,7 @@
   // 檢查是否有登入
   require_once('authentication.php');
   if (!$username) {
-    header('Location: login.php');
+    header('Location: index.php');
     die('沒有權限');
   }
 
@@ -25,6 +25,7 @@
   $result = queryWithPreparedStatement($sql, 'ii', $_GET['id'], $_GET['id']);
   $row = $result->fetch_assoc();
 
+  // 從 id 抓不到文章
   if(!$row) {
     header('Location: index.php');
     die();
@@ -81,6 +82,7 @@
         <?php } else { ?>
           <h2 class="add-post__title">編輯文章：</h2>
           <form action="handle_edit.php" method="POST" class="add-post__form">
+            <input type="hidden" name="referer" value="<?php echo htmlspecialchars($_SERVER['HTTP_REFERER']) ?>">
             <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id']) ?>">
             <input type="text" placeholder="請輸入文章標題" name="post_title" value="<?= htmlspecialchars($row['title']) ?>">
             <input type="text" placeholder="請輸入文章分類，分類之間用空白分隔" name="tags" value="<?= htmlspecialchars($row['tag_name']) ?>">

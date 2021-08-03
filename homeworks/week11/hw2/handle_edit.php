@@ -4,8 +4,8 @@ session_start();
 
 // 驗證登入資訊
 require_once('authentication.php');
-if (!$username)) {
-  head('Location: login.php');
+if (!$username) {
+  header('Location: login.php');
   die('權限不足');
 }
 
@@ -88,5 +88,5 @@ if (!empty($delete_tags)) {
   }
 }
 
-  header('Location: backend.php');
+  header('Location: '. $_POST['referer']);
 ?>
