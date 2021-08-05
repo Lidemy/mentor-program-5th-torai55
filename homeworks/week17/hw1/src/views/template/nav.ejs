@@ -1,0 +1,24 @@
+<nav>
+  <div class="nav__left">
+    <h2 class="nav__title"><a href="/">Who's Blog</a></h2>
+    <ul class="nav__links">
+      <li><a href="/home">文章列表</a></li>
+      <li><a href="#">分類專區</a></li>
+      <li><a href="#">關於我</a></li>
+    </ul>
+  </div>
+
+  <ul class="nav__management">
+    <% if (!username){ %>
+      <li><a href="/login">登入</a></li>
+      <li class="signup"><a href="/signup">註冊</a></li>
+    <% } else{ %>
+      <li>你好，<%= username %></li>
+      <% if (urlPath === '/backend') { %>
+        <li><a href="/add_post">新增文章</a></li>
+      <% } %>
+      <li><a href="/backend">管理後臺</a></li>
+      <li><a href="/logout">登出</a></li>
+    <% } %>
+  </ul>
+</nav>

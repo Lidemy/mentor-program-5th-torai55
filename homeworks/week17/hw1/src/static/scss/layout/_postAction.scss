@@ -1,0 +1,13 @@
+.post-actions {
+  display: flex;
+  line-height: normal;
+
+  .post-action {
+    color: $article-edit-text-color;
+    background-color:white;
+    font-size: .875rem;
+    padding: .5rem;
+    border: solid 1px #a8a8a8;
+    cursor: pointer;
+  }
+}

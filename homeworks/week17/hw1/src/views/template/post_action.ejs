@@ -1,0 +1,8 @@
+<div class="post-actions">
+  <a class="post-action" href="/edit/<%= post.id %>">編輯</a>
+  <form method="DELETE" action="/posts">
+    <input type="hidden" name="authKey" value="<%= authKey %>">
+    <input type="hidden" name="id" value="<%= post.id %>">
+    <button class="post-action delete-post-btn">刪除</button>
+  </form>
+</div>

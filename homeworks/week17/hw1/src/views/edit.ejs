@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <%- include('./template/head') %>
+  <!-- <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script> -->
+  <title>編輯文章</title>
+</head>
+
+<body>
+  <%- include('./template/nav') %>
+  <section class="banner">
+    <h3 class="banner__title">存放技術之地 - 編輯文章</h3>
+    <p class="banner__desc">Welcome to my blog</p>
+  </section>
+
+  <main>
+    <section class="add-post__wrapper">
+      <div class="add-post edit-post">
+        <h2 class="add-post__title">編輯文章：</h2>
+        <form action="/api/posts" method="PUT" class="add-post__form">
+          <input type="hidden" name="referer" value="<%= referer %>">
+          <input type="hidden" name="id" value="<%= post.id %>">
+          <input type="hidden" name="author" value="<%= username %>">
+          <input type="text" placeholder="請輸入文章標題" name="postTitle" value="<%= post.title %>">
+          <input type="hidden" placeholder="請輸入文章分類，分類之間用空白分隔" name="tags" value="<%= 'not yet' %>">
+          <textarea name="postContent" id="editor"><%= post.content %></textarea>
+          <button class="edit-post-btn">送出文章</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Copyright © 2020 Who's Blog All Rights Reserved.</p>
+  </footer> 
+  <%- include('./template/script') %>
+  <!-- <script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+          toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+          heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+            ]
+          }
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+  </script> -->
+</body>
+</html>

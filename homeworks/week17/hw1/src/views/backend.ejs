@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <%- include('./template/head') %>
+  <title>後臺</title>
+</head>
+
+<body>
+  <%- include('./template/nav') %>
+
+  <section class="banner">
+    <h3 class="banner__title">存放技術之地 - 後台</h3>
+    <p class="banner__desc">Welcome to my blog</p>
+  </section>
+
+  <main>
+    <div class="cards">
+      <% if (username) { %>
+        <% for(post of posts) { %>
+          <div class="card">
+            <div class="card__title"><%= post.title %></div>
+            <div class="card__content"><%= post.content %></div>
+            <div class="card__info">
+              <p class="timestamp"><%= post.created_at %></p>
+              <%- include('./template/post_action') %>
+            </div>
+          </div>
+        <% } %>
+        <%- include('./template/pagination') %>
+      <% } else { %>
+        <p class="err-msg"> 權限不足 </p>
+      <% } %>
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright © 2020 Who's Blog All Rights Reserved.</p>
+  </footer>
+</body>
+<%- include('./template/script') %>
+</html>

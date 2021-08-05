@@ -1,0 +1,20 @@
+.banner {
+  text-align: center;
+  background-image: linear-gradient(to top, #000000, #434343);
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .banner__title {
+    color: $banner-text-color;
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+
+  .banner__desc {
+    margin: 1.6rem 0;
+    color: $banner-text-color;
+    font-size: .875rem;
+  }
+}
