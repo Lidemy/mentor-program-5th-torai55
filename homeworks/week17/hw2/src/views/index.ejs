@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Torai Lin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base target="_self" />
+    <title>抽獎前台</title>
+  </head>
+  <body>
+    <div class="result" style="display:none;">
+      <p class="prize-name"></p>
+      <img class="prize-image" src="" alt="prize">
+      <p class="prize-description"></p>
+    </div>
+    <button class="draw-btn">抽獎</button>
+  </body>
+  <script>
+    document.querySelector('.draw-btn').addEventListener('click', (e) => {
+      const request = new Request({
+        method: 'GET'
+      })
+      fetch('localhost:8686/lottery', request)
+        .then((res) => res.json())
+        .then((prize) => console.log(prize))
+        .catch((err) => console.error(err))
+    })
+  </script>
+</html>
