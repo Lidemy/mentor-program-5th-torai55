@@ -49,6 +49,7 @@ app.use((error, req, res, next) => {
   if (error instanceof SyntaxError) {
     res.status(400).send('json format error')
   } else {
+    console.log(error)
     res.status(500).send('something broke')
   }
 })

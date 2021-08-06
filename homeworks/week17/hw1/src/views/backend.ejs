@@ -17,13 +17,13 @@
   <main>
     <div class="cards">
       <% if (username) { %>
-        <% for(post of posts) { %>
+        <% for(let i = offset; i < Math.min(offset + limit, count); i++) { %>
           <div class="card">
-            <div class="card__title"><%= post.title %></div>
-            <div class="card__content"><%= post.content %></div>
+            <div class="card__title"><%= posts[i].title %></div>
+            <div class="card__content"><%= posts[i].content %></div>
             <div class="card__info">
-              <p class="timestamp"><%= post.created_at %></p>
-              <%- include('./template/post_action') %>
+              <p class="timestamp"><%= posts[i].created_at %></p>
+              <%- include('./template/post_action', { post: posts[i] }) %>
             </div>
           </div>
         <% } %>

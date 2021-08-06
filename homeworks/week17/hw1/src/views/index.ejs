@@ -16,28 +16,28 @@
 
   <main>
     <div class="articles">
-      <% for(post of posts) { %>
+      <% for(let i = offset; i < Math.min(offset + limit, count); i++) { %>
         <article>
           <div class="article__top">
-            <h3 class="article__title"><%= post.title %></h3>
+            <h3 class="article__title"><%= posts[i].title %></h3>
             <% if (username) { %>
-              <%- include('./template/post_action') %>
+              <%- include('./template/post_action', { post: posts[i] }) %>
             <% } %>
           </div>
 
           <div class="article__bottom">
             <div class="article__info">
               <span class="material-icons-outlined">access_time</span>
-              <p class="article__timestamp"><%= post.created_at %></p>
+              <p class="article__timestamp"><%= posts[i].created_at %></p>
               <span class="material-icons-outlined">folder</span>
               <p class="article__folder"><%= 'not ready' %></p>
             </div>
 
             <div class="article__content">
-              <p><%= post.content %></p>
+              <p><%= posts[i].content %></p>
             </div>
 
-            <a href="posts/<%= post.id %>" class="article__more">READ MORE</a>
+            <a href="posts/<%= posts[i].id %>" class="article__more">READ MORE</a>
           </div>
         </article>
       <% } %>
