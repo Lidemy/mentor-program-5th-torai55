@@ -1,3 +1,9 @@
+# 試著用 github actions
+
+![diagram](diagram.svg)
+[repo-visualizer](https://github.com/githubocto/repo-visualizer)
+看著範例在 `.github/workflow` 放一個 `.yml` 設定檔就好了。
+
 # 程式導師實驗計畫第五期
 
 （第五期課綱還在調整中，現在看到的不是最終版）
