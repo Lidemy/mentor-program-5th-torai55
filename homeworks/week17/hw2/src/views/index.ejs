@@ -10,19 +10,21 @@
   <body>
     <div class="result" style="display:none;">
       <p class="prize-name"></p>
-      <img class="prize-image" src="" alt="prize">
+      <img class="prize-image" src="" alt="prize" style="width:10rem; height:10rem;">
       <p class="prize-description"></p>
     </div>
     <button class="draw-btn">抽獎</button>
   </body>
   <script>
     document.querySelector('.draw-btn').addEventListener('click', (e) => {
-      const request = new Request({
-        method: 'GET'
-      })
-      fetch('localhost:8686/lottery', request)
+      fetch('http://localhost:8686/lottery?mode=random')
         .then((res) => res.json())
-        .then((prize) => console.log(prize))
+        .then((prize) => {
+          document.querySelector('.prize-name').textContent = prize.name
+          document.querySelector('.prize-image').setAttribute('src', prize.imageUrl)
+          document.querySelector('.prize-description').textContent = prize.description
+          document.querySelector('.result').style['display'] = 'initial'
+        })
         .catch((err) => console.error(err))
     })
   </script>
