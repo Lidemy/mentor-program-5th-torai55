@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const apiController = require('./controllers/lottery')
+const pageController = require('./controllers/pages')
 
 // pages
 router.get('/', (req, res) => res.redirect(302, '/frontend'))
 router.get('/frontend', (req, res) => res.render('index'))
-router.get('/backend', (req, res) => res.send('backend'))
+router.get('/backend', pageController.backend)
 
 // api
 router.route('/lottery')
@@ -23,6 +24,6 @@ module.exports = router
 // const { DataTypes } = require('sequelize')
 
 // router.get('/test', (req, res) => {
-//   queryInterface.addColumn('lottery_prizes', 'chance', {type: DataTypes.DOUBLE})
+//   queryInterface.addColumn('lottery_prizes', 'weight', {type: DataTypes.INTEGER.UNSIGNED})
 //   res.send('alter table')
 // })

@@ -4,6 +4,12 @@ const router = require('./router')
 
 const app = express()
 const port = 8686
+const domain = 'http://localhost:8686'
+app.locals.domain = domain
+
+// 未完成
+// CSRF token
+// 上傳圖片
 
 // set template engine
 app.set('view engine', 'ejs')

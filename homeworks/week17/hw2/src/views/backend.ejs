@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Torai Lin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base target="_self" />
+    <link rel="stylesheet" href="<%= domain %>/static/css/style.css">
+    <title>抽獎後台</title>
+  </head>
+  <body>
+    <main>
+      <div class="create-prize">
+        <form action="<%= domain %>/lottery" method="POST">
+          <div class="wrapper">名稱：<input type="text" name="name"></div>
+          <div class="wrapper">圖片網址：<input type="text" name="imageUrl"></div>
+          <div class="wrapper">描述：<input type="text" name="description"></div>
+          <div class="wrapper">權重：<input type="text" name="weight"></div>
+          <button class="create-btn">新增</button>
+        </form>
+      </div>
+      <div class="hints">
+        <p class="alert">名稱不可為空</p>
+        <p class="hint">點兩下可編輯</p>
+        <p class="hint">權重：假設只有 A、B 兩個東西。A 權重 2、B 權重 3，那麼抽到 A 的機率是 2 / (2+3) = 40%，B 是 60%。</p>
+      </div>
+      <div class="prizes">
+        <% for( let i = 0; i < prizes.length; i++ ) { %>
+          <form class="prize">
+            <input class="prize__id" type="hidden" name="id" value="<%= prizes[i].id %>">
+            <div class="prize__top">
+              <div class="prize__name">
+                名稱：
+                <div class="name__edit">
+                  <input type="text" class="name__input input" name="name" value="<%= prizes[i].name %>">
+                  <p class="name__paragraph paragraph"><%= prizes[i].name %></p>
+                </div>
+              </div>
+
+              <div class="prize__buttons">
+                <button class="save-btn">儲存</button>
+                <button class="delete-btn">刪除</button>
+              </div>
+            </div>
+  
+            <div class="prize__content">
+              <div class="prize__left">
+                <img src="<%= prizes[i].imageUrl %>" alt="image" class="img-view">
+
+                <div class="prize__weight">
+                  權重：
+                  <div class="weight__edit">
+                    <input type="text" class="weight__input input" name="weight" value="<%= prizes[i].weight %>">
+                    <p class="weight__paragraph paragraph"><%= prizes[i].weight %></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="prize__right">
+                <div class="prize__imageUrl">
+                  圖片網址：
+                  <div class="imageUrl__edit">
+                    <input type="text" class="imageUrl__input input" name="imageUrl" value="<%= prizes[i].imageUrl %>">
+                    <p class="imageUrl__paragraph paragraph"><%= prizes[i].imageUrl %></p>
+                  </div>
+                </div>
+
+                <div class="prize__description">
+                  描述：
+                  <div class="description__edit">
+                    <input type="text" class="description__input input" name="description" value="<%= prizes[i].description %>">
+                    <p class="description__paragraph paragraph"><%= prizes[i].description %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        <% } %>
+      </div>
+    </main>
+  </body>
+  <script>
+    document.querySelector('.prizes').addEventListener('dblclick', (e) => {
+      const target = e.target
+      if (!(target.classList.contains('paragraph'))) return
+      target.classList.add('hide')
+      target.parentElement.querySelector('.input').focus()
+    })
+
+    document.querySelector('.prizes').addEventListener('focusout', (e) => {
+      if(!(e.target.classList.contains('input'))) return
+      e.target.parentElement.querySelector('.paragraph').classList.remove('hide')
+    })
+
+    document.querySelector('.prizes').addEventListener('input', (e) => {
+      const target = e.target
+      if(!(target.classList.contains('input'))) return
+      target.parentElement.querySelector('.paragraph').textContent = target.value
+    })
+
+    // patch & delete
+    document.querySelector('.prizes').addEventListener('click', (e) => {
+      e.preventDefault()
+      const target = e.target
+      const isPost = target.classList.contains('save-btn')
+      const isDelete = target.classList.contains('delete-btn')
+      if (!(isPost || isDelete)) return
+
+      const parentElement = target.closest('.prize')
+      const id = parentElement.querySelector('.prize__id').value
+      let request
+
+      if (isPost) {
+        const data = {
+          name: parentElement.querySelector('.name__input').value,
+          weight: parentElement.querySelector('.weight__input').value,
+          imageUrl: parentElement.querySelector('.imageUrl__input').value,
+          description: parentElement.querySelector('.description__input').value
+        }
+        const headers = new Headers({
+          'Content-type': 'application/json'
+        })
+        request = new Request(`<%= domain %>/lottery/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(data),
+          headers
+        })
+      } else if (isDelete) {
+        request = new Request(`<%= domain %>/lottery/${id}`, {
+          method: 'DELETE'
+        })
+      }
+
+      fetch(request)
+          // .then(res => res.json())
+          .then(res => location.reload())
+          .catch(e => console.log(e))
+    })
+
+    // post
+    document.querySelector('.create-prize').addEventListener('click', (e) => {
+      e.preventDefault()
+      const target = e.target
+      if (!target.classList.contains('create-btn')) return
+      const parentElement = target.parentElement
+
+      const data = {
+        name: parentElement.querySelector('input[name="name"]').value,
+        imageUrl: parentElement.querySelector('input[name="imageUrl"]').value,
+        description: parentElement.querySelector('input[name="description"]').value,
+        weight: parentElement.querySelector('input[name="weight"]').value
+      }
+      if (!data.name) return document.querySelector('.alert').style.display = 'initial'
+
+      const headers = new Headers({
+        'Content-type': 'application/json'
+      })
+      const request = new Request('<%= domain %>/lottery', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers
+      })
+      fetch(request)
+        // .then((res) => res.json())
+        .then((res) => location.reload())
+        .catch((err) => console.error(err))
+    })
+  </script>
+</html>

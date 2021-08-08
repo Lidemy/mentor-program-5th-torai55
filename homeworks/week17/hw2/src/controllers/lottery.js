@@ -2,12 +2,6 @@ const { ValidationError } = require('sequelize')
 const ServerError = require('../error')
 const lotteryModel = require('../models/lottery')
 
-// 待辦
-// chance 分配方式
-// random 演算法
-// CSRF token
-// 後臺網頁
-
 module.exports = {
   getAll: (req, res, next) => {
     const mode = req.query.mode || 'all' // value: random or all(default)
@@ -15,8 +9,17 @@ module.exports = {
     lotteryModel.getAll()
       .then((prizes) => {
         if (mode === 'all') return res.json(prizes)
-        const random = Math.floor(Math.random() * prizes.length)
-        res.json(prizes[random].dataValues)
+        let win
+        const weightedTotal = prizes.reduce((accu, curr) => accu + curr.weight, 0)
+        let random = Math.ceil(Math.random() * weightedTotal)
+        for (let i = 0; i < prizes.length; i++) {
+          random -= prizes[i].weight
+          if (random <= 0) {
+            win = prizes[i]
+            break
+          }
+        }
+        res.json(win)
       })
       .catch((err) => {
         next(new ServerError(err.message)) // pass error to error handling middleware
@@ -34,14 +37,14 @@ module.exports = {
   },
 
   post: (req, res, next) => {
-    const { name, imageUrl, description, chance } = req.body
+    const { name, imageUrl, description, weight } = req.body
     console.log(req.body)
 
     lotteryModel.post({
       name,
       imageUrl,
       description,
-      chance
+      weight
     }).then((prize) => res.json(prize)) // 成功就回傳
       .catch((err) => {
         if (err instanceof ValidationError) {
@@ -54,21 +57,21 @@ module.exports = {
 
   patch: (req, res, next) => {
     const { id } = req.params
-    const { name, imageUrl, description, chance } = req.body
+    const { name, imageUrl, description, weight } = req.body
     lotteryModel.patch({
       id,
       name,
       imageUrl,
       description,
-      chance
+      weight
     }).then((result) => {
       console.log(result)
-      res.send('patch success')
+      res.json('patch success')
     })
       .catch((err) => {
         if (err instanceof ValidationError) {
           console.log(err)
-          return res.status(400).end(`invalid input: ${err.message}`)
+          return res.status(400).json(`invalid input: ${err.message}`)
         }
         next(new ServerError(err.message))
       })
@@ -78,11 +81,11 @@ module.exports = {
     const { id } = req.params
 
     lotteryModel.delete(id)
-      .then(() => res.send('delete success'))
+      .then(() => res.json('delete success'))
       .catch((err) => {
         if (err instanceof ValidationError) {
           console.log(err)
-          return res.status(400).end(`invalid input: ${err.message}`)
+          return res.status(400).json(`invalid input: ${err.message}`)
         }
         next(new ServerError(err.message))
       })

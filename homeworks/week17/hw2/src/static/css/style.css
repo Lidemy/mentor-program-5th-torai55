@@ -1,0 +1,233 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.create-prize {
+  padding: 1rem;
+}
+
+.hints {
+  margin-left: 1rem;
+}
+
+.hints .alert {
+  color: red;
+  display: none;
+}
+
+.prizes {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.prizes .hide {
+  display: none;
+}
+
+.prizes input[class*="__input"] {
+  text-align: center;
+}
+
+.prizes .prize {
+  border: 1px solid yellowgreen;
+  padding: 1rem;
+  width: 32rem;
+  text-align: center;
+}
+
+.prizes .prize .prize__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.prizes .prize .prize__top .prize__name .name__edit {
+  position: relative;
+  height: 4rem;
+  margin: .8rem 0;
+}
+
+.prizes .prize .prize__top .prize__name .name__edit .name__input {
+  width: 100%;
+  font-size: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: .5rem .7rem;
+}
+
+.prizes .prize .prize__top .prize__name .name__edit .name__paragraph {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  background-color: #a1a1a1;
+  overflow-x: scroll;
+  padding-top: .5rem;
+}
+
+.prizes .prize .prize__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.prizes .prize .prize__content .prize__left img {
+  width: 150px;
+  margin: 1rem;
+}
+
+.prizes .prize .prize__content .prize__weight .weight__edit {
+  position: relative;
+  height: 4rem;
+  margin: .8rem 0;
+}
+
+.prizes .prize .prize__content .prize__weight .weight__edit .weight__input {
+  width: 100%;
+  font-size: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: .5rem .7rem;
+}
+
+.prizes .prize .prize__content .prize__weight .weight__edit .weight__paragraph {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  background-color: #a1a1a1;
+  overflow-x: scroll;
+  padding-top: .5rem;
+}
+
+.prizes .prize .prize__content .prize__right {
+  margin-left: 1rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.prizes .prize .prize__content .prize__right .prize__imageUrl .imageUrl__edit {
+  position: relative;
+  height: 4rem;
+  margin: .8rem 0;
+}
+
+.prizes .prize .prize__content .prize__right .prize__imageUrl .imageUrl__edit .imageUrl__input {
+  width: 100%;
+  font-size: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: .5rem .7rem;
+}
+
+.prizes .prize .prize__content .prize__right .prize__imageUrl .imageUrl__edit .imageUrl__paragraph {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  background-color: #a1a1a1;
+  overflow-x: scroll;
+  padding-top: .5rem;
+}
+
+.prizes .prize .prize__content .prize__right .prize__description .description__edit {
+  position: relative;
+  height: 4rem;
+  margin: .8rem 0;
+}
+
+.prizes .prize .prize__content .prize__right .prize__description .description__edit .description__input {
+  width: 100%;
+  font-size: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: .5rem .7rem;
+}
+
+.prizes .prize .prize__content .prize__right .prize__description .description__edit .description__paragraph {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  background-color: #a1a1a1;
+  overflow-x: scroll;
+  padding-top: .5rem;
+}
+/*# sourceMappingURL=style.css.map */
