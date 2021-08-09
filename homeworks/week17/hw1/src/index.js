@@ -7,7 +7,7 @@ const swaggerFile = require('./swagger_output.json')
 const router = require('./router')
 
 const app = express()
-const port = 8686
+const port = process.env.PORT || 8686
 
 // use template engine
 app.set('view engine', 'ejs')

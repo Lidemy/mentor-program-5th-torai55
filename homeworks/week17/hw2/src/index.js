@@ -3,9 +3,10 @@ const express = require('express')
 const router = require('./router')
 
 const app = express()
-const port = 8686
-const domain = 'http://localhost:8686'
+const port = process.env.PORT || 8686
+const domain = 'https://lidemy-wk17-hw2.herokuapp.com'
 app.locals.domain = domain
+app.locals.port = port
 
 // 未完成
 // CSRF token
