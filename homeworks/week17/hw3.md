@@ -6,6 +6,8 @@
 * View：負責畫面。通常是放 template engine 渲染所需的 HTML template。
 * Controller：負責跟使用者互動，接收 request 做判斷後回傳 response。例如使用者是否只能閱讀資料，但不能修改或刪除等等的判斷。
 
+我自己是這樣分的：要接資料庫就寫在 Model，資料庫一張 table 對應一個 `model.js`；要給 route 用的就寫在 controller，用資源區分檔案有點 RESTful api 的味道，例如 `controller/comment.js` 就是使用者訪問 `domain/comments` 時所需執行的動作；HTML template 就放在 view。
+
 [參考](https://tw.alphacamp.co/blog/mvc-model-view-controller)
 
 ## 請寫下這週部署的心得
