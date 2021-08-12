@@ -1,0 +1,13 @@
+const pageRouter = require('express').Router()
+const restaurantController = require('../controllers/restaurantController')
+
+// path: '/restaurant/...'
+pageRouter.get('/', restaurantController.home)
+pageRouter.get('/faq', restaurantController.faq)
+pageRouter.get('/lottery', restaurantController.lottery)
+pageRouter.get('/backend', restaurantController.backend)
+
+// default route
+pageRouter.get('*', (req, res) => res.redirect(301, '/restaurant'))
+
+module.exports = pageRouter

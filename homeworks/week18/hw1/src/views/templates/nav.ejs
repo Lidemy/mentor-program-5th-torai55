@@ -1,0 +1,13 @@
+<div class="nav-wrapper">
+  <nav>
+    <h2 class="title"><a href="/restaurant">Just A Bite!</a></h2>
+
+    <ul class="links">
+      <li <% if (active === 'lottery'){ %>class="active"<% } %>><a href="/restaurant/lottery">抽個大獎</a></li>
+      <li><a href="#">我要點餐</a></li>
+      <li><a href="#">查詢訂單</a></li>
+      <li <% if (active === 'faq'){ %>class="active"<% } %>><a href="/restaurant/faq">常見問題</a></li>
+      <li <% if (active === 'backend') { %>class="active"<% } %>><a href="/restaurant/backend">管理後臺</a></li>
+    </ul>
+  </nav>
+</div>
