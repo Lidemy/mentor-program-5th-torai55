@@ -1,4 +1,7 @@
-const prizeModel = require('../models').Prize
+const db = require('../models')
+
+const prizeModel = db.Prize
+const menuModel = db.Dish
 
 const restaurantController = {
   home: (req, res, next) => {
@@ -20,10 +23,24 @@ const restaurantController = {
           isDeleted: 0
         }
       })
+      const dishes = await menuModel.findAll({
+        where: {
+          isDeleted: 0
+        }
+      })
       res.render('backend', {
         active: 'backend',
-        prizes
+        prizes,
+        dishes
       })
+    } catch (err) {
+      next(err)
+    }
+  },
+
+  menu: async(req, res, next) => {
+    try {
+      res.render('menu', { active: 'menu' })
     } catch (err) {
       next(err)
     }

@@ -36,9 +36,9 @@
                       description：<br><input type="text" class="getDescription">
                     </div>
                     <div class="prize__weight mt-2 card-text">
-                      weight：<br><input type="text" class="getWeight">
+                      weight：<br><input type="number" class="getWeight">
                     </div>
-                    <button type="button" class="prize-post mt-3 btn btn-primary">新增</button>
+                    <button type="button" class="prize-post mt-3 btn btn-primary" data-source="prize" data-http-method="POST">新增</button>
                   </div>
                 </div>
               </div>
@@ -65,15 +65,62 @@
                         <input type="text" class="weight-input getWeight" value="<%= prize.weight %>">
                         <div class="weight-cover" data-content-head="weight：">weight：<%= prize.weight %></div>
                       </div>
-                      <button type="button" class="prize-save mt-3 btn btn-primary">儲存</button>
-                      <button type="button" class="prize-delete mt-3 btn btn-danger">刪除</button>
+                      <button type="button" class="prize-save mt-3 btn btn-primary" data-source="prize" data-http-method="PATCH"="">儲存</button>
+                      <button type="button" class="prize-delete mt-3 btn btn-danger" data-source="prize" data-http-method="DELETE">刪除</button>
                     </div>
                   </div>
                 </div>
               <% } %>
             </div>
           </div>
-          <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">BB</div>
+
+          <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+            <div class="dishes row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+              <div class="col">
+                <div class="dish card">
+                  <!-- <img src="/static/images/2.png" class="prize-image card-img-top" alt="prize"> -->
+                  <div class="dish__imageUrl card-header">
+                    imageUrl：<br><input type="text" class="getImageUrl">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="dish__name card-title">
+                      name：<br><input type="text" class="getName">
+                    </h5>
+                    <div class="dish__weight mt-2 card-text">
+                      price：<br><input type="number" class="getPrice">
+                    </div>
+                    <button type="button" class="dish-post mt-3 btn btn-primary" data-source="dish" data-http-method="POST">新增</button>
+                  </div>
+                </div>
+              </div>
+
+              <% for(dish of dishes) { %>
+                <div class="col">
+                  <div class="dish card">
+                    <input type="hidden" class="dish-id" value="<%= dish.id %>">
+                    <img src="<%= dish.imageUrl %>" class="dish-image card-img-top" alt="dish-image">
+                    <div class="dish__imageUrl card-header">
+                      <input type="text" class="imageUrl-input getImageUrl" value="<%= dish.imageUrl %>">
+                      <div class="imageUrl-cover" data-content-head="imageUrl：">imageUrl：<%= dish.imageUrl %></div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="dish__name card-title">
+                        <input type="text" class="name-input getName" value="<%= dish.name %>">
+                        <div class="name-cover" data-content-head="name：">name：<%= dish.name %></div>
+                      </h5>
+                      <div class="dish__price mt-2 card-text">
+                        <input type="text" class="price-input getPrice" value="<%= dish.price %>">
+                        <div class="price-cover" data-content-head="price：">price：<%= dish.price %></div>
+                      </div>
+                      <button type="button" class="dish-save mt-3 btn btn-primary" data-source="dish" data-http-method="PATCH">儲存</button>
+                      <button type="button" class="dish-delete mt-3 btn btn-danger" data-source="dish" data-http-method="DELETE">刪除</button>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
           <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">CC</div>
         </div>
       </div>

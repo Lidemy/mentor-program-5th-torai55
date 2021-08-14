@@ -1,0 +1,69 @@
+<script>
+  function getPrize(callback, errHandler) {
+    const req = new XMLHttpRequest()
+    const url = '<%= domain %>:<%= port %>/api/prizes?mode=random'
+
+    req.onload = () => {
+      if (!(req.status >= 200 && req.status < 400)) {
+        errHandler()
+        return alert('系統不穩定，請再試一次')
+      }
+
+      try {
+        const result = JSON.parse(req.responseText)
+        callback(result)
+      } catch (e) {
+        errHandler()
+        alert('系統不穩定，請再試一次')
+      }
+    }
+
+    req.onerror = () => {
+      errHandler()
+      alert('系統不穩定，請再試一次')
+    }
+    req.open('GET', url)
+    req.send()
+  }
+
+  function renderPage(result = false) {
+    const background = document.querySelector('.lottery')
+    const message = document.querySelector('.lottery__result .message')
+
+    document.querySelector('.lottery__info').classList.toggle('hide')
+    document.querySelector('.lottery__result').classList.toggle('hide')
+
+    if (result) {
+      background.style.backgroundImage = `url('${result.imageUrl}')`
+      message.innerText = result.description
+    } else {
+      background.style.backgroundImage = ''
+      message.innerText = ''
+    }
+  }
+
+  function toggleLoadingHint() {
+    document.querySelector('.lottery__info').classList.toggle('hide')
+    document.querySelector('.loading').classList.toggle('hide')
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const drawingButton = document.querySelector('.lottery__info button')
+    const backButton = document.querySelector('.lottery__result button')
+
+    drawingButton.addEventListener('click', () => {
+      toggleLoadingHint()
+
+      setTimeout(() => {
+        getPrize((res) => {
+          toggleLoadingHint()
+          renderPage(res)
+        }, toggleLoadingHint)
+      }, 1000)
+    })
+
+    backButton.addEventListener('click', () => {
+      renderPage()
+    })
+  })
+</script>

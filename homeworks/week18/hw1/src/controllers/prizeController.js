@@ -45,8 +45,7 @@ const prizeController = {
 
   createPrize: async(req, res, next) => {
     const { name = '', imageUrl, description, weight } = req.body
-    if (name === '') return res.status(400).json('name 必填')
-    console.log(req.body)
+    if (name !== 0 && !name) return res.status(400).json('name 必填')
     try {
       const newPrize = await prizeModel.create({
         name,
@@ -83,6 +82,7 @@ const prizeController = {
   updatePrize: async(req, res, next) => {
     const { id } = req.params
     const { name, imageUrl, description, weight } = req.body
+    if (name === '' || name === null) return res.status(400).json('name 必填')
     try {
       const result = await prizeModel.update({
         name,

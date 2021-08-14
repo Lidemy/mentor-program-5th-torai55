@@ -5,23 +5,12 @@
   background-size: cover;
   position: relative;
 
+  &:not([background-image="main"]) {
+    @include lottery-background-filter
+  }
+
   &[data-background-image="main"] {
     background-image: url(/static/images/games-bn@2x.jpg);
-  }
-
-  &[data-background-image="FIRST"] {
-    background-image: url(/static/images/flight.jpg);
-    @include lottery-background-filter
-  }
-
-  &[data-background-image="SECOND"] {
-    background-image: url(/static/images/living-room.jpg);
-    @include lottery-background-filter
-  }
-
-  &[data-background-image="THIRD"] {
-    background-image: url(/static/images/youtube.jpg);
-    @include lottery-background-filter
   }
 
   &[data-background-image="NONE"] {

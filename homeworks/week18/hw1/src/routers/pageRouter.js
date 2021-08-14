@@ -5,6 +5,7 @@ const restaurantController = require('../controllers/restaurantController')
 pageRouter.get('/', restaurantController.home)
 pageRouter.get('/faq', restaurantController.faq)
 pageRouter.get('/lottery', restaurantController.lottery)
+pageRouter.get('/menu', restaurantController.menu)
 pageRouter.get('/backend', restaurantController.backend)
 
 // default route

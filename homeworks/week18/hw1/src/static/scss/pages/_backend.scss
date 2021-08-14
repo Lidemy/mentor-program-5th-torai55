@@ -8,34 +8,6 @@
     border-radius: .5rem;
   }
 
-  .prizes {
-    .prize {
-      [class^="prize__"] {
-        position: relative;
-        padding: 0;
-        height: 3rem;
-  
-        .hide {
-          display:none;
-        }
-
-        input {
-          position: relative;
-          width: 100%;
-        }
-
-        [class$="-cover"] {
-          position: absolute;
-          background-color: white;
-          width: 100%;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: .5rem .3rem;
-          overflow: auto;
-        }
-      }
-    }
-  }
+  @include backend-panel-input-style(prize, prizes);
+  @include backend-panel-input-style(dish, dishes);
 }
