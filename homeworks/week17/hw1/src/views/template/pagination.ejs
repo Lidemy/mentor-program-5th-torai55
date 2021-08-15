@@ -1,0 +1,11 @@
+<p>目前頁數： <%= currentPage %> / <%= totalPages %></p>
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+    <a href="<%= urlPath %>?page=1">首頁</a>
+    <a href="<%= urlPath %>?page=<%= currentPage - 1 %>">上一頁</a>
+  <% } %>
+  <% if (currentPage < totalPages) { %>
+    <a href="<%= urlPath %>?page=<%= currentPage + 1 %>">下一頁</a>
+    <a href="<%= urlPath %>?page=<%= totalPages %>">最後一頁</a>
+  <% } %>
+</div>

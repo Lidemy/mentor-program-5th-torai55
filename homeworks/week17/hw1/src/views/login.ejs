@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <%- include('./template/head') %>
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="login__wrapper">
+      <section class="login">
+        <h2 class="login__title">Log In</h2>
+        <% if (errMsg) { %>
+          <p class="err-msg"><%= errMsg %></p>
+        <% } %>
+        <form action="/login" method="POST">
+          <label>USERNAME<br />
+            <input type="text" name="username">
+          </label>
+          <label>PASSWORD<br />
+            <input type="password" name="password">
+          </label>
+          <button>SIGN IN</button>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

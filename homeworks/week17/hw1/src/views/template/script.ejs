@@ -1,0 +1,70 @@
+<script>
+  // delete post
+  document.querySelector('.articles, .cards')?.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('delete-post-btn')) return
+    e.preventDefault()
+    const parent = e.target.parentElement
+    const authKey = parent.querySelector('input[name="authKey"]').value
+    const id = parent.querySelector('input[name="id"]').value
+
+    new Promise((resolve, reject) => resolve({authKey, id}))
+      .then((formInfo) => {
+        const headers = new Headers({
+          'Content-Type': 'application/json'
+        })
+        return new Request('/api/posts', {
+          method: 'DELETE',
+          headers,
+          body: JSON.stringify({
+            authKey: formInfo.authKey,
+            id: formInfo.id
+          })
+        })
+      })
+      .then((req) => fetch(req))
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw new Error('Something went wrong on api server!')
+        }
+      })
+      // .then(() => window.location.replace('/home'))
+      .then(() => parent.closest('article, .card').remove())
+      .catch((e) => console.error(e))
+  })
+
+  // edit post
+  document.querySelector('.edit-post-btn')?.addEventListener('click', (e) => {
+    e.preventDefault()
+    const parent = e.target.parentElement
+    const id = parent.querySelector('input[name="id"]').value
+    const referer = parent.querySelector('input[name="referer"]').value
+    const title = parent.querySelector('input[name="postTitle"]').value
+    const content = parent.querySelector('textarea[name="postContent"]').value
+
+    new Promise((resolve, reject) => resolve({
+      id,
+      title,
+      content
+    }))
+    .then((postInfo) => {
+      const headers = new Headers({ 'Content-type': 'application/json'})
+      return new Request('/api/posts', {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(postInfo)
+      })
+    })
+    .then((request) => fetch(request))
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        throw new Error('Something went wrong on api server!')
+      }
+    })
+    .then(() => window.location.replace(referer))
+    .catch((e) => console.error(e)) 
+  })
+</script>

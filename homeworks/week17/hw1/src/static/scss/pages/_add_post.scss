@@ -1,0 +1,56 @@
+main {
+  .add-post__wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.2rem 1rem;
+    position: relative;
+    transform: translateY(-4rem);
+    background-color: white;
+    text-align: center;
+    min-height: 20vh;
+
+    .add-post {
+      border: solid 1px #9a9a9a;
+      padding: 1.1rem;
+
+      .add-post__title {
+        text-align: start;
+      }
+      .add-post__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        & > input {
+          display: block;
+          width: 100%;
+          margin: 1rem;
+        }
+        & > textarea {
+          width: 100%;
+          max-width: 100%;
+          height: 10rem;
+        }
+
+        & > .ck.ck-reset.ck-editor.ck-rounded-corners {
+          width: 100%;
+
+          & > .ck.ck-editor__main {
+            p {
+              height: 40vh;
+            }
+          }
+        }
+
+        & > button {
+          border: solid 1px #737373;
+          padding: .8rem 2rem;
+          background-color: white;
+          margin-top: 1.5rem;
+          cursor: pointer;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}

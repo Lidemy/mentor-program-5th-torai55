@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <%- include('./template/head') %>
+  <title>Blog 首頁</title>
+</head>
+
+<body>
+  <%- include('./template/nav') %>
+
+  <section class="banner">
+    <h3 class="banner__title">存放技術之地</h3>
+    <p class="banner__desc">Welcome to my blog</p>
+  </section>
+
+  <main>
+    <div class="articles">
+      <% for(let i = offset; i < Math.min(offset + limit, count); i++) { %>
+        <article>
+          <div class="article__top">
+            <h3 class="article__title"><%= posts[i].title %></h3>
+            <% if (username) { %>
+              <%- include('./template/post_action', { post: posts[i] }) %>
+            <% } %>
+          </div>
+
+          <div class="article__bottom">
+            <div class="article__info">
+              <span class="material-icons-outlined">access_time</span>
+              <p class="article__timestamp"><%= posts[i].created_at %></p>
+              <span class="material-icons-outlined">folder</span>
+              <p class="article__folder"><%= 'not ready' %></p>
+            </div>
+
+            <div class="article__content">
+              <p><%= posts[i].content %></p>
+            </div>
+
+            <a href="posts/<%= posts[i].id %>" class="article__more">READ MORE</a>
+          </div>
+        </article>
+      <% } %>
+    </div>
+
+    <%- include('./template/pagination') %>
+  </main>
+
+  <footer>
+    <p>Copyright © 2020 Who's Blog All Rights Reserved.</p>
+  </footer>
+</body>
+<%- include('./template/script') %>
+</html>
