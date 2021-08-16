@@ -1,0 +1,199 @@
+.debug *, .debug {
+  outline: 1px solid gold;
+}
+
+/* reset CSS */
+* {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* my css */
+body {
+  background-color: rgb(197, 197, 197);
+}
+
+main {
+  max-width: 850px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 1rem;
+}
+
+header {
+  color: rgb(148, 25, 25);
+  background-color: rgb(250, 173, 173);
+  text-align: center;
+  font-weight: bold;
+  padding: .5rem;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.hide {
+  display: none;
+}
+
+.buttons--login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.buttons a, .buttons button, .edit-authority, .authority-editor button {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 .5rem;
+  color: gray;
+  background-color: white;
+  border: rgb(165, 165, 255) 1px solid;
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.nickname-form {
+  margin-top: 1rem;
+}
+
+.error-msg {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.comment-form {
+  margin-top: 1rem;
+}
+
+.comment-form > div {
+  margin-bottom: .7rem;
+}
+
+.comment-form > div > input {
+  padding: .3rem;
+}
+
+.comment-form > textarea {
+  max-width: 100%;
+  width: 100%;
+  height: 5rem;
+  padding: .5rem;
+}
+
+.comment-form > button {
+  margin-top: .5rem;
+  font-size: 1rem;
+  color: gray;
+  background-color: white;
+  border: rgb(165, 165, 255) 1px solid;
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: gray;
+  margin: 1rem auto;
+}
+
+.card {
+  display: flex;
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card__avatar {
+  background-color: rgb(152, 185, 255);
+  border-radius: 50%;
+  min-width: 3.125rem;
+  height: 3.125rem;
+  margin-right: 1rem;
+}
+
+.card__info {
+  display: flex;
+  margin-bottom: .4rem;
+}
+
+.card__info a {
+  padding-left: 1rem;
+}
+
+.card__author {
+  margin-right: .7rem;
+}
+
+.card__timestamp {
+  color: gray;
+}
+
+.card__content {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.page-info, .paginator {
+  text-align: center;
+}
+
+.card__bottom {
+  position: relative;
+}
+
+.authority-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

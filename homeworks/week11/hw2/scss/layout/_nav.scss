@@ -1,0 +1,28 @@
+nav {
+  font-family: my-font;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+
+  .nav__left {
+    display: flex;
+
+    .nav__title {
+      color: $nav-title-color;
+      font-weight: bold;
+      font-size: 1.75rem;
+    }
+  
+    .nav__links {
+      display: flex;
+      align-items: center;
+      @include nav-link-style;
+    }
+  }
+
+  .nav__management {
+    display: flex;
+    @include nav-link-style;
+  }
+}
