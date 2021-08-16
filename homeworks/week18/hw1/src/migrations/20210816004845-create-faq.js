@@ -2,7 +2,7 @@ module.exports = {
   up: async(queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('faqs', {
+      await queryInterface.createTable('Faqs', {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -29,8 +29,8 @@ module.exports = {
         }
       }, { transaction })
 
-      await queryInterface.addIndex('faqs', ['order'], { transaction })
-      await queryInterface.addConstraint('faqs', {
+      await queryInterface.addIndex('Faqs', ['order'], { transaction })
+      await queryInterface.addConstraint('Faqs', {
         fields: ['order'],
         type: 'unique',
         transaction
@@ -42,6 +42,6 @@ module.exports = {
     }
   },
   down: async(queryInterface, Sequelize) => {
-    await queryInterface.dropTable('faqs')
+    await queryInterface.dropTable('Faqs')
   }
 }

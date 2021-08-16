@@ -2,7 +2,7 @@ module.exports = {
   up: async(queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.addColumn('faqs', 'isDeleted', {
+      await queryInterface.addColumn('Faqs', 'isDeleted', {
         type: Sequelize.BOOLEAN,
         defaultValue: 0,
         after: 'order'
@@ -14,6 +14,6 @@ module.exports = {
   },
 
   down: async(queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('faqs', 'isDeleted')
+    await queryInterface.removeColumn('Faqs', 'isDeleted')
   }
 }
