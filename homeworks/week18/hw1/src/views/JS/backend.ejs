@@ -22,17 +22,17 @@ function getTemplate(source) {
           <input type="text" class="weight-input getWeight" value="{{weight}}">
           <div class="weight-cover" data-content-head="weight：">weight：{{weight}}</div>
         </div>
-        <button type="button" class="prize-save mt-3 btn btn-primary">儲存</button>
-        <button type="button" class="prize-delete mt-3 btn btn-danger">刪除</button>
+        <button type="button" class="prize-save mt-3 btn btn-primary" data-source="prize" data-http-method="PATCH">儲存</button>
+        <button type="button" class="prize-delete mt-3 btn btn-danger" data-source="prize" data-http-method="DELETE">刪除</button>
       </div>
     </div>`
     const dishTemplate = `
     <div class="dish card">
       <input type="hidden" class="dish-id" value="{{id}}">
-      <img src="{{imageUrl}" class="dish-image card-img-top" alt="dish-image">
+      <img src="{{imageUrl}}" class="dish-image card-img-top" alt="dish-image">
       <div class="dish__imageUrl card-header">
-        <input type="text" class="imageUrl-input getImageUrl" value="{{imageUrl}">
-        <div class="imageUrl-cover" data-content-head="imageUrl：">imageUrl：{{imageUrl}</div>
+        <input type="text" class="imageUrl-input getImageUrl" value="{{imageUrl}}">
+        <div class="imageUrl-cover" data-content-head="imageUrl：">imageUrl：{{imageUrl}}</div>
       </div>
       <div class="card-body">
         <h5 class="dish__name card-title">
@@ -41,13 +41,47 @@ function getTemplate(source) {
         </h5>
         <div class="dish__price mt-2 card-text">
           <input type="text" class="price-input getPrice" value="{{price}}">
-          <div class="price-cover" data-content-head="price：">price{{price}}</div>
+          <div class="price-cover" data-content-head="price：">price：{{price}}</div>
         </div>
-        <button type="button" class="dish-save mt-3 btn btn-primary">儲存</button>
-        <button type="button" class="dish-delete mt-3 btn btn-danger">刪除</button>
+        <button type="button" class="dish-save mt-3 btn btn-primary" data-source="dish" data-http-method="PATCH">儲存</button>
+        <button type="button" class="dish-delete mt-3 btn btn-danger" data-source="dish" data-http-method="DELETE">刪除</button>
       </div>
     </div>`
-  return source === 'prize' ? prizeTemplate : dishTemplate
+    const faqTemplate = `
+    <div class="faq card">
+      <input type="hidden" class="faq-id" value="{{id}}">
+      <div class="card-body">
+        <h5 class="faq__card-title card-title">
+          <input type="text" class="title-input getTitle" value="{{title}}">
+          <div class="title-cover" data-content-head="title：">title：{{title}}</div>
+        </h5>
+        <div class="faq__content mt-2 card-text">
+          <input type="text" class="content-input getContent" value="{{content}}">
+          <div class="content-cover" data-content-head="content：">content：{{content}}</div>
+        </div>
+        <div class="faq__order mt-2 card-text">
+          <input type="number" class="order-input getOrder" value="{{order}}">
+          <div class="order-cover" data-order-head="order：">order：{{order}}</div>
+        </div>
+        <button type="button" class="faq-save mt-3 btn btn-primary" data-source="faq" data-http-method="PATCH">儲存</button>
+        <button type="button" class="faq-delete mt-3 btn btn-danger" data-source="faq" data-http-method="DELETE">刪除</button>
+      </div>
+    </div>`
+    let output
+    switch(source) {
+      case 'prize':
+        output = prizeTemplate
+        break
+      case 'dish':
+        output = dishTemplate
+        break
+      case 'faq':
+        output = faqTemplate
+        break
+      default:
+        output = ''
+    }
+  return output
 }
 
 function escapeHtml(unsafe) {
@@ -67,6 +101,9 @@ function renderCard(data, template, containerSelector) {
     .replace(/{{description}}/g, escapeHtml(data.description))
     .replace(/{{weight}}/g, escapeHtml(data.weight))
     .replace(/{{price}}/g, escapeHtml(data.price))
+    .replace(/{{title}}/g, escapeHtml(data.title))
+    .replace(/{{content}}/g, escapeHtml(data.content))
+    .replace(/{{order}}/g, escapeHtml(data.order?.toString()))
 
   const newCard = document.createElement('div')
   newCard.classList.add('col')
@@ -74,34 +111,25 @@ function renderCard(data, template, containerSelector) {
   document.querySelector(containerSelector).appendChild(newCard)
 }
 
-function clearInput(parentElement) {
-  const imageUrl = parentElement.querySelector('.getImageUrl')
-  const name = parentElement.querySelector('.getName')
-  const description = parentElement.querySelector('.getDescription')
-  const weight = parentElement.querySelector('.getWeight')
-  const price = parentElement.querySelector('.getPrice')
-  if (imageUrl) imageUrl.value = ''
-  if (name) name.value = ''
-  if (description) description.value = ''
-  if (weight) weight.value = ''
-  if (price) price.value = ''
+function clearAllInput(parentElement) {
+  function clearInput(fieldName) {
+    const field = parentElement.querySelector(`.get${fieldName}`)
+    if (field) field.value = ''
+  }
+  fieldNames = ['ImageUrl', 'Description', 'Weight', 'Price', 'Title', 'Content', 'Order']
+  fieldNames.forEach((fieldName) => clearInput(fieldName))
 }
 
 function getCardData(parentElement, path, source) {
   const id = parentElement.querySelector(`.${source}-id`)?.value || ''
   const url = `${window.location.protocol}//${window.location.host}/api/${path}/${id}`
-  const imageUrl = parentElement.querySelector('.getImageUrl')?.value
-  const name = parentElement.querySelector('.getName')?.value
-  const description = parentElement.querySelector('.getDescription')?.value
-  const weight = parentElement.querySelector('.getWeight')?.value
-  const price = parentElement.querySelector('.getPrice')?.value
-  const data = {
-    imageUrl,
-    name,
-    description,
-    weight,
-    price
-  }
+  const fieldNames = ['imageUrl', 'name', 'description', 'weight', 'price', 'title', 'content', 'order']
+  const data = {}
+  fieldNames.forEach((fieldName) => {
+    const capital = fieldName[0].toUpperCase() + fieldName.slice(1)
+    data[fieldName] = parentElement.querySelector(`.get${capital}`)?.value
+  })
+
   return {
     url,
     data
@@ -109,39 +137,39 @@ function getCardData(parentElement, path, source) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.prizes, .dishes').forEach((element) => {
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
     element.addEventListener('dblclick', (e) => {
       const { target } = e
-      const classNames = ['imageUrl-cover', 'name-cover', 'description-cover', 'weight-cover', 'price-cover']
+      const classNames = ['imageUrl-cover', 'name-cover', 'description-cover', 'weight-cover', 'price-cover', 'title-cover', 'content-cover', 'order-cover']
       if (!classNames.some((className) => target.classList.contains(className))) return
       target.classList.add('hide')
       target.parentNode.querySelector('input').focus()
     })
   })
 
-  document.querySelectorAll('.prizes, .dishes').forEach((element) => {
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
     element.addEventListener('change', (e) => {
       const { target } = e
-      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input']
+      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input', 'title-input', 'content-input', 'order-input']
       if (!classNames.some((className) => target.classList.contains(className))) return
       const div = target.parentNode.querySelector('div')
       div.textContent = div.dataset.contentHead + target.value
     })
   })
 
-  document.querySelectorAll('.prizes, .dishes').forEach((element) => {    
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {    
     element.addEventListener('focusout', (e) => {
       const { target } = e
-      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input']
+      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input', 'title-input', 'content-input', 'order-input']
       if (!classNames.some((className) => target.classList.contains(className))) return
       target.parentNode.querySelector('div').classList.remove('hide')
     })
   })
 
-  document.querySelectorAll('.prizes, .dishes').forEach((element) => {
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
     element.addEventListener('click', (e) => {
       const { target } = e
-      const classNames = ['prize-save', 'prize-delete', 'prize-post', 'dish-save', 'dish-delete', 'dish-post']
+      const classNames = ['prize-save', 'prize-delete', 'prize-post', 'dish-save', 'dish-delete', 'dish-post', 'faq-save', 'faq-delete', 'faq-post']
       if (!classNames.some((className) => target.classList.contains(className))) return
       const source = target.dataset.source
       const pluralSource = pluralize.plural(source)
@@ -185,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'POST':
               alert('新增成功') // bootstrap toasts
               renderCard(parsedResult, getTemplate(source), `.${pluralSource}`)
-              clearInput(container)
+              clearAllInput(container)
               break
             case 'DELETE':
               alert('刪除成功') // bootstrap Toasts

@@ -86,7 +86,7 @@
                     <h5 class="dish__name card-title">
                       name：<br><input type="text" class="getName">
                     </h5>
-                    <div class="dish__weight mt-2 card-text">
+                    <div class="dish__price mt-2 card-text">
                       price：<br><input type="number" class="getPrice">
                     </div>
                     <button type="button" class="dish-post mt-3 btn btn-primary" data-source="dish" data-http-method="POST">新增</button>
@@ -121,7 +121,50 @@
             </div>
           </div>
 
-          <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">CC</div>
+          <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+            <div class="faqs row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+              <div class="col">
+                <div class="faq card">
+                  <div class="card-body">
+                    <h5 class="faq__card-title card-title">
+                      title：<br><input type="text" class="getTitle">
+                    </h5>
+                    <div class="faq__content mt-2 card-text">
+                      content：<br><input type="text" class="getContent">
+                    </div>
+                    <div class="faq__order mt-2 card-text">
+                      order：<br><input type="number" class="getOrder">
+                    </div>
+                    <button type="button" class="faq-post mt-3 btn btn-primary" data-source="faq" data-http-method="POST">新增</button>
+                  </div>
+                </div>
+              </div>
+
+              <% for(faq of faqs) { %>
+                <div class="col">
+                  <div class="faq card">
+                    <input type="hidden" class="faq-id" value="<%= faq.id %>">
+                    <div class="card-body">
+                      <h5 class="faq__card-title card-title">
+                        <input type="text" class="title-input getTitle" value="<%= faq.title %>">
+                        <div class="title-cover" data-content-head="title：">title：<%= faq.title %></div>
+                      </h5>
+                      <div class="faq__content mt-2 card-text">
+                        <input type="text" class="content-input getContent" value="<%= faq.content %>">
+                        <div class="content-cover" data-content-head="content：">content：<%= faq.content %></div>
+                      </div>
+                      <div class="faq__order mt-2 card-text">
+                        <input type="number" class="order-input getOrder" value="<%= faq.order %>">
+                        <div class="order-cover" data-content-head="order：">order：<%= faq.order %></div>
+                      </div>
+                      <button type="button" class="faq-save mt-3 btn btn-primary" data-source="faq" data-http-method="PATCH">儲存</button>
+                      <button type="button" class="faq-delete mt-3 btn btn-danger" data-source="faq" data-http-method="DELETE">刪除</button>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </main>

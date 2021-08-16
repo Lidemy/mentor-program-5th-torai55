@@ -10,4 +10,5 @@
 
   @include backend-panel-input-style(prize, prizes);
   @include backend-panel-input-style(dish, dishes);
+  @include backend-panel-input-style(faq, faqs);
 }

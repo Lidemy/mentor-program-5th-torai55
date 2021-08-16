@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../../models')
 
 const prizeModel = db.Prize
 
@@ -82,7 +82,7 @@ const prizeController = {
   updatePrize: async(req, res, next) => {
     const { id } = req.params
     const { name, imageUrl, description, weight } = req.body
-    if (name === '' || name === null) return res.status(400).json('name 必填')
+    if (!name && name !== 0) return res.status(400).json('name 必填')
     try {
       const result = await prizeModel.update({
         name,

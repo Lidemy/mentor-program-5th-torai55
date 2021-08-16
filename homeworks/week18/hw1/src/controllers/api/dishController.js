@@ -1,4 +1,4 @@
-const menuModel = require('../models').Dish
+const menuModel = require('../../models').Dish
 
 const dishController = {
   getDish: async(req, res, next) => {
@@ -48,7 +48,7 @@ const dishController = {
   updateDish: async(req, res, next) => {
     const { id } = req.params
     const { name, price, imageUrl } = req.body
-    if (name === '' || name === null) return res.status(400).json('name 必填')
+    if (!name && name !== 0) return res.status(400).json('name 必填')
     try {
       const result = await menuModel.update({
         name,

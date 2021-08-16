@@ -1,11 +1,54 @@
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelector('.faq__cards')
+const cardTemplate = `
+  <h3 class="card__serial">Q{{order}}:</h3>
+  <div class="card__content">
+    <h3 class="question">{{title}}</h3>
+    <div class="answer collapsed"><p>{{content}}</p></div>
+  </div>`
 
-    cards.addEventListener('click', (e) => {
-      if (!(e.target.classList.contains('question'))) return
-      const card = e.target.closest('.faq__card')
-      card?.querySelector('.answer').classList.toggle('collapsed')
-    })
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+}
+
+function addCard(container, faq) {
+  const { order, title, content } = faq
+  const faqCard = document.createElement('div')
+  const hr = document.createElement('hr')
+
+  const cardContent = cardTemplate
+    .replace(/{{order}}/g, escapeHtml(order.toString()))
+    .replace(/{{title}}/g, escapeHtml(title))
+    .replace(/{{content}}/g, escapeHtml(content))
+
+  faqCard.classList.add('faq__card')
+  faqCard.innerHTML = cardContent
+
+  container.appendChild(faqCard)
+  container.appendChild(hr)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cardContainer = document.querySelector('.faq__cards')
+
+  cardContainer.addEventListener('click', (e) => {
+    if (!(e.target.classList.contains('question'))) return
+    const card = e.target.closest('.faq__card')
+    card?.querySelector('.answer').classList.toggle('collapsed')
   })
+
+  ;(async() => {
+    try {
+      const result = await fetch('<%= domain %>:<%= port %>/api/faqs?order=ASC')
+      const faqs = await result.json()
+      faqs.forEach((faq) => addCard(cardContainer, faq))
+    } catch (err) {
+      console.error(err)
+    }
+  })()
+})
 </script>

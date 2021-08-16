@@ -1,9 +1,11 @@
-const prizeController = require('./prizeController')
-const dishController = require('./dishController')
+const prizeController = require('./api/prizeController')
+const dishController = require('./api/dishController')
+const faqController = require('./api/faqController')
 
 const apiController = {
   prize: prizeController,
-  dish: dishController
+  dish: dishController,
+  faq: faqController
 }
 
 module.exports = apiController

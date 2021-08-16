@@ -308,6 +308,33 @@ footer .footer__bottom {
   overflow: auto;
 }
 
+.backend-pannel .faqs .faq [class^="faq__"] {
+  position: relative;
+  padding: 0;
+  height: 3rem;
+}
+
+.backend-pannel .faqs .faq [class^="faq__"] .hide {
+  display: none;
+}
+
+.backend-pannel .faqs .faq [class^="faq__"] input {
+  position: relative;
+  width: 100%;
+}
+
+.backend-pannel .faqs .faq [class^="faq__"] [class$="-cover"] {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: .5rem .3rem;
+  overflow: auto;
+}
+
 .banner {
   height: 80vh;
   width: 100%;
@@ -737,11 +764,12 @@ footer .footer__bottom {
   display: flex;
   flex-direction: column;
   font-family: my-font;
+  width: 100%;
 }
 
 .faq .faq__cards .faq__card .card__content .question {
   font-size: 1.125rem;
-  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   transform: translateY(0.3rem);
 }
 
