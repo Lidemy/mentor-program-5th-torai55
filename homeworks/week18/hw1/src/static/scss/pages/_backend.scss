@@ -1,0 +1,14 @@
+.backend-pannel {
+  padding: 1rem;
+  background-color: #07402c;
+
+  .pannel__content {
+    background-color: white;
+    padding: 0 0 1rem 0;
+    border-radius: .5rem;
+  }
+
+  @include backend-panel-input-style(prize, prizes);
+  @include backend-panel-input-style(dish, dishes);
+  @include backend-panel-input-style(faq, faqs);
+}

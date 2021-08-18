@@ -1,0 +1,40 @@
+<script>
+const cardTemplate = `
+  <img src="{{imageUrl}}" alt="臘腸狗的英文：doooooooog" class="card__image">
+  <p class="card__info">{{name}} | \${{price}}</p>
+  <button class="card__cart">加入購物車</button>`
+
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+}
+
+function appendCard(cardContent) {
+  const container = document.querySelector('.list__cards')
+  const card = document.createElement('div')
+  card.classList.add('list__card')
+  card.innerHTML = cardContent
+  container.appendChild(card)
+}
+
+const url = `<%= domain %>:<%= port %>/api/dishes`
+;(async() => {
+  try {
+    const response = await fetch(url)
+    const dishes = await response.json()
+    for (dish of dishes) {
+      const safe = cardTemplate
+        .replace(/{{imageUrl}}/g, escapeHtml(dish.imageUrl))
+        .replace(/{{name}}/g, escapeHtml(dish.name))
+        .replace(/{{price}}/g, escapeHtml(dish.price.toString()))
+      appendCard(safe)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+})()
+</script>

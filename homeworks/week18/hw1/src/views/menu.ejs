@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <%- include('./templates/head') %>
+  <body>
+    <%- include('./templates/nav') %>
+    <section class="menu__banner"></section>
+    <main class="menu">
+
+      <section class="menu__hot-selling">
+        <h2 class="hot-selling__title">熱銷搶購中</h2>
+
+        <div class="hot-selling__images">
+          <div class="hot-selling__image-wrapper sell-out">
+            <img src="<%= domain %>:<%= port %>/static/images/ad-01@2x.png" srcset="<%= domain %>:<%= port %>/static/images/ad-01.png 1x,
+                                                                                                    <%= domain %>:<%= port %>/static/images/ad-01@2x.png 2x,
+                                                                                                    <%= domain %>:<%= port %>/static/images/ad-01@3x.png 3x" alt="food image">
+          </div>
+
+          <div class="hot-selling__image-wrapper">
+            <img src="<%= domain %>:<%= port %>/static/images/ad-02@2x.png" srcset="<%= domain %>:<%= port %>/static/images/ad-02.png 1x,
+                                                                                  <%= domain %>:<%= port %>/static/images/ad-02@2x.png 2x,
+                                                                                  <%= domain %>:<%= port %>/static/images/ad-02@3x.png 3x" alt="food image">
+          </div>
+          <div class="hot-selling__image-wrapper">
+            <img src="<%= domain %>:<%= port %>/static/images/ad-03@2x.png" srcset="<%= domain %>:<%= port %>/static/images/ad-03.png 1x,
+                                                                                  <%= domain %>:<%= port %>/static/images/ad-03@2x.png 2x,
+                                                                                  <%= domain %>:<%= port %>/static/images/ad-03@3x.png 3x" alt="food image">
+          </div>
+        </div>
+      </section>
+
+      <section class="menu__desc">
+        <div class="desc__left">
+          <img src="<%= domain %>:<%= port %>/static/images/order-ad.png" srcset="<%= domain %>:<%= port %>/static/images/order-ad.png 1x,
+                                                                                 <%= domain %>:<%= port %>/static/images/order-ad@2x.png 2x,
+                                                                                 <%= domain %>:<%= port %>/static/images/order-ad@3x.png 3x" alt="order image">
+        </div>
+        <div class="desc__right">
+          <h2 class="desc__title">
+            在家也能輕鬆<br />
+            咬一口我們的鮮甜清爽
+          </h2>
+
+          <p>您再也不必受限於時間或地點，隨時隨地透過我們24小時的線上購物選購，咬一口廚房堅持以細選食材、輕盈口感，呈現食材本身的原滋原味。</p>
+          <p>我們將咬一口的經典菜色研發製成相應當季的包裝食品及各式精美的伴手禮盒。將剛出爐的新鮮迅速送達家人手中，也適合與更多喜愛咬一口的親朋好友分享難得的健康滋味。</p>
+        </div>
+      </section>
+
+      <section class="menu__list">
+        <a class="list__comment" href="#menu__list__card">立即輕鬆選購</a><br />
+        <a class="list__anchor" href="#menu__list__card">&gt;</a>
+
+        <div class="list__cards" id="menu__list__card">
+          <div class="list__card">
+            <img src="<%= domain %>:<%= port %>/static/images/f-002.png" alt="臘腸狗的英文：doooooooog" class="card__image">
+            <p class="card__info">輕盈高麗卷湘南 | $280</p>
+            <button class="card__cart">加入購物車</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="menu__location">
+        <a class="location__comment" href="#menu__location__map">還是想要親身體驗我們的服務？</a><br />
+        <a class="location__anchor" href="#menu__location__map">&gt;</a><br />
+
+        <iframe id="menu__location__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14460.397194635289!2d121.56604044422924!3d25.030704000024205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da80a7ad%3A0xacc4d11dc963103c!2z5Y-w5YyXMTAx!5e0!3m2!1szh-TW!2stw!4v1628931736406!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </section>
+    </main>
+    <%- include('./templates/footer') %>
+  </body>
+</html>

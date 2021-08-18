@@ -1,0 +1,63 @@
+.faq {
+  .faq__title {
+    @include section-title-style;
+  }
+
+  .faq__cards {
+    max-width: 53.125rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+
+    .faq__card {
+      display: flex;
+
+      .card__serial {
+        color: $faq-serial-color;
+        font-size: 1.5rem;
+        font-family: my-font;
+        margin-right: 1rem;
+      }
+      .card__content {
+        display: flex;
+        flex-direction: column;
+        font-family: my-font;
+        width: 100%;
+
+        .question {
+          font-size: 1.125rem;
+          padding-bottom: 1.5rem;
+          transform: translateY(.3rem);
+        }
+
+        .answer {
+          font-size: 1rem;
+          line-height: 1.5rem;
+          transition: max-height .2s ease-in;
+          max-height: 30rem;
+          overflow: hidden;
+
+          &.collapsed {
+            // display:none;
+            max-height: 0;
+            p {
+              transform: translateY(-100%);
+            }
+          }
+
+          p {
+            transition: transform .2s ease-in;
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+
+    hr {
+      background-color: $faq-divider-color;
+      height: 1px;
+      width: 100%;
+      border: unset;
+      margin: 1.75rem 0;
+    }
+  }
+}

@@ -1,0 +1,231 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/8.0.0/pluralize.min.js" integrity="sha512-4uLji4UnTkA9AWSkIT2+sTQyRqox+O/e+JVkJA7zf+11CJDTxNEaMq13LRvYsu8Mv0kfpnePOIoS0Z0f8VlGgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+function getTemplate(source) {
+  const prizeTemplate = `
+    <div class="prize card">
+      <input type="hidden" class="prize-id" value="{{id}}">
+      <img src="{{imageUrl}}" class="prize-image card-img-top" alt="prize">
+      <div class="prize__imageUrl card-header">
+        <input type="text" class="imageUrl-input getImageUrl" value="{{imageUrl}}">
+        <div class="imageUrl-cover" data-content-head="imageUrl：">imageUrl：{{imageUrl}}</div>
+      </div>
+      <div class="card-body">
+        <h5 class="prize__name card-title">
+          <input type="text" class="name-input getName" value="{{name}}">
+          <div class="name-cover" data-content-head="name：">name：{{name}}</div>
+        </h5>
+        <div class="prize__desc card-text">
+          <input type="text" class="description-input getDescription" value="{{description}}">
+          <div class="description-cover" data-content-head="description：">description：{{description}}</div>
+        </div>
+        <div class="prize__weight mt-2 card-text">
+          <input type="text" class="weight-input getWeight" value="{{weight}}">
+          <div class="weight-cover" data-content-head="weight：">weight：{{weight}}</div>
+        </div>
+        <button type="button" class="prize-save mt-3 btn btn-primary" data-source="prize" data-http-method="PATCH">儲存</button>
+        <button type="button" class="prize-delete mt-3 btn btn-danger" data-source="prize" data-http-method="DELETE">刪除</button>
+      </div>
+    </div>`
+    const dishTemplate = `
+    <div class="dish card">
+      <input type="hidden" class="dish-id" value="{{id}}">
+      <img src="{{imageUrl}}" class="dish-image card-img-top" alt="dish-image">
+      <div class="dish__imageUrl card-header">
+        <input type="text" class="imageUrl-input getImageUrl" value="{{imageUrl}}">
+        <div class="imageUrl-cover" data-content-head="imageUrl：">imageUrl：{{imageUrl}}</div>
+      </div>
+      <div class="card-body">
+        <h5 class="dish__name card-title">
+          <input type="text" class="name-input getName" value="{{name}}">
+          <div class="name-cover" data-content-head="name：">name：{{name}}</div>
+        </h5>
+        <div class="dish__price mt-2 card-text">
+          <input type="text" class="price-input getPrice" value="{{price}}">
+          <div class="price-cover" data-content-head="price：">price：{{price}}</div>
+        </div>
+        <button type="button" class="dish-save mt-3 btn btn-primary" data-source="dish" data-http-method="PATCH">儲存</button>
+        <button type="button" class="dish-delete mt-3 btn btn-danger" data-source="dish" data-http-method="DELETE">刪除</button>
+      </div>
+    </div>`
+    const faqTemplate = `
+    <div class="faq card">
+      <input type="hidden" class="faq-id" value="{{id}}">
+      <div class="card-body">
+        <h5 class="faq__card-title card-title">
+          <input type="text" class="title-input getTitle" value="{{title}}">
+          <div class="title-cover" data-content-head="title：">title：{{title}}</div>
+        </h5>
+        <div class="faq__content mt-2 card-text">
+          <input type="text" class="content-input getContent" value="{{content}}">
+          <div class="content-cover" data-content-head="content：">content：{{content}}</div>
+        </div>
+        <div class="faq__order mt-2 card-text">
+          <input type="number" class="order-input getOrder" value="{{order}}">
+          <div class="order-cover" data-order-head="order：">order：{{order}}</div>
+        </div>
+        <button type="button" class="faq-save mt-3 btn btn-primary" data-source="faq" data-http-method="PATCH">儲存</button>
+        <button type="button" class="faq-delete mt-3 btn btn-danger" data-source="faq" data-http-method="DELETE">刪除</button>
+      </div>
+    </div>`
+    let output
+    switch(source) {
+      case 'prize':
+        output = prizeTemplate
+        break
+      case 'dish':
+        output = dishTemplate
+        break
+      case 'faq':
+        output = faqTemplate
+        break
+      default:
+        output = ''
+    }
+  return output
+}
+
+function escapeHtml(unsafe) {
+  return unsafe
+    ?.replace(/&/g, '&amp;')
+    ?.replace(/</g, '&lt;')
+    ?.replace(/>/g, '&gt;')
+    ?.replace(/"/g, '&quot;')
+    ?.replace(/'/g, '&#039;')
+}
+
+function renderCard(data, template, containerSelector) {
+  const cardContent = template
+    .replace(/{{id}}/g, escapeHtml(data.id.toString()))
+    .replace(/{{imageUrl}}/g, escapeHtml(data.imageUrl))
+    .replace(/{{name}}/g, escapeHtml(data.name))
+    .replace(/{{description}}/g, escapeHtml(data.description))
+    .replace(/{{weight}}/g, escapeHtml(data.weight))
+    .replace(/{{price}}/g, escapeHtml(data.price))
+    .replace(/{{title}}/g, escapeHtml(data.title))
+    .replace(/{{content}}/g, escapeHtml(data.content))
+    .replace(/{{order}}/g, escapeHtml(data.order?.toString()))
+
+  const newCard = document.createElement('div')
+  newCard.classList.add('col')
+  newCard.innerHTML = cardContent
+  document.querySelector(containerSelector).appendChild(newCard)
+}
+
+function clearAllInput(parentElement) {
+  function clearInput(fieldName) {
+    const field = parentElement.querySelector(`.get${fieldName}`)
+    if (field) field.value = ''
+  }
+  fieldNames = ['ImageUrl', 'Description', 'Weight', 'Price', 'Title', 'Content', 'Order']
+  fieldNames.forEach((fieldName) => clearInput(fieldName))
+}
+
+function getCardData(parentElement, path, source) {
+  const id = parentElement.querySelector(`.${source}-id`)?.value || ''
+  const url = `${window.location.protocol}//${window.location.host}/api/${path}/${id}`
+  const fieldNames = ['imageUrl', 'name', 'description', 'weight', 'price', 'title', 'content', 'order']
+  const data = {}
+  fieldNames.forEach((fieldName) => {
+    const capital = fieldName[0].toUpperCase() + fieldName.slice(1)
+    data[fieldName] = parentElement.querySelector(`.get${capital}`)?.value
+  })
+
+  return {
+    url,
+    data
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
+    element.addEventListener('dblclick', (e) => {
+      const { target } = e
+      const classNames = ['imageUrl-cover', 'name-cover', 'description-cover', 'weight-cover', 'price-cover', 'title-cover', 'content-cover', 'order-cover']
+      if (!classNames.some((className) => target.classList.contains(className))) return
+      target.classList.add('hide')
+      target.parentNode.querySelector('input').focus()
+    })
+  })
+
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
+    element.addEventListener('change', (e) => {
+      const { target } = e
+      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input', 'title-input', 'content-input', 'order-input']
+      if (!classNames.some((className) => target.classList.contains(className))) return
+      const div = target.parentNode.querySelector('div')
+      div.textContent = div.dataset.contentHead + target.value
+    })
+  })
+
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {    
+    element.addEventListener('focusout', (e) => {
+      const { target } = e
+      const classNames = ['imageUrl-input', 'name-input', 'description-input', 'weight-input', 'price-input', 'title-input', 'content-input', 'order-input']
+      if (!classNames.some((className) => target.classList.contains(className))) return
+      target.parentNode.querySelector('div').classList.remove('hide')
+    })
+  })
+
+  document.querySelectorAll('.prizes, .dishes, .faqs').forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const { target } = e
+      const classNames = ['prize-save', 'prize-delete', 'prize-post', 'dish-save', 'dish-delete', 'dish-post', 'faq-save', 'faq-delete', 'faq-post']
+      if (!classNames.some((className) => target.classList.contains(className))) return
+      const source = target.dataset.source
+      const pluralSource = pluralize.plural(source)
+      const httpMethod = target.dataset.httpMethod
+      const container = target.closest(`.${source}`)
+      const { url, data } = getCardData(container, pluralSource, source)
+      let request
+
+      if (httpMethod === 'PATCH') {
+        request = new Request(url, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+      } else if (httpMethod === 'DELETE') {
+        request = new Request(url, { method: 'DELETE' })
+      } else if (httpMethod === 'POST') {
+        request = new Request(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+      } else {
+        console.log(target.classList)
+        return
+      }
+
+      (async() => {
+        try {
+          const result = await fetch(request)
+          const parsedResult = await result.json()
+          if (!(result.status > 100 && result.status < 300)) throw new Error(parsedResult)
+          switch (request.method) {
+            case 'PATCH':
+              alert('更新成功') // 可以改用 bootstrap Toasts
+              break
+            case 'POST':
+              alert('新增成功') // bootstrap toasts
+              renderCard(parsedResult, getTemplate(source), `.${pluralSource}`)
+              clearAllInput(container)
+              break
+            case 'DELETE':
+              alert('刪除成功') // bootstrap Toasts
+              container.parentNode.remove()
+              break
+          }
+        } catch (err) {
+          console.log(err)
+          alert(err)
+        }
+      })()
+    })
+  })
+})
+</script>
