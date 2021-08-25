@@ -13,7 +13,7 @@ const prizeController = {
       })
       if (mode !== 'random') return res.json(prizes)
       const total = prizes.reduce((accu, curr) => accu + curr.weight, 0)
-      let random = Math.floor(Math.random() * total)
+      let random = Math.ceil(Math.random() * total)
       let win
       for (const prize of prizes) {
         random -= prize.weight

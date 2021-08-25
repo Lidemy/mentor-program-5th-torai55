@@ -33,6 +33,7 @@ const dishController = {
     const { name, price, imageUrl } = req.body
     console.log(req.body)
     if (name !== 0 && !name) return res.status(400).json('name 必填')
+    if (price !== 0 && !price) return res.status(400).json('price 必填')
     try {
       const newDish = await menuModel.create({
         name,
