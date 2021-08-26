@@ -38,6 +38,7 @@
   document.querySelector('.edit-post-btn')?.addEventListener('click', (e) => {
     e.preventDefault()
     const parent = e.target.parentElement
+    const authKey = parent.querySelector('input[name="authKey"]').value
     const id = parent.querySelector('input[name="id"]').value
     const referer = parent.querySelector('input[name="referer"]').value
     const title = parent.querySelector('input[name="postTitle"]').value
@@ -46,7 +47,8 @@
     new Promise((resolve, reject) => resolve({
       id,
       title,
-      content
+      content,
+      authKey
     }))
     .then((postInfo) => {
       const headers = new Headers({ 'Content-type': 'application/json'})

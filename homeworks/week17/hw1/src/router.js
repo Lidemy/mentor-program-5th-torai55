@@ -9,18 +9,18 @@ router.use('/api', apiRouter)
 
 // blog pages
 router.get('/', (req, res) => res.redirect(301, '/home'))
-router.get(['/home', '/home/*'], paginationMiddleware, blogController.home)
-router.get('/backend', paginationMiddleware, blogController.backend)
-router.get('/add_post', blogController.addPost)
-router.get('/edit/:id', blogController.edit)
-router.get('/posts/:id', blogController.post)
+router.get(['/home', '/home/*'], paginationMiddleware, blogController.createCsrfToken, blogController.home)
+router.get('/backend', blogController.authentication, paginationMiddleware, blogController.createCsrfToken, blogController.backend)
+router.get('/add_post', blogController.authentication, blogController.addPost)
+router.get('/edit/:id', blogController.authentication, blogController.createCsrfToken, blogController.edit)
+router.get('/posts/:id', blogController.authentication, blogController.createCsrfToken, blogController.post)
 router.get('/login', blogController.login)
-router.get('/signup', blogController.signup)
+// router.get('/signup', blogController.signup)
 
 // user actions
 router.post('/login', userController.login)
 router.get('/logout', userController.logout)
-router.post('/signup', userController.signup)
+// router.post('/signup', userController.signup)
 
 function paginationMiddleware(req, res, next) {
   blogModel.getAll((err, result) => {

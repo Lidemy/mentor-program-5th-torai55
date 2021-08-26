@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const session = require('express-session')
@@ -19,7 +20,7 @@ app.use(express.json())
 
 // session
 app.use(session({
-  secret: 'some secret',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }))
@@ -46,10 +47,10 @@ app.use(router)
 
 // error handler
 app.use((error, req, res, next) => {
+  console.log(error)
   if (error instanceof SyntaxError) {
     res.status(400).send('json format error')
   } else {
-    console.log(error)
     res.status(500).send('something broke')
   }
 })
