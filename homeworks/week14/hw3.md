@@ -6,6 +6,8 @@ Google 可以直接在自己管理的 DNS 伺服器底下，設定好自己各�
 
 使用者上網變成會經過 google DNS 伺服器，google 就能得到連線的統計資料。
 
+[What is DNS? | How DNS works](https://www.cloudflare.com/zh-tw/learning/dns/what-is-dns/)
+
 ## 什麼是資料庫的 lock？為什麼我們需要 lock？
 
 為了維護資料庫 ACID 之中的 isolation，在連續操作資料時可以把某個 row，或是某張 table 暫時鎖起來，不讓其他執行緒操作。就不會發生兩個人同時購買最後一項商品，而產生的 race condition。

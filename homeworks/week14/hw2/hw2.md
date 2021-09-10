@@ -35,7 +35,7 @@ outbound rules 預設就是全開的，可以不用動。
 
 #### type
 
-作為架設網頁用的伺服器，需要 SSH 以建立遠端連線，讓你從自己電腦連上去操縱虛擬機；打開 HTTP 與 HTTPS 則是使用者可以連上網頁；MySQL 是我之後想要用 mysql workbench 連上去操縱資料庫而打開。查資料時看到 [SSH tunneling/port fowrading](https://johnliu55.tw/ssh-tunnel.html)（[另一篇](http://linuxperf.com/?p=30)） 的用法，我想也可以不打開 3306 port 然後利用 SSH tunneling 把資料轉發給 3306 port 吧。
+作為網頁伺服器，需要 SSH 以建立遠端連線，讓你從自己電腦連上去操縱虛擬機；打開 HTTP 與 HTTPS 則是使用者可以連上網頁；MySQL 是我之後想要用 mysql workbench 連上去操縱資料庫而打開。查資料時看到 [SSH tunneling/port fowrading](https://johnliu55.tw/ssh-tunnel.html)（[另一篇](http://linuxperf.com/?p=30)） 的用法，我想也可以不打開 3306 port 然後利用 SSH tunneling 把資料轉發給 3306 port 吧。
 
 #### protocol/port range
 
@@ -43,7 +43,7 @@ outbound rules 預設就是全開的，可以不用動。
 
 #### Source
 
-這邊在設定哪些 IP 地址可以存取。這邊採用 [CIDR notation](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)（[參考資料2](https://www.ripe.net/about-us/press-centre/understanding-ip-addressing)）。以 `203.0.113.0/24` 為例，後面 `/24` 代表子網路遮罩是 `11111111.11111111.11111111.00000000`。
+這邊在設定哪些 IP 地址可以存取。採用 [CIDR notation](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)（[參考資料2](https://www.ripe.net/about-us/press-centre/understanding-ip-addressing)）。以 `203.0.113.0/24` 為例，後面 `/24` 代表子網路遮罩是 `11111111.11111111.11111111.00000000`。
 
 `0.0.0.0/0` 代表全世界。要填入自己 IP，在下拉式選單中也能選到。如果不是固定 IP 這邊就要填入網段，例如 `114.136.0.0/16` 可代表 `114.136.0.0` ~ `114.136.255.255`。詳細說明可看[鳥哥](http://linux.vbird.org/linux_server/0110network_basic.php#tcpip_network_netmask)。
 
@@ -161,11 +161,10 @@ LAMP stack：Linux、Apache、MySQL、PHP。
 
 [UFW cheat sheet](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)，防火牆的設定。
 
-[關閉 Auto Index](https://github.com/Lidemy/mentor-program-2nd-futianshen/issues/21)（如果文件中沒有 index 標題的檔案，會直接出現你的根目錄，要把這個功能關掉）
+`$ sudo a2dismod autoindex`：[關閉 Auto Index](https://github.com/Lidemy/mentor-program-2nd-futianshen/issues/21)（如果文件中沒有 index 標題的檔案，會直接出現你的根目錄，要把這個功能關掉）
 
 [Apache Virtual Host](https://httpd.apache.org/docs/2.4/en/vhosts/)，可以在一台主機上，host 多個網頁對應不同 IP；或是一個 IP 對應到不同網頁。
 
-* `$ sudo a2dismod autoindex`
-* `$ sudo systemctl restart apache2`
+`$ sudo systemctl restart apache2`：重啟 apache2
 
 累了，購買網域就看別人的[文章](https://mtr04-note.coderbridge.io/2020/09/15/-%E7%B4%80%E9%8C%84-%08-%E9%83%A8%E5%B1%AC-aws-ec2-%E9%9B%B2%E7%AB%AF%E4%B8%BB%E6%A9%9F-/)、[文章2](https://nicolakacha.coderbridge.io/2020/09/16/launch-website/)。八八啦。
