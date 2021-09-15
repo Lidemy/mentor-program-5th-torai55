@@ -19,9 +19,7 @@
       <article>
         <div class="article__top">
           <h3 class="article__title"><%= post.title %></h3>
-          <?php if($username) { ?>
-            <%- include('./template/post_action') %>
-          <?php } ?>
+          <%- include('./template/post_action') %>
         </div>
 
         <div class="article__bottom">

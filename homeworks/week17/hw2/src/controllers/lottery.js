@@ -89,5 +89,12 @@ module.exports = {
         }
         next(new ServerError(err.message))
       })
+  },
+
+  upload: async(req, res, next) => {
+    if (!req.is('multipart/form-data')) return res.status(400).json('content-type must be multipart/form-data')
+    const { filename } = req.file
+    const { CLIENT_PORT, APP_DOMAIN } = process.env
+    res.json({ path: `${APP_DOMAIN}:${CLIENT_PORT}/static/images/${filename}` })
   }
 }

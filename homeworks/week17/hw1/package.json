@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "start-gendoc": "nodemon ./src/swagger.js"
   },
   "keywords": [],
@@ -18,6 +19,7 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
@@ -26,5 +28,7 @@
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }

@@ -5,13 +5,19 @@
     <meta name="author" content="Torai Lin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base target="_self" />
-    <link rel="stylesheet" href="<%= domain %>/static/css/style.css">
+    <link rel="stylesheet" href="<%= domain %>:<%= port %>/static/css/style.css">
     <title>抽獎後台</title>
   </head>
   <body>
     <main>
+      <form action="<%= domain %>:<%= port %>/upload" method="POST" enctype="multipart/form-data" style="background-color: rgba(211, 198, 198, 0.911);">
+        <div class="uploaded-image-url" data-content-prefix="圖片網址：">圖片網址：</div>
+        <input type="file" name="image" class="upload-input">
+        <button class="upload-btn">上傳圖片</button>
+      </form>
       <div class="create-prize">
-        <form action="<%= domain %>/lottery" method="POST">
+        <form action="" method="POST">
+          <h3 style="font-size: 1.3rem; font-weight: 600;">新增項目：</h3>
           <div class="wrapper">名稱：<input type="text" name="name"></div>
           <div class="wrapper">圖片網址：<input type="text" name="imageUrl"></div>
           <div class="wrapper">描述：<input type="text" name="description"></div>
@@ -25,7 +31,7 @@
         <p class="hint">權重：假設只有 A、B 兩個東西。A 權重 2、B 權重 3，那麼抽到 A 的機率是 2 / (2+3) = 40%，B 是 60%。</p>
       </div>
       <div class="prizes">
-        <% for( let i = 0; i < prizes.length; i++ ) { %>
+        <% for(let i = 0; i < prizes.length; i++) { %>
           <form class="prize">
             <input class="prize__id" type="hidden" name="id" value="<%= prizes[i].id %>">
             <div class="prize__top">
@@ -120,13 +126,13 @@
         const headers = new Headers({
           'Content-type': 'application/json'
         })
-        request = new Request(`<%= domain %>/lottery/${id}`, {
+        request = new Request(`<%= domain %>:<%= port %>/lottery/${id}`, {
           method: 'PATCH',
           body: JSON.stringify(data),
           headers
         })
       } else if (isDelete) {
-        request = new Request(`<%= domain %>/lottery/${id}`, {
+        request = new Request(`<%= domain %>:<%= port %>/lottery/${id}`, {
           method: 'DELETE'
         })
       }
@@ -155,7 +161,7 @@
       const headers = new Headers({
         'Content-type': 'application/json'
       })
-      const request = new Request('<%= domain %>/lottery', {
+      const request = new Request('<%= domain %>:<%= port %>/lottery', {
         method: 'POST',
         body: JSON.stringify(data),
         headers
@@ -164,6 +170,24 @@
         // .then((res) => res.json())
         .then((res) => location.reload())
         .catch((err) => console.error(err))
+    })
+
+    document.querySelector('.upload-btn').addEventListener('click', (e) => {
+      e.preventDefault()
+
+      const fileField = document.querySelector('.upload-input')
+      const formData = new FormData()
+      formData.append('image', fileField.files[0])
+
+      fetch('<%= domain %>:<%= port %>/upload', {
+        method: 'POST',
+        body: formData
+      }).then((res) => res.json())
+      .then((res) => {
+        const outputDiv = document.querySelector('.uploaded-image-url')
+        outputDiv.textContent = outputDiv.dataset.contentPrefix + res.path
+      })
+      .catch((err) => console.error(err))
     })
   </script>
 </html>

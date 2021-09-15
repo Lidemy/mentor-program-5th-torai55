@@ -64,21 +64,13 @@ a {
 
 nav {
   font-family: my-font;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem 2rem;
 }
 
 nav .nav__left {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -89,12 +81,8 @@ nav .nav__left .nav__title {
 }
 
 nav .nav__left .nav__links {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 nav .nav__left .nav__links li {
@@ -106,8 +94,6 @@ nav .nav__left .nav__links li a {
 }
 
 nav .nav__management {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -120,8 +106,6 @@ nav .nav__management li a {
 }
 
 .post-actions {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   line-height: normal;
 }
@@ -137,19 +121,11 @@ nav .nav__management li a {
 
 .banner {
   text-align: center;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#000000), to(#434343));
   background-image: linear-gradient(to top, #000000, #434343);
   height: 30vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .banner .banner__title {
@@ -184,8 +160,7 @@ main .articles {
   margin: 0 auto;
   padding: .8rem;
   position: relative;
-  -webkit-transform: translateY(-4rem);
-          transform: translateY(-4rem);
+  transform: translateY(-4rem);
   background-color: white;
 }
 
@@ -197,27 +172,15 @@ main .articles article {
 }
 
 main .articles article .article__top {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main .articles article .article__bottom .article__info {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: flex-start;
+  align-items: center;
   background-color: #eeeeee;
   margin: 1.18rem 0;
   padding: .68rem;
@@ -234,6 +197,10 @@ main .articles article .article__bottom .article__content {
   white-space: pre-line;
 }
 
+main .articles article .article__bottom .article__content p {
+  line-break: anywhere;
+}
+
 main .articles article .article__bottom .article__more {
   border: solid 1px #737373;
   background-color: white;
@@ -242,14 +209,9 @@ main .articles article .article__bottom .article__more {
 }
 
 main .pagination {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 main .pagination a {
@@ -270,19 +232,10 @@ main .pagination a {
   height: 500px;
   border: solid 1px #000000;
   font-family: my-font;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .login__wrapper .login .login__title {
@@ -291,16 +244,9 @@ main .pagination a {
 
 .login__wrapper .login form {
   margin-top: 2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   font-size: .875rem;
 }
 
@@ -315,7 +261,6 @@ main .pagination a {
 }
 
 .login__wrapper .login form button {
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#000000), to(#434343));
   background-image: linear-gradient(to top, #000000, #434343);
   color: white;
   padding: 1.2rem 0;
@@ -336,23 +281,16 @@ main .cards {
   margin: 0 auto;
   padding: 1.2rem 1rem;
   position: relative;
-  -webkit-transform: translateY(-4rem);
-          transform: translateY(-4rem);
+  transform: translateY(-4rem);
   background-color: white;
   text-align: center;
   min-height: 20vh;
 }
 
 main .cards .card {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   margin: 1rem 0;
   border-bottom: 1px solid black;
   padding-bottom: 1.1rem;
@@ -366,15 +304,13 @@ main .cards .card .card__title {
 main .cards .card .card__content {
   width: 250px;
   word-break: break-all;
+  overflow: hidden;
+  max-height: 3rem;
 }
 
 main .cards .card .card__info {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 main .cards .card .card__info .timestamp {
@@ -399,8 +335,7 @@ main .add-post__wrapper {
   margin: 0 auto;
   padding: 1.2rem 1rem;
   position: relative;
-  -webkit-transform: translateY(-4rem);
-          transform: translateY(-4rem);
+  transform: translateY(-4rem);
   background-color: white;
   text-align: center;
   min-height: 20vh;
@@ -416,19 +351,10 @@ main .add-post__wrapper .add-post .add-post__title {
 }
 
 main .add-post__wrapper .add-post .add-post__form {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 main .add-post__wrapper .add-post .add-post__form > input {
@@ -457,8 +383,7 @@ main .add-post__wrapper .add-post .add-post__form > button {
   background-color: white;
   margin-top: 1.5rem;
   cursor: pointer;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
 }
 
 .articles .tags {
@@ -488,4 +413,3 @@ main .add-post__wrapper .add-post .add-post__form > button {
 .signup {
   display: none;
 }
-/*# sourceMappingURL=main.css.map */

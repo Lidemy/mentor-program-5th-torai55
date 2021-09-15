@@ -41,6 +41,10 @@ main {
         .article__content {
           margin-bottom: 2.25rem;
           white-space: pre-line;
+
+          p {
+            line-break: anywhere;
+          }
         }
 
         .article__more {

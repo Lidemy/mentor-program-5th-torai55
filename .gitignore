@@ -4,3 +4,4 @@ conn.php
 .eslintcache
 exercise/
 backup.sql
+.env

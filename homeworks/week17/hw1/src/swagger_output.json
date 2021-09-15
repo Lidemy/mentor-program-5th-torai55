@@ -5,7 +5,7 @@
     "title": "blog API",
     "description": "API for wk17 hw1."
   },
-  "host": "localhost:8787",
+  "host": "localhost:8686",
   "basePath": "/",
   "tags": [
     {

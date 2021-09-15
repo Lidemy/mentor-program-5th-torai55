@@ -20,6 +20,7 @@
         <h2 class="add-post__title">編輯文章：</h2>
         <form action="/api/posts" method="PUT" class="add-post__form">
           <input type="hidden" name="referer" value="<%= referer %>">
+          <input type="hidden" name="authKey" value="<%= authKey %>">
           <input type="hidden" name="id" value="<%= post.id %>">
           <input type="hidden" name="author" value="<%= username %>">
           <input type="text" placeholder="請輸入文章標題" name="postTitle" value="<%= post.title %>">
