@@ -116,8 +116,6 @@ server {
 4. `$ sudo service nginx restart`：重新啟動 Nginx。
 5. 在瀏覽器輸入 `http://serverIp/test1/`、`http://serverIp/test2/` 查看測試網頁。
 
-## 安裝 PHP
-
 ## Reference
 
 [Ubuntu 20.04 伺服器設定 (Nginx, PHP, MySQL, phpMyAdmin, Python 3.9)](https://the.annswer.org/t/topic/354)
@@ -320,31 +318,66 @@ $ docker-compose --version # 查看版本
 version: "3.7" # compose file 的版本：https://docs.docker.com/compose/compose-file/
 
 services:
-  app: # service name
-    image: node:12-alpine
-    command: sh -c "yarn install && yarn run dev" 
+  echo_app: # service name
+    image: node
+    secrets:
+      - db_username
+      - db_user_password
+      - db_database_name
+    command: sh -c "npm install & npm run start"
     ports:
-      - 3000:3000
-    working_dir: /app
+      - 9999:9999
+    working_dir: /echo_app
     volumes:
-      - ./:/app
+      - ./echo_server:/echo_app
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DB: todos
+      MYSQL_HOST: mysql_app
+      MYSQL_USER: torai
+      MYSQL_PASSWORD_FILE: /run/secrets/db_user_password
+      MYSQL_DB_FILE: /run/secrets/db_database_name
+      MYSQL_PORT: 3306
+      APP_PORT: 9999
 
-  mysql:
-    image: mysql:5.7
+  mysql_app:
+    image: mysql
+    secrets:
+      - db_root_password
+      - db_username
+      - db_user_password
+      - db_database_name
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: todos
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_USER_FILE: /run/secrets/db_username
+      MYSQL_PASSWORD_FILE: /run/secrets/db_user_password
+      MYSQL_DATABASE_FILE: /run/secrets/db_database_name
 
 volumes:
+  # 交給 docker 自動創
   todo-mysql-data:
 
+# https://blog.ruanbekker.com/blog/2017/11/23/use-docker-secrets-with-mysql-on-docker-swarm/
+# 用 openssl 產生隨機數存在 docker secret
+# openssl rand -base64 12 | docker secret create db_root_password -
+# openssl rand -base64 12 | docker secret create db_user_password -
+# echo "<username>" | docker secret create db_username -
+# echo "<db_name>" | docker secret create db_database_name -
+# docker secret ls
+# docker secret inspect db_root_password
+# 因為是從 swarm manager 那邊拿 secret，所以要用 deploy，用 docker-compose up 拿不到。
+# docker stack deploy --compose-file <path_to_compose> <service_name>
+# docker stack rm <stack_id>
+secrets:
+  db_root_password:
+    external: true
+  db_username:
+    external: true
+  db_user_password:
+    external: true
+  db_database_name:
+    external: true
+    # docker_test_database
 ```
 
 因為 app 不會等到 mysql 跑起來才嘗試連接，要在程式碼中額外引入 wait-port 之類的套件，等到 port 開放才嘗試連接。[例子](https://github.com/docker/getting-started/blob/master/app/src/persistence/mysql.js#L24)
@@ -366,3 +399,5 @@ docker-compose down
 [Docker 基本觀念與使用教學：自行建立 Docker 影像檔](https://blog.gtwang.org/virtualization/docker-basic-tutorial/)
 
 [[Day 3] 打造你的Docker containers](https://ithelp.ithome.com.tw/articles/10192519)
+
+[MySQL 實作](https://blog.ruanbekker.com/blog/2017/11/23/use-docker-secrets-with-mysql-on-docker-swarm/)
