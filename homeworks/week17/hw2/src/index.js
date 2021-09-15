@@ -1,16 +1,16 @@
+require('dotenv').config()
+
 const path = require('path')
 const express = require('express')
 const router = require('./router')
 
 const app = express()
-const port = process.env.PORT || 8686
-const domain = 'https://lidemy-wk17-hw2.herokuapp.com'
-app.locals.domain = domain
-app.locals.port = port
+const PORT = process.env.APP_PORT || 8686
+const CLIENT_PORT = process.env.CLIENT_PORT || 80
+const DOMAIN = process.env.APP_DOMAIN || 'http://localhost'
 
-// 未完成
-// CSRF token
-// 上傳圖片
+app.locals.domain = DOMAIN
+app.locals.port = CLIENT_PORT
 
 // set template engine
 app.set('view engine', 'ejs')
@@ -30,10 +30,15 @@ app.use(router)
 
 // error handling
 app.use((err, req, res, next) => {
+  // handle json parsing error
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json(`json parsing error: ${err.message}`)
+  }
+
   console.log(err)
-  res.status(500).send(`something broke: ${err.message}`)
+  res.status(500).json(`something broke in the server: ${err.message}`)
 })
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}.`)
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}.`)
 })

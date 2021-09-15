@@ -50,7 +50,7 @@ module.exports = {
   },
 
   addPost: (req, res) => {
-    res.render('add_post')
+    res.render('add_post', { authKey: req.session.authKey })
   },
 
   login: (req, res) => {

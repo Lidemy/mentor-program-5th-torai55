@@ -19,7 +19,7 @@ module.exports = {
         console.log(err)
         return res.json('input error')
       }
-      res.json({ msg: 'success' }).redirect('back')
+      res.json({ msg: 'success' })
     })
   },
 
@@ -50,9 +50,6 @@ module.exports = {
     // 防 CSRF & 確認 api 權限
     const inputKey = req.body.authKey
     const validKeys = [...authKey, req.session.authKey]
-    console.log(req.body)
-    console.log(validKeys)
-    console.log(inputKey)
     if (!validKeys.includes(inputKey)) return res.json('invalid authKey')
     next()
   }

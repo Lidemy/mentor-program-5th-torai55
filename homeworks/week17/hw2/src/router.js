@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const apiController = require('./controllers/lottery')
 const pageController = require('./controllers/pages')
+const upload = require('./middlewares/upload')
 
 // pages
 router.get('/', (req, res) => res.redirect(302, '/frontend'))
@@ -17,6 +18,7 @@ router.route('/lottery/:id')
   .patch(apiController.patch)
   .delete(apiController.delete)
 
+router.post('/upload', upload.single('image'), apiController.upload)
 module.exports = router
 
 // // test
