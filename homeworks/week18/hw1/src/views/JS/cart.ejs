@@ -1,0 +1,53 @@
+<%- include('./utils') %>
+<script>
+function setSubtotalValue(subtotal) {
+  const parent = subtotal.parentElement
+  const price = parent.querySelector('.item__price').textContent
+  const number = parent.querySelector('.item__number input').value
+
+  subtotal.textContent = price * number < 0 ? 0 : price * number
+}
+
+function updateListSubtotal(subtotalNodeList) {
+  const sum = Array.from(subtotalNodeList).reduce((accu, curr) => accu + parseInt(curr.textContent, 10), 0)
+  document.querySelector('.list__subtotal').textContent = sum
+}
+
+function updateTotal(total) {
+  const parent = total.parentElement
+  const subtotalValue = parseInt(parent.querySelector('.list__subtotal').textContent, 10)
+  const deliveryFeeValue = parseInt(parent.querySelector('.list__delivery-fee').textContent, 10)
+  total.textContent = subtotalValue === 0 ? 0 : subtotalValue + deliveryFeeValue
+}
+
+// function getProductInfo(item) {
+//   const info = {}
+//   return info
+// }
+
+document.addEventListener('DOMContentLoaded', (e) => {
+  const subtotalNodeList = document.querySelectorAll('.item__subtotal')
+  const total = document.querySelector('.list__total')
+
+  subtotalNodeList.forEach((subtotal) => setSubtotalValue(subtotal))
+  updateListSubtotal(subtotalNodeList)
+  updateTotal(total)
+
+  document.querySelector('.cart__list').addEventListener('change', (e) => {
+    const input = e.target
+    if(!input.parentElement.classList.contains('item__number')) return
+    const subtotal = input.parentElement.parentElement.querySelector('.item__subtotal')
+    const subtotalNodeList = document.querySelectorAll('.item__subtotal')
+
+    setSubtotalValue(subtotal)
+    updateListSubtotal(subtotalNodeList)
+    updateTotal(total)
+  })
+
+  // document.querySelector('.bill__submit').addEventListener('click', (e) => {
+  //   e.preventDefault()
+  //   const parent = e.target.parentElement
+  //   getProductInfo()
+  // })
+})
+</script>
