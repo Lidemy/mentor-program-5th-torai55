@@ -7,6 +7,7 @@ pageRouter.get('/faq', restaurantController.faq)
 pageRouter.get('/lottery', restaurantController.lottery)
 pageRouter.get('/menu', restaurantController.menu)
 pageRouter.get('/backend', restaurantController.backend)
+pageRouter.get('/cart', restaurantController.cart)
 
 // default route
 pageRouter.get('*', (req, res) => res.redirect(301, '/restaurant'))

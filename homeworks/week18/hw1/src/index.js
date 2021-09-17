@@ -1,12 +1,15 @@
 require('dotenv').config()
+
 const path = require('path')
 const express = require('express')
+
 const pageRouter = require('./routers/pageRouter')
 const apiRouter = require('./routers/apiRouter')
 
 const app = express()
 const port = process.env.RESTAURANT_WEB_PORT || 8787
 const domain = process.env.RESTAURANT_WEB_DOMAIN || 'http://localhost'
+
 app.locals.domain = domain
 app.locals.port = port
 app.locals.imagePath = '/static/images'

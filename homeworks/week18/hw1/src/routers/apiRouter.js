@@ -29,7 +29,7 @@ apiRouter.route('/faqs')
 apiRouter.route('/faqs/:id')
   .get(faq.get)
   .patch(faq.checkInput, faq.update)
-  .delete(faq.checkInput, faq.delete)
+  .delete(faq.delete)
 
 apiRouter.all('*', (req, res) => res.json('no such api'))
 
