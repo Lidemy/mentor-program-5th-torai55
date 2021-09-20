@@ -79,7 +79,6 @@ const faqController = {
 
   delete: async(req, res, next) => {
     const { id } = req.params
-    console.log(`*********id: ${id} *********`)
     try {
       const result = await faqModel.update({
         isDeleted: 1
