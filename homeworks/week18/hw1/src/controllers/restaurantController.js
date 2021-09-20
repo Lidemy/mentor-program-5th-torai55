@@ -45,6 +45,14 @@ const restaurantController = {
     } catch (err) {
       next(err)
     }
+  },
+
+  cart: async(req, res, next) => {
+    try {
+      res.render('cart', { active: 'cart' })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

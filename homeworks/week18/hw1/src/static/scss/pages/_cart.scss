@@ -1,0 +1,112 @@
+.cart__wrapper {
+  .cart {
+    padding: 3rem 1.5rem;
+    margin: 0 auto;
+    min-height: 64vh;
+    max-width: 1280px;
+    
+    .cart__title {
+      font-size: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: #bcbcbc 1px solid;
+    }
+
+    .cart__list {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 0;
+
+      .list__info {
+        @include cart-grid;
+        background-color: #efefef;
+      }
+
+      .list__item {
+        @include cart-grid;
+        background-color: #f8f8f8;
+        min-height: 6rem;
+        line-height: 6rem;
+
+        div > button {
+          line-height: 1rem;
+          padding: .2rem .6rem;
+        }
+
+        div > input {
+          line-height: 1rem;
+          width: 4rem;
+          text-align: center;
+        }
+
+        div > img {
+          width: 150px;
+          height: 150px;
+        }
+
+        .item__price {
+          @include dollar-prefix;
+        }
+
+        .item__subtotal {
+          @include dollar-prefix;
+        }
+      }
+
+      .list__subtotal {
+        @include cart-summary-style;
+        border-top: #e6e6e6 solid 1px;
+        border-bottom: #e6e6e6 solid 1px;
+
+        &::before {
+          content: '小記：$'
+        }
+      }
+
+      .list__delivery-fee {
+        @include cart-summary-style;
+
+        &::before {
+          content: '運費：$'
+        }
+      }
+
+      .list__total {
+        @include cart-summary-style;
+
+        &::before {
+          content: '總計：$'
+        }
+      }
+    }
+
+    .cart__bill {
+      .bill__form {
+        text-align: right;
+
+        .required {
+          &::after {
+            content: '* ';
+            color: #ff0000;
+            white-space: pre;
+          }
+        }
+
+        div {
+          margin: 1rem 0;
+          input {
+            width: 80%;
+            border: #e2e2e2 solid 1px;
+          }
+        }
+
+        button {
+          background-color: #f1fff2;
+          color: #3f633c;
+          margin-top: 2.3rem;
+          padding: 1rem 3.2rem;
+          border-radius: .2rem; 
+        }
+      }
+    }
+  }
+}

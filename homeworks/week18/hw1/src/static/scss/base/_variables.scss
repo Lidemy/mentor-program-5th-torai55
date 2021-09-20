@@ -120,6 +120,25 @@ $menu-card-button-color: #f1fff2;
   }
 }
 
+@mixin cart-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 6fr repeat(3, 2fr);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@mixin cart-summary-style {
+  background-color: #f8f8f8;
+  text-align: right;
+  padding: .8rem 2rem;
+}
+
+@mixin dollar-prefix {
+  &::before {
+    content: '$'
+  }
+}
+
 // Unicode character range
 // https://www.ling.upenn.edu/courses/Spring_2003/ling538/UnicodeRanges.html
 @font-face {

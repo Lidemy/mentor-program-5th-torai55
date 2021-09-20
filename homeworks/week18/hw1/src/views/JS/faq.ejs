@@ -1,3 +1,4 @@
+<%- include('./utils') %>
 <script>
 const cardTemplate = `
   <h3 class="card__serial">Q{{order}}:</h3>
@@ -5,15 +6,6 @@ const cardTemplate = `
     <h3 class="question">{{title}}</h3>
     <div class="answer collapsed"><p>{{content}}</p></div>
   </div>`
-
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;")
-}
 
 function addCard(container, faq) {
   const { order, title, content } = faq
