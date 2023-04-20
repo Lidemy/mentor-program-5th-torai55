@@ -1,0 +1,78 @@
+<%- include('./utils') %>
+<script>
+function setSubtotalValue(subtotal) {
+  const parent = subtotal.parentElement
+  const price = parent.querySelector('.item__price').textContent
+  const number = parent.querySelector('.item__number input').value
+
+  subtotal.textContent = price * number < 0 ? 0 : price * number
+}
+
+function updateListSubtotal(subtotalNodeList) {
+  const sum = Array.from(subtotalNodeList).reduce((accu, curr) => accu + parseInt(curr.textContent, 10), 0)
+  document.querySelector('.list__subtotal').textContent = sum
+}
+
+function updateTotal(total) {
+  const parent = total.parentElement
+  const subtotalValue = parseInt(parent.querySelector('.list__subtotal').textContent, 10)
+  const deliveryFeeValue = parseInt(parent.querySelector('.list__delivery-fee').textContent, 10)
+  total.textContent = subtotalValue === 0 ? 0 : subtotalValue + deliveryFeeValue
+}
+
+function getAllInfo(button) {
+  const allItemsInfo = []
+  const form = button.parentElement
+  const billInfo = {
+    name: form.querySelector('#name').value,
+    phone: form.querySelector('#phone').value,
+    email: form.querySelector('#email').value,
+    location: form.querySelector('#location').value
+  }
+  form.closest('.cart').querySelectorAll('.list__item').forEach((item) => {
+    const itemInfo = {
+      id: item.querySelector('.item__id').value,
+      number: item.querySelector('.item__number input').value
+    }
+    allItemsInfo.push(itemInfo)
+  })
+
+  return {
+    billInfo,
+    allItemsInfo
+  }
+}
+
+document.addEventListener('DOMContentLoaded', (e) => {
+  const subtotalNodeList = document.querySelectorAll('.item__subtotal')
+  const total = document.querySelector('.list__total')
+
+  // 實作會員系統
+  // 才能根據會員 id 取得購物車內容，動態加到頁面上
+  // 目前是靜態寫死的
+  subtotalNodeList.forEach((subtotal) => setSubtotalValue(subtotal))
+  updateListSubtotal(subtotalNodeList)
+  updateTotal(total)
+
+  document.querySelector('.cart__list').addEventListener('change', (e) => {
+    const input = e.target
+    if(!input.parentElement.classList.contains('item__number')) return
+    const subtotal = input.parentElement.parentElement.querySelector('.item__subtotal')
+    const subtotalNodeList = document.querySelectorAll('.item__subtotal')
+
+    setSubtotalValue(subtotal)
+    updateListSubtotal(subtotalNodeList)
+    updateTotal(total)
+  })
+
+  document.querySelector('.bill__submit').addEventListener('click', (e) => {
+    e.preventDefault()
+    const allInfo = getAllInfo(e.target)
+    const billInputs = Object.values(allInfo.billInfo)
+    if (billInputs.filter((element) => element === '').length > 0) return alert('帳單資訊為必填')
+
+    // 發 request 取得這個會員的購物車內容
+    // fetch('url', request)
+  })
+})
+</script>

@@ -725,7 +725,17 @@ footer .footer__bottom {
   }
 }
 
-.faq .faq__title {
+.faq__wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.faq__wrapper .faq {
+  flex-grow: 1;
+}
+
+.faq__wrapper .faq .faq__title {
   font-size: 2.25rem;
   font-family: my-font;
   font-weight: bold;
@@ -733,7 +743,7 @@ footer .footer__bottom {
   margin: 2.25rem;
 }
 
-.faq .faq__title::before {
+.faq__wrapper .faq .faq__title::before {
   content: '';
   background-color: #a3dea2;
   display: inline-block;
@@ -743,37 +753,37 @@ footer .footer__bottom {
   margin-right: 1rem;
 }
 
-.faq .faq__cards {
+.faq__wrapper .faq .faq__cards {
   max-width: 53.125rem;
   margin: 0 auto;
   padding: 1.5rem;
 }
 
-.faq .faq__cards .faq__card {
+.faq__wrapper .faq .faq__cards .faq__card {
   display: flex;
 }
 
-.faq .faq__cards .faq__card .card__serial {
+.faq__wrapper .faq .faq__cards .faq__card .card__serial {
   color: #70b282;
   font-size: 1.5rem;
   font-family: my-font;
   margin-right: 1rem;
 }
 
-.faq .faq__cards .faq__card .card__content {
+.faq__wrapper .faq .faq__cards .faq__card .card__content {
   display: flex;
   flex-direction: column;
   font-family: my-font;
   width: 100%;
 }
 
-.faq .faq__cards .faq__card .card__content .question {
+.faq__wrapper .faq .faq__cards .faq__card .card__content .question {
   font-size: 1.125rem;
   padding-bottom: 1.5rem;
   transform: translateY(0.3rem);
 }
 
-.faq .faq__cards .faq__card .card__content .answer {
+.faq__wrapper .faq .faq__cards .faq__card .card__content .answer {
   font-size: 1rem;
   line-height: 1.5rem;
   transition: max-height .2s ease-in;
@@ -781,20 +791,20 @@ footer .footer__bottom {
   overflow: hidden;
 }
 
-.faq .faq__cards .faq__card .card__content .answer.collapsed {
+.faq__wrapper .faq .faq__cards .faq__card .card__content .answer.collapsed {
   max-height: 0;
 }
 
-.faq .faq__cards .faq__card .card__content .answer.collapsed p {
+.faq__wrapper .faq .faq__cards .faq__card .card__content .answer.collapsed p {
   transform: translateY(-100%);
 }
 
-.faq .faq__cards .faq__card .card__content .answer p {
+.faq__wrapper .faq .faq__cards .faq__card .card__content .answer p {
   transition: transform .2s ease-in;
   transform: translateY(0);
 }
 
-.faq .faq__cards hr {
+.faq__wrapper .faq .faq__cards hr {
   background-color: #a6e2c0;
   height: 1px;
   width: 100%;
@@ -985,6 +995,126 @@ footer .footer__bottom {
     margin: 1.5rem;
     width: calc((100% - 1.5rem * 2 * 2) / 2);
   }
+}
+
+.cart__wrapper .cart {
+  padding: 3rem 1.5rem;
+  margin: 0 auto;
+  min-height: 64vh;
+  max-width: 1280px;
+}
+
+.cart__wrapper .cart .cart__title {
+  font-size: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: #bcbcbc 1px solid;
+}
+
+.cart__wrapper .cart .cart__list {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+}
+
+.cart__wrapper .cart .cart__list .list__info {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 6fr repeat(3, 2fr);
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #efefef;
+}
+
+.cart__wrapper .cart .cart__list .list__item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 6fr repeat(3, 2fr);
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #f8f8f8;
+  min-height: 6rem;
+  line-height: 6rem;
+}
+
+.cart__wrapper .cart .cart__list .list__item div > button {
+  line-height: 1rem;
+  padding: .2rem .6rem;
+}
+
+.cart__wrapper .cart .cart__list .list__item div > input {
+  line-height: 1rem;
+  width: 4rem;
+  text-align: center;
+}
+
+.cart__wrapper .cart .cart__list .list__item div > img {
+  width: 150px;
+  height: 150px;
+}
+
+.cart__wrapper .cart .cart__list .list__item .item__price::before {
+  content: '$';
+}
+
+.cart__wrapper .cart .cart__list .list__item .item__subtotal::before {
+  content: '$';
+}
+
+.cart__wrapper .cart .cart__list .list__subtotal {
+  background-color: #f8f8f8;
+  text-align: right;
+  padding: .8rem 2rem;
+  border-top: #e6e6e6 solid 1px;
+  border-bottom: #e6e6e6 solid 1px;
+}
+
+.cart__wrapper .cart .cart__list .list__subtotal::before {
+  content: '小記：$';
+}
+
+.cart__wrapper .cart .cart__list .list__delivery-fee {
+  background-color: #f8f8f8;
+  text-align: right;
+  padding: .8rem 2rem;
+}
+
+.cart__wrapper .cart .cart__list .list__delivery-fee::before {
+  content: '運費：$';
+}
+
+.cart__wrapper .cart .cart__list .list__total {
+  background-color: #f8f8f8;
+  text-align: right;
+  padding: .8rem 2rem;
+}
+
+.cart__wrapper .cart .cart__list .list__total::before {
+  content: '總計：$';
+}
+
+.cart__wrapper .cart .cart__bill .bill__form {
+  text-align: right;
+}
+
+.cart__wrapper .cart .cart__bill .bill__form .required::after {
+  content: '* ';
+  color: #ff0000;
+  white-space: pre;
+}
+
+.cart__wrapper .cart .cart__bill .bill__form div {
+  margin: 1rem 0;
+}
+
+.cart__wrapper .cart .cart__bill .bill__form div input {
+  width: 80%;
+  border: #e2e2e2 solid 1px;
+}
+
+.cart__wrapper .cart .cart__bill .bill__form button {
+  background-color: #f1fff2;
+  color: #3f633c;
+  margin-top: 2.3rem;
+  padding: 1rem 3.2rem;
+  border-radius: .2rem;
 }
 
 .debug *, .debug {

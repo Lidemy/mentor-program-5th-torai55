@@ -1,7 +1,7 @@
 const apiRouter = require('express').Router()
 const apiController = require('../controllers/apiController')
 
-const { prize, dish, faq } = apiController
+const { prize, dish, faq, user } = apiController
 
 // path: 'protocol://domain:port/api/...'
 apiRouter.route('/prizes')
@@ -29,7 +29,10 @@ apiRouter.route('/faqs')
 apiRouter.route('/faqs/:id')
   .get(faq.get)
   .patch(faq.checkInput, faq.update)
-  .delete(faq.checkInput, faq.delete)
+  .delete(faq.delete)
+
+apiRouter.post('/register', user.register)
+apiRouter.post('/login', user.login)
 
 apiRouter.all('*', (req, res) => res.json('no such api'))
 

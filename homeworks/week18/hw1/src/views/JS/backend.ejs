@@ -1,4 +1,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/8.0.0/pluralize.min.js" integrity="sha512-4uLji4UnTkA9AWSkIT2+sTQyRqox+O/e+JVkJA7zf+11CJDTxNEaMq13LRvYsu8Mv0kfpnePOIoS0Z0f8VlGgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<%- include('./utils') %>
 <script>
 function getTemplate(source) {
   const prizeTemplate = `
@@ -82,15 +83,6 @@ function getTemplate(source) {
         output = ''
     }
   return output
-}
-
-function escapeHtml(unsafe) {
-  return unsafe
-    ?.replace(/&/g, '&amp;')
-    ?.replace(/</g, '&lt;')
-    ?.replace(/>/g, '&gt;')
-    ?.replace(/"/g, '&quot;')
-    ?.replace(/'/g, '&#039;')
 }
 
 function renderCard(data, template, containerSelector) {
@@ -205,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const result = await fetch(request)
           const parsedResult = await result.json()
-          if (!(result.status > 100 && result.status < 300)) throw new Error(parsedResult)
+          if (!(result.status >= 200 && result.status < 400)) throw new Error(parsedResult)
           switch (request.method) {
             case 'PATCH':
               alert('更新成功') // 可以改用 bootstrap Toasts

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <%- include('./templates/head') %>
+  <body>
+    <div class="cart__wrapper">
+      <%- include('./templates/nav') %>
+
+      <section class="cart">
+        <div class="cart__list-container">
+          <h2 class="cart__title">購物清單</h2>
+          <div class="cart__list">
+            <div class="list__info">
+              <div class="info__serial-number">#</div>
+              <div class="info__action">動作</div>
+              <div class="info__picture">圖片</div>
+              <div class="info__name">商品</div>
+              <div class="info__price">價格</div>
+              <div class="info__number">數量</div>
+              <div class="info__subtotal">小記</div>
+            </div>
+            <div class="list__item">
+              <input type="hidden" class="item__id" value="51">
+              <div class="item__serial-number">1</div>
+              <div class="item__action"><button>del</button></div>
+              <div class="item__picture"><img src="/static/images/ad-01@2x.png" alt="product picture"></div>
+              <div class="item__name">nname</div>
+              <div class="item__price">40</div>
+              <div class="item__number"><input type="number" name="number" value="1" max="100" min="0"></div>
+              <div class="item__subtotal"></div>
+            </div>
+            <div class="list__item">
+              <input type="hidden" class="item__id" value="50">
+              <div class="item__serial-number">2</div>
+              <div class="item__action"><button>del</button></div>
+              <div class="item__picture"><img src="/static/images/ad-01@2x.png" alt="product picture"></div>
+              <div class="item__name">nname</div>
+              <div class="item__price">100</div>
+              <div class="item__number"><input type="number" name="number" value="1" max="100" min="0"></div>
+              <div class="item__subtotal"></div>
+            </div>
+            <div class="list__subtotal"></div>
+            <div class="list__delivery-fee">40</div>
+            <div class="list__total"></div>
+          </div>
+        </div>
+        <div class="cart__bill">
+          <h2 class="cart__title">帳單資訊</h2>
+          <form class="bill__form" action="" method="POST">
+            <div class="name"><label for="name" class="required">姓名</label><input type="text" name="name" id="name"></div>
+            <div class="phone"><label for="phone" class="required">連絡電話</label><input type="tel" name="phone" id="phone"></div>
+            <div class="email"><label for="email" class="required">電子郵件</label><input type="email" name="email" id="email"></div>
+            <div class="location"><label for="location" class="required">送餐地點</label><input type="text" name="location" id="location"></div>
+            <button class="bill__submit">確認送出</button>
+          </form>
+        </div>
+      </section>
+  
+      <%- include('./templates/footer') %>
+    </div>
+  </body>
+</html>
